@@ -1,4 +1,4 @@
-package com.software2.ConciertosYa;
+package com.proyectoSoftware.conciertosYa;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

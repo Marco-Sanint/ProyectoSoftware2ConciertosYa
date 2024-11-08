@@ -1,4 +1,4 @@
-package com.software2.ConciertosYa;
+package com.proyectoSoftware.conciertosYa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
