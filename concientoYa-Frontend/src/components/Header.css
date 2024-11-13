@@ -1,0 +1,112 @@
+/* Estilos generales para el header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #282c34; /* Color de fondo */
+  padding: 10px 20px;
+  color: #858484;
+  position: relative;
+  top: 50px
+}
+
+.logo-container {
+  flex: 1;
+}
+
+.logo {
+  height: 50px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #61dafb;
+}
+
+.nav-link:focus {
+  outline: 2px solid #61dafb;
+}
+
+.nav-link.conciertos {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #ff4d4d;
+  color: #fff;
+  font-size: 0.8em;
+  padding: 2px 6px;
+  border-radius: 12px;
+}
+
+/* Estilos para el área de usuario y notificaciones */
+.user-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.notification-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.notification-icon .badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #ff4d4d;
+  color: #fff;
+  font-size: 0.8em;
+  padding: 2px 6px;
+  border-radius: 12px;
+}
+
+.user-icon {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.user-icon:hover {
+  color: #61dafb;
+}
+
+.language-select {
+  background-color: #3a3f47;
+  color: #f0f0f0;
+  border: none;
+  padding: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.language-select option {
+  background-color: #282c34;
+  color: #f0f0f0;
+}
+
+/* Estilos para la barra de búsqueda */
+.search-bar {
+  background-color: #3a3f47;
+  border: none;
+  padding: 8px;
+  color: #f0f0f0;
+  border-radius: 4px;
+  font-size: 1em;
+  width: 250px;
+  margin-left: 20px;
+}

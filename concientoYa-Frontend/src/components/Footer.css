@@ -1,0 +1,48 @@
+/* Footer.css */
+.footer {
+  background-color: #1abc9c; /* Color de fondo */
+  color: white;
+  text-align: center;
+  padding: 20px 0; /* Mayor espacio vertical */
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+.footer p {
+  font-size: 16px;
+  margin: 0;
+}
+
+.footer .social-links {
+  margin: 10px 0; /* Espacio entre el texto y los enlaces sociales */
+}
+
+.footer .social-links a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 20px; /* Tamaño de iconos */
+  transition: color 0.3s ease;
+}
+
+.footer .social-links a:hover {
+  color: #ff6347; /* Color al pasar el mouse */
+}
+
+.footer .footer-links {
+  margin: 10px 0; /* Espacio entre el texto y los enlaces */
+}
+
+.footer .footer-links a {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 14px; /* Tamaño de texto para enlaces */
+  transition: color 0.3s ease;
+}
+
+.footer .footer-links a:hover {
+  color: white; /* Color al pasar el mouse */
+}
