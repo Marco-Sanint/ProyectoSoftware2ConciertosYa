@@ -19,7 +19,7 @@ public class ControladorCliente {
 
     //Agregar Cliente A API REST
     @PostMapping
-    public ResponseEntity<DtoCliente> crearEmpleado(@RequestBody DtoCliente dtoCliente){
+    public ResponseEntity<DtoCliente> crearCliente(@RequestBody DtoCliente dtoCliente){
         DtoCliente clienteSalvado = servicioCliente.crearCliente(dtoCliente);
         return new ResponseEntity<>(clienteSalvado, HttpStatus.CREATED);
     }
