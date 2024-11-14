@@ -2,13 +2,12 @@ package com.proyectoSoftware.conciertosYa.mapper;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoAsiento;
 import com.proyectoSoftware.conciertosYa.entity.Asiento;
-import com.proyectoSoftware.conciertosYa.entity.Asiento;
 
 public class MapperAsiento {
 
     public static DtoAsiento mapADtoAsiento(Asiento asiento){
         return new DtoAsiento(
-                asiento.getId(),
+                asiento.getAsiento_id(),
                 asiento.getCodigo(),
                 asiento.getColumna(),
                 asiento.getPrecio(),
@@ -20,7 +19,7 @@ public class MapperAsiento {
 
     public static Asiento mapAAsiento(DtoAsiento dtoAsiento){
         return new Asiento(
-                dtoAsiento.getId(),
+                dtoAsiento.getAsiento_id(),
                 dtoAsiento.getCodigo(),
                 dtoAsiento.getColumna(),
                 dtoAsiento.getPrecio(),
