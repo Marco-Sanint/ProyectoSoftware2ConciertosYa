@@ -1,0 +1,43 @@
+.seat-map-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .seat-map {
+    width: 100%;
+    position: relative;
+  }
+  
+  .seat-location {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    cursor: grab;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .seat-location:hover {
+    background: #f0f0f0;
+  }
+  
+  .cart {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: 20px auto;
+    background: #f9f9f9;
+  }
+  
+  .cart-item {
+    margin: 5px 0;
+    font-size: 14px;
+  }
