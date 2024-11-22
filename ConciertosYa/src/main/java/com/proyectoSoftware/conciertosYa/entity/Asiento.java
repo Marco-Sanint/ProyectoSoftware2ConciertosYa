@@ -1,3 +1,4 @@
+
 package com.proyectoSoftware.conciertosYa.entity;
 
 import jakarta.persistence.*;

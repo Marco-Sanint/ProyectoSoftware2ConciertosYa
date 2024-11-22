@@ -1,3 +1,4 @@
+
 package com.proyectoSoftware.conciertosYa.controller;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoAsiento;
@@ -27,4 +28,3 @@ public class ControladorAsiento {
         return ResponseEntity.ok(dtoAsiento);
     }
 }
-
