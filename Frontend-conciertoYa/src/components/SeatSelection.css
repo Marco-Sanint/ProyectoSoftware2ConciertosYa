@@ -6,15 +6,7 @@ padding: 0;
 color: #333;
 }
 
-/* Header */
-.header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 15px 30px;
-background-color: #222;
-color: #fff;
-}
+
 
 .logo {
 font-size: 1.5rem;
@@ -52,6 +44,19 @@ text-align: center;
 .event-info {
 margin: 20px 0;
 }
+.seat-container {
+    position: relative; /* Necesario para que los hijos absolute se posicionen correctamente */
+    width: 750px; /* Ajusta según el tamaño deseado */
+    height: 600px; /* Ajusta según el tamaño deseado */
+    margin: 0 auto; /* Centrar el contenedor */
+    border-radius: 50px solid #ddd; /* Opcional, para ver el borde del contenedor */
+    overflow: hidden; /* Evita que los elementos salgan del contenedor */
+}
+
+.seat-map {
+    width: 150%; /* Asegúrate de que la imagen cubra el contenedor */
+    height: 150%; /* Ajusta según sea necesario */
+}
 
 .seat-map {
 max-width: 100%;
@@ -60,10 +65,12 @@ height: auto;
 
 .seat-location {
 position: absolute;
-background: #ffdfba;
-border: 1px solid #e67e22;
+background: #ffffff;
+width: auto;
+height: auto;
+border: 1px solid #ffffff;
 border-radius: 5px;
-padding: 5px;
+padding: px;
 cursor: move;
 }
 
