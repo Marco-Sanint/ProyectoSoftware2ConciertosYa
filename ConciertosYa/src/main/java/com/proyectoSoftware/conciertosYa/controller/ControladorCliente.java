@@ -1,3 +1,4 @@
+
 package com.proyectoSoftware.conciertosYa.controller;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoCliente;
@@ -5,10 +6,7 @@ import com.proyectoSoftware.conciertosYa.service.ServicioCliente;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -19,9 +17,16 @@ public class ControladorCliente {
 
     //Agregar Cliente A API REST
     @PostMapping
-    public ResponseEntity<DtoCliente> crearCliente(@RequestBody DtoCliente dtoCliente){
-        DtoCliente clienteSalvado = servicioCliente.crearCliente(dtoCliente);
+    public ResponseEntity<DtoCliente> createCliente(@RequestBody DtoCliente dtoCliente){
+        DtoCliente clienteSalvado = servicioCliente.createCliente(dtoCliente);
         return new ResponseEntity<>(clienteSalvado, HttpStatus.CREATED);
+    }
+
+    //Encontrar Cliente De API REST
+    @GetMapping("{cedula}")
+    public ResponseEntity<DtoCliente> getClienteById(@PathVariable("cedula") String cedulaCliente){
+        DtoCliente dtoCliente = servicioCliente.getCliente(cedulaCliente);
+        return ResponseEntity.ok(dtoCliente);
     }
 
 }

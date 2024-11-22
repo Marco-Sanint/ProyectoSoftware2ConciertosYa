@@ -1,3 +1,4 @@
+
 package com.proyectoSoftware.conciertosYa.entity;
 
 import jakarta.persistence.*;
@@ -16,7 +17,7 @@ public class Asiento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int asiento_id;
 
     @Column(name = "codigo", nullable = false, unique = true, length = 50)
     private String codigo;

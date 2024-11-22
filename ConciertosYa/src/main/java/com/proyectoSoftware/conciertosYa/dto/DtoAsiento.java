@@ -1,3 +1,4 @@
+
 package com.proyectoSoftware.conciertosYa.dto;
 
 import com.proyectoSoftware.conciertosYa.entity.Asiento;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DtoAsiento {
 
-    private int id;
+    private int asiento_id;
     private String codigo;
     private String columna;
     private double precio;
