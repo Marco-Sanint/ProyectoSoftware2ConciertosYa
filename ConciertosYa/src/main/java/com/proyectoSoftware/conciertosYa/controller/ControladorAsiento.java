@@ -2,7 +2,6 @@
 package com.proyectoSoftware.conciertosYa.controller;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoAsiento;
-import com.proyectoSoftware.conciertosYa.dto.DtoCliente;
 import com.proyectoSoftware.conciertosYa.service.ServicioAsiento;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

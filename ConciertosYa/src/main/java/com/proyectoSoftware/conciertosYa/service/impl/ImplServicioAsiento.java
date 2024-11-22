@@ -2,17 +2,11 @@
 package com.proyectoSoftware.conciertosYa.service.impl;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoAsiento;
-import com.proyectoSoftware.conciertosYa.dto.DtoCliente;
 import com.proyectoSoftware.conciertosYa.entity.Asiento;
-import com.proyectoSoftware.conciertosYa.entity.Cliente;
 import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
 import com.proyectoSoftware.conciertosYa.mapper.MapperAsiento;
-import com.proyectoSoftware.conciertosYa.mapper.MapperCliente;
 import com.proyectoSoftware.conciertosYa.repository.RepoAsiento;
 import com.proyectoSoftware.conciertosYa.service.ServicioAsiento;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
