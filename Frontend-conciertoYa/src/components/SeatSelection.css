@@ -1,0 +1,114 @@
+/* Página general */
+.page-container {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+color: #333;
+}
+
+/* Header */
+.header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 15px 30px;
+background-color: #222;
+color: #fff;
+}
+
+.logo {
+font-size: 1.5rem;
+}
+
+.nav a {
+margin: 0 10px;
+color: #fff;
+text-decoration: none;
+}
+
+.nav a:hover {
+text-decoration: underline;
+}
+
+.login-btn {
+background-color: #f39c12;
+border: none;
+padding: 10px 15px;
+color: white;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.login-btn:hover {
+background-color: #e67e22;
+}
+
+/* Main content */
+.main-content {
+padding: 20px;
+text-align: center;
+}
+
+.event-info {
+margin: 20px 0;
+}
+
+.seat-map {
+max-width: 100%;
+height: auto;
+}
+
+.seat-location {
+position: absolute;
+background: #ffdfba;
+border: 1px solid #e67e22;
+border-radius: 5px;
+padding: 5px;
+cursor: move;
+}
+
+.cart {
+margin: 20px auto;
+padding: 10px;
+max-width: 400px;
+background: #f9f9f9;
+border: 1px solid #ddd;
+border-radius: 5px;
+}
+
+.cart-item {
+padding: 5px 0;
+border-bottom: 1px solid #ddd;
+}
+
+.pay-btn {
+background-color: #27ae60;
+border: none;
+padding: 10px 15px;
+color: white;
+border-radius: 5px;
+cursor: pointer;
+margin-top: 10px;
+}
+
+.pay-btn:hover {
+background-color: #2ecc71;
+}
+
+/* Footer */
+.footer {
+text-align: center;
+padding: 10px;
+background-color: #222;
+color: #fff;
+}
+
+.social-links a {
+margin: 0 10px;
+color: #fff;
+text-decoration: none;
+}
+
+.social-links a:hover {
+text-decoration: underline;
+}

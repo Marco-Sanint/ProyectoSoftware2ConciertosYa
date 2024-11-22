@@ -1,0 +1,150 @@
+/* Estilos generales para el header */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between; /* Asegura separación equitativa */
+  align-items: center; /* Centra verticalmente */
+  background-color: #282c34;
+  padding: 10px 20px; /* Ajusta el relleno */
+  color: #858484;
+  position: relative;
+  top: 50px;
+  left: 0;
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  z-index: 1000;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 50px; /* Tamaño del logo */
+  max-width: 100%;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #61dafb;
+}
+
+.nav-link:focus {
+  outline: 2px solid #61dafb;
+}
+
+.nav-link.conciertos {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #ff4d4d;
+  color: #fff;
+  font-size: 0.8em;
+  padding: 2px 6px;
+  border-radius: 12px;
+}
+
+/* Estilos para el área de usuario y notificaciones */
+.user-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.user-icon {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.user-icon:hover {
+  color: #61dafb;
+}
+.language-select {
+  background-color: #3a3f47;
+  color: #f0f0f0;
+  border: none;
+  padding: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.language-select option {
+  background-color: #282c34;
+  color: #f0f0f0;
+}
+
+.search-bar {
+  background-color: #3a3f47;
+  border: none;
+  padding: 8px;
+  color: #f0f0f0;
+  border-radius: 4px;
+  font-size: 1em;
+  width: 250px;
+  margin-left: 20px;
+}
+.main-content {
+  margin-top: 70px; /* Deja espacio para el header */
+}
+
+/* RESPONSIVIDAD */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Coloca los elementos en columna */
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%; /* Ocupa todo el ancho */
+    margin-top: 10px;
+  }
+
+  .search-bar {
+    width: 100%; /* Ajustar la barra de búsqueda al ancho del dispositivo */
+    margin: 10px 0;
+  }
+
+  .logo {
+    height: 40px; /* Reducir tamaño del logo */
+  }
+
+  .user-actions {
+    margin-top: 10px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links {
+    font-size: 0.9em; /* Reducir tamaño del texto */
+  }
+
+  .search-bar {
+    font-size: 0.9em;
+  }
+}
