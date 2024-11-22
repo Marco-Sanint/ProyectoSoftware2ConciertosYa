@@ -6,8 +6,6 @@ padding: 0;
 color: #333;
 }
 
-
-
 .logo {
 font-size: 1.5rem;
 }
@@ -118,4 +116,18 @@ text-decoration: none;
 
 .social-links a:hover {
 text-decoration: underline;
+}
+
+.return-icon {
+
+    color: #ff4d4d;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 2em;
+    transition: color 0.3s ease;
+    
+}
+
+.return-icon:hover {
+    color: #e60000;
 }
