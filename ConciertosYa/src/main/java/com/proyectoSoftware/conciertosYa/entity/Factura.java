@@ -23,7 +23,7 @@ public class Factura {
     @Column(name = "fecha_emision", nullable = false)
     private LocalDateTime fechaEmision;
 
-    @Column(name = "total", nullable = false, precision = 10, scale = 2)
+    @Column(name = "total", nullable = false, precision = 10)
     private double total;
 
     @ManyToOne
@@ -31,7 +31,7 @@ public class Factura {
     private MetodoPago metodoPago;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
+    @JoinColumn(name = "cliente_id", referencedColumnName = "cedula")
     private Cliente cliente;
 
     @Column(name = "detalles_xml", columnDefinition = "TEXT")

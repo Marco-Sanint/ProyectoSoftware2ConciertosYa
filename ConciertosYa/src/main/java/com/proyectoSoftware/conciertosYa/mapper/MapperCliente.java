@@ -11,7 +11,7 @@ public class MapperCliente {
         return new DtoCliente(
                 cliente.getCedula(),
                 cliente.getNombre(),
-                cliente.getCedula(),
+                cliente.getTelefono(),
                 cliente.getMail(),
                 cliente.getDireccion()
         );
