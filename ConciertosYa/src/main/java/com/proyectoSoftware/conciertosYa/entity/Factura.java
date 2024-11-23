@@ -18,7 +18,7 @@ public class Factura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer factura_id;
 
     @Column(name = "fecha_emision", nullable = false)
     private LocalDateTime fechaEmision;

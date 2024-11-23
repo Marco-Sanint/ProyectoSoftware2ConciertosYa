@@ -18,7 +18,7 @@ public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer ticket_id;
 
     @Column(name = "fecha_compra", nullable = false)
     private LocalDateTime fechaCompra;
