@@ -11,8 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DtoArtista {
 
-    private int artista_id;
-    private String nombre;
-    private String genero_musical;
-    private String redes_sociales;
+    private int id; // Corresponde al campo `id` en Artista
+    private String nombre; // Nombre del artista
+    private String generoMusical; // Género musical del artista
+    private String redesSociales; // Redes sociales del artista
 }
+

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Home.css';
 import Header from './Header';
 import Footer from './Footer';
+import Carousel from './Carousel'; 
 
 const Home = () => {
   const [artistas, setArtistas] = useState([]);
@@ -34,7 +35,11 @@ const Home = () => {
   return (
     <div className="home">
       <Header />
+      <div className="carousel">
+        <Carousel />
+      </div>
 
+      
       <section className="section artistas">
         <h2>Artistas Destacados</h2>
         <div className="grid">
@@ -83,7 +88,6 @@ const Home = () => {
       </section>
 
       <div className="cart-icon" onClick={() => alert('¡Carrito de compras!')}>
-        {/* Cambié el ícono FontAwesome por Material Icons */}
         <span className="material-icons" style={{ fontSize: '2rem' }}>shopping_cart</span>
         {compras > 0 && <span className="cart-count">{compras}</span>}
       </div>
