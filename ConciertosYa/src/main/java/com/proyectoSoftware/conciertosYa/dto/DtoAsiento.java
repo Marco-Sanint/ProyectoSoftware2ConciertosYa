@@ -2,7 +2,6 @@
 package com.proyectoSoftware.conciertosYa.dto;
 
 import com.proyectoSoftware.conciertosYa.entity.Asiento;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

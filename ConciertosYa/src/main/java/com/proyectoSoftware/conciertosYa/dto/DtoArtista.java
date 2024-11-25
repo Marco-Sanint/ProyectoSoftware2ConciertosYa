@@ -16,3 +16,4 @@ public class DtoArtista {
     private String generoMusical; // Género musical del artista
     private String redesSociales; // Redes sociales del artista
 }
+
