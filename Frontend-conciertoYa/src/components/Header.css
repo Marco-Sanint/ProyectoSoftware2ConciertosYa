@@ -7,52 +7,68 @@
 
 body {
   font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  padding-top: 60px; /* Espacio para el header fijo */
 }
 
+/* Header principal */
 .header {
   display: flex;
-  justify-content: space-between; /* Asegura separación equitativa */
-  align-items: center; /* Centra verticalmente */
+  justify-content: space-between;
+  align-items: center;
   background-color: #282c34;
-  padding: 10px 20px; /* Ajusta el relleno */
-  color: #858484;
-  position: relative;
-  top: 50px;
+  padding: 15px 30px;
+  color: #f0f0f0;
+  position: fixed;
+  top: 0;
   left: 0;
-  width: 100%; /* Asegura que ocupe todo el ancho */
+  right: 0;
   z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  transition: background-color 0.3s ease;
 }
 
+/* Efecto al hacer scroll */
+.header.scrolled {
+  background-color: #1c1f24; /* Fondo más oscuro cuando se hace scroll */
+}
+
+/* Contenedor del logo */
 .logo-container {
   display: flex;
   align-items: center;
 }
 
 .logo {
-  height: 50px; /* Tamaño del logo */
+  height: 50px;
   max-width: 100%;
 }
 
+/* Navegación */
 .nav-links {
   display: flex;
-  gap: 20px;
+  gap: 25px;
+  align-items: center;
+  margin-left: auto; /* Para empujar las opciones de navegación a la derecha */
 }
 
 .nav-link {
   color: #f0f0f0;
   text-decoration: none;
   font-weight: bold;
-  transition: color 0.3s;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
-.nav-link:hover {
-  color: #61dafb;
-}
-
+.nav-link:hover,
 .nav-link:focus {
-  outline: 2px solid #61dafb;
+  background-color: #61dafb;
+  color: #282c34;
+  outline: none;
 }
 
+/* Elemento de conciertos con badge */
 .nav-link.conciertos {
   position: relative;
 }
@@ -64,84 +80,99 @@ body {
   background-color: #ff4d4d;
   color: #fff;
   font-size: 0.8em;
-  padding: 2px 6px;
+  padding: 3px 8px;
   border-radius: 12px;
+  transition: background-color 0.3s ease;
 }
 
-/* Estilos para el área de usuario y notificaciones */
+.badge:hover {
+  background-color: #e53e3e; /* Cambio de color en hover */
+}
+
+/* Área de usuario y notificaciones */
 .user-actions {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   align-items: center;
 }
 
 .user-icon {
   cursor: pointer;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
+
 .user-icon:hover {
   color: #61dafb;
 }
+
+/* Selector de idioma */
 .language-select {
   background-color: #3a3f47;
   color: #f0f0f0;
   border: none;
-  padding: 8px;
+  padding: 10px;
   font-weight: bold;
   cursor: pointer;
-}
-.language-select option {
-  background-color: #282c34;
-  color: #f0f0f0;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
+.language-select:hover {
+  background-color: #4a535a;
+}
+
+/* Barra de búsqueda */
 .search-bar {
   background-color: #3a3f47;
   border: none;
-  padding: 8px;
+  padding: 10px;
   color: #f0f0f0;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 1em;
   width: 250px;
   margin-left: 20px;
-}
-.main-content {
-  margin-top: 70px; /* Deja espacio para el header */
+  transition: width 0.3s ease;
 }
 
-/* RESPONSIVIDAD */
+.search-bar:focus {
+  width: 300px; /* Expande al hacer foco */
+  background-color: #4a535a;
+  outline: none;
+}
+
+/* Responsividad */
 @media (max-width: 768px) {
   .header {
-    flex-direction: column; /* Coloca los elementos en columna */
+    flex-direction: column;
     align-items: flex-start;
-    padding: 10px;
+    padding: 20px;
   }
 
   .nav-links {
     flex-direction: column;
-    gap: 10px;
-    width: 100%; /* Ocupa todo el ancho */
-    margin-top: 10px;
+    gap: 15px;
+    width: 100%;
+    margin-top: 15px;
   }
 
   .search-bar {
-    width: 100%; /* Ajustar la barra de búsqueda al ancho del dispositivo */
-    margin: 10px 0;
+    width: 100%;
+    margin-top: 10px;
   }
 
   .logo {
-    height: 40px; /* Reducir tamaño del logo */
+    height: 40px;
   }
 
   .user-actions {
-    margin-top: 10px;
-    gap: 10px;
+    margin-top: 15px;
+    gap: 15px;
   }
 }
 
 @media (max-width: 480px) {
   .nav-links {
-    font-size: 0.9em; /* Reducir tamaño del texto */
+    font-size: 0.9em;
   }
 
   .search-bar {

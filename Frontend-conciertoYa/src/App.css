@@ -1,10 +1,42 @@
-/* App.css */
+/* Estilos generales para el body */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
 }
 
+/* Contenedor de la página */
+.home-container {
+  padding-top: 80px;
+}
+
+/* Header fijo */
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  z-index: 100;
+}
+
+/* Estilos de navegación */
+.nav-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Mejoramos la tarjeta general (será usada solo en contenedores específicos) */
+.card {
+  width: 300px;
+  margin: 20px auto;
+}
+
+/* Media query para dispositivos móviles */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -18,10 +50,11 @@ body {
   }
 
   .home-container {
-    padding-top: 80px; /* Menos espacio arriba en dispositivos móviles */
+    padding-top: 80px;
   }
 
   .card {
     width: 100%;
+    margin: 10px 0;
   }
 }

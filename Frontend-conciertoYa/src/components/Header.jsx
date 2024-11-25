@@ -26,7 +26,7 @@ const Header = () => {
       <div className="user-actions">
         <div className="notification-icon">
           <FaBell size={25} />
-          <span className="badge">3</span> {/* Número de notificaciones */}
+          <span className="badge"></span> {/* Número de notificaciones */}
         </div>
         <div className="user-icon">
           <FaUserCircle size={30} color="#f0f0f0" />
