@@ -1,0 +1,108 @@
+/* Profile.css */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f7fa;
+    min-height: 100vh;
+    padding: 30px;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .profile-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .app-name {
+    font-size: 40px;
+    font-weight: 700;
+    color: #6e3fc1;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .profile-title {
+    font-size: 26px;
+    font-weight: 500;
+    color: #333;
+    margin-top: 10px;
+    text-transform: capitalize;
+  }
+  
+  .profile-details {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 700px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+  
+  .profile-info {
+    margin-bottom: 35px;
+  }
+  
+  .profile-info h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #6e3fc1;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  
+  .profile-info p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .profile-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .profile-btn {
+    background-color: #6e3fc1;
+    color: white;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 48%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .profile-btn:hover {
+    transform: translateY(-4px);
+    background-color: #5a2496;
+  }
+  
+  .logout-btn {
+    background-color: #e74c3c;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .logout-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  .profile-btn:focus,
+  .logout-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(110, 63, 193, 0.4);
+  }
+  
+  .profile-btn:disabled,
+  .logout-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
