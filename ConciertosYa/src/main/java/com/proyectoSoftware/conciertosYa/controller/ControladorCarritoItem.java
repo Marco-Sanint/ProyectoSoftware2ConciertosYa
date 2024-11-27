@@ -9,32 +9,41 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/carrito-items")
-@AllArgsConstructor
 public class ControladorCarritoItem {
 
     private final ServicioCarritoItem servicioCarritoItem;
 
-    public ControladorCarritoItem(ServicioCarritoItem servicioCarritoItem) {
-        this.servicioCarritoItem = servicioCarritoItem;
-    }
-
     @PostMapping
-    public ResponseEntity<DtoCarritoItem> crearCarritoItem(@RequestBody DtoCarritoItem dtoCarritoItem) {
-        DtoCarritoItem carritoItemCreado = servicioCarritoItem.crearCarritoItem(dtoCarritoItem);
-        return new ResponseEntity<>(carritoItemCreado, HttpStatus.CREATED);
+    public ResponseEntity<DtoCarritoItem> createCarritoItem(@RequestBody DtoCarritoItem dtoCarritoItem) {
+        DtoCarritoItem savedCarritoItem = servicioCarritoItem.createCarritoItem(dtoCarritoItem);
+        return new ResponseEntity<>(savedCarritoItem, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{carritoId}")
-    public ResponseEntity<List<DtoCarritoItem>> listarCarritoItems(@PathVariable Integer carritoId) {
-        List<DtoCarritoItem> carritoItems = servicioCarritoItem.listarCarritoItems(carritoId);
+    @GetMapping("/{carritoItemId}")
+    public ResponseEntity<DtoCarritoItem> getCarritoItemById(@PathVariable("carritoItemId") Integer carritoItemId) {
+        DtoCarritoItem dtoCarritoItem = servicioCarritoItem.getCarritoItem(carritoItemId);
+        return ResponseEntity.ok(dtoCarritoItem);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DtoCarritoItem>> getAllCarritoItems() {
+        List<DtoCarritoItem> carritoItems = servicioCarritoItem.getAllCarritoItems();
         return ResponseEntity.ok(carritoItems);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarCarritoItem(@PathVariable Integer id) {
-        servicioCarritoItem.eliminarCarritoItem(id);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/{carritoItemId}")
+    public ResponseEntity<DtoCarritoItem> updateCarritoItem(@PathVariable("carritoItemId") Integer carritoItemId,
+                                                            @RequestBody DtoCarritoItem updateCarritoItem) {
+        DtoCarritoItem dtoCarritoItem = servicioCarritoItem.updateCarritoItem(carritoItemId, updateCarritoItem);
+        return ResponseEntity.ok(dtoCarritoItem);
+    }
+
+    @DeleteMapping("/{carritoItemId}")
+    public ResponseEntity<String> deleteCarritoItem(@PathVariable("carritoItemId") Integer carritoItemId) {
+        servicioCarritoItem.deleteCarritoItem(carritoItemId);
+        return ResponseEntity.ok("CarritoItem eliminado");
     }
 }

@@ -5,11 +5,13 @@ import com.proyectoSoftware.conciertosYa.dto.DtoArtistaEvento;
 import java.util.List;
 
 public interface ServicioArtistaEvento {
-    DtoArtistaEvento crearArtistaEvento(DtoArtistaEvento dtoArtistaEvento);
+    DtoArtistaEvento createArtistaEvento(DtoArtistaEvento dtoArtistaEvento);
 
-    DtoArtistaEvento getArtistaEvento(Integer id);
+    DtoArtistaEvento getArtistaEvento(Integer artistaEventoId);
 
-    void eliminarArtistaEvento(Integer id);
+    List<DtoArtistaEvento> getAllArtistasEventos();
 
-    List<DtoArtistaEvento> listarArtistasEventos();
+    DtoArtistaEvento updateArtistaEvento(Integer artistaEventoId, DtoArtistaEvento updateArtistaEvento);
+
+    void deleteArtistaEvento(Integer artistaEventoId);
 }

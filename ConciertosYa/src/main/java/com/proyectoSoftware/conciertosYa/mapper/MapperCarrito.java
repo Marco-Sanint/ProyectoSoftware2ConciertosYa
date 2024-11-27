@@ -5,21 +5,21 @@ import com.proyectoSoftware.conciertosYa.entity.Carrito;
 
 public class MapperCarrito {
 
-    // Convertir entidad a DTO
     public static DtoCarrito mapADtoCarrito(Carrito carrito) {
         return new DtoCarrito(
-                carrito.getId(),
-                carrito.getCliente().getCedula(), // Usar cedula en lugar de clienteId
+                carrito.getCarrito_id(),
+                carrito.getCliente().getCedula(), // Asumiendo que Cliente tiene un método getCedula()
                 carrito.getFechaCreacion()
         );
     }
-    // Convertir DTO a entidad
-    public static Carrito mapACarrito(DtoCarrito dtoCarrito, Cliente cliente) {
-        return new Carrito(
-                dtoCarrito.getId(),
-                cliente, // Pasar directamente el cliente
-                dtoCarrito.getFechaCreacion()
-        );
-    }
 
+    public static Carrito mapACarrito(DtoCarrito dtoCarrito) {
+        Carrito carrito = new Carrito();
+        carrito.setCarrito_id(dtoCarrito.getCarritoId());
+        // Aquí deberías buscar el Cliente por su cédula y asignarlo
+        // Por ejemplo:
+        // carrito.setCliente(clienteRepository.findById(dtoCarrito.getCedulaCliente()).orElse(null));
+        carrito.setFechaCreacion(dtoCarrito.getFechaCreacion());
+        return carrito;
+    }
 }

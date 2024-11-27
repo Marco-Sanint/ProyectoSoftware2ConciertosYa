@@ -1,5 +1,6 @@
 package com.proyectoSoftware.conciertosYa.dto;
 
+import com.proyectoSoftware.conciertosYa.entity.Promocion;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,11 +13,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoPromocion {
-    private Integer id; // ID de la promoción
-    private String nombre; // Nombre de la promoción
-    private String descripcion; // Descripción de la promoción
-    private double descuento; // Descuento aplicado
-    private LocalDate fechaInicio; // Fecha de inicio
-    private LocalDate fechaFin; // Fecha de fin
-    private String tipo; // Tipo de promoción (GENERAL, VIP, CONCIERTOSYA)
+
+    private Integer promocion_id;
+    private String nombre;
+    private String descripcion;
+    private double descuento;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
+    private Promocion.TipoPromocion tipo;
 }

@@ -44,7 +44,7 @@ public class Evento {
     private String imagenCartel;
 
     @ManyToOne
-    @JoinColumn(name = "lugar_id", referencedColumnName = "id")
+    @JoinColumn(name = "lugar_id")
     private Lugar lugar; // Relación con Lugar
 
     // Enumeración para el estado del evento

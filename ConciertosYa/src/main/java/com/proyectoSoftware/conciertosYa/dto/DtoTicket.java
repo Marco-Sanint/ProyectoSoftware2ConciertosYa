@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoTicket {
-    private Integer id; // ID del ticket
-    private LocalDateTime fechaCompra; // Fecha de compra
-    private double descuento; // Descuento aplicado
-    private double precio; // Precio original
-    private double precioConDescuento; // Precio con descuento aplicado
-    private Integer asientoId; // ID del asiento asociado
-    private String clienteId; // ID del cliente asociado (por cédula)
+    private Integer ticketId;
+    private LocalDateTime fechaCompra;
+    private double descuento;
+    private double precio;
+    private double precioConDescuento;
+    private Integer asientoId; // ID del asiento
+    private String clienteCedula; // Cédula del cliente
 }

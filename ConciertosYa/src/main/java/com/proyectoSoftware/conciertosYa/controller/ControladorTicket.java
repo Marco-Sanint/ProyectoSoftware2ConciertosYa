@@ -9,38 +9,41 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/tickets")
-@AllArgsConstructor
 public class ControladorTicket {
 
     private final ServicioTicket servicioTicket;
 
-    public ControladorTicket(ServicioTicket servicioTicket) {
-        this.servicioTicket = servicioTicket;
-    }
-
     @PostMapping
-    public ResponseEntity<DtoTicket> crearTicket(@RequestBody DtoTicket dtoTicket) {
-        DtoTicket ticketCreado = servicioTicket.crearTicket(dtoTicket);
-        return new ResponseEntity<>(ticketCreado, HttpStatus.CREATED);
+    public ResponseEntity<DtoTicket> createTicket(@RequestBody DtoTicket dtoTicket) {
+        DtoTicket savedTicket = servicioTicket.createTicket(dtoTicket);
+        return new ResponseEntity<>(savedTicket, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DtoTicket> obtenerTicket(@PathVariable Integer id) {
-        DtoTicket ticket = servicioTicket.obtenerTicket(id);
-        return ResponseEntity.ok(ticket);
+    @GetMapping("/{ticketId}")
+    public ResponseEntity<DtoTicket> getTicketById(@PathVariable("ticketId") Integer ticketId) {
+        DtoTicket dtoTicket = servicioTicket.getTicket(ticketId);
+        return ResponseEntity.ok(dtoTicket);
     }
 
-    @GetMapping("/cliente/{clienteId}")
-    public ResponseEntity<List<DtoTicket>> listarTicketsPorCliente(@PathVariable String clienteId) {
-        List<DtoTicket> tickets = servicioTicket.listarTicketsPorCliente(clienteId);
+    @GetMapping
+    public ResponseEntity<List<DtoTicket>> getAllTickets() {
+        List<DtoTicket> tickets = servicioTicket.getAllTickets();
         return ResponseEntity.ok(tickets);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarTicket(@PathVariable Integer id) {
-        servicioTicket.eliminarTicket(id);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/{ticketId}")
+    public ResponseEntity<DtoTicket> updateTicket(@PathVariable("ticketId") Integer ticketId,
+                                                  @RequestBody DtoTicket updateTicket) {
+        DtoTicket dtoTicket = servicioTicket.updateTicket(ticketId, updateTicket);
+        return ResponseEntity.ok(dtoTicket);
+    }
+
+    @DeleteMapping("/{ticketId}")
+    public ResponseEntity<String> deleteTicket(@PathVariable("ticketId") Integer ticketId) {
+        servicioTicket.deleteTicket(ticketId);
+        return ResponseEntity.ok("Ticket eliminado");
     }
 }

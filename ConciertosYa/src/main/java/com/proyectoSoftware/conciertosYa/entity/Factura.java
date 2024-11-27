@@ -27,7 +27,7 @@ public class Factura {
     private double total;
 
     @ManyToOne
-    @JoinColumn(name = "metodo_pago_id", referencedColumnName = "id")
+    @JoinColumn(name = "metodo_pago_id")
     private MetodoPago metodoPago;
 
     @ManyToOne

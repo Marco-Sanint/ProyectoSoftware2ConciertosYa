@@ -10,8 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoCarritoItem {
-    private Integer id; // ID del carrito item
-    private Integer carritoId; // ID del carrito asociado
-    private Integer asientoId; // ID del asiento asociado
-    private Integer cantidad; // Cantidad de asientos en este ítem
+    private Integer carritoItemId;
+    private Integer carritoId; // ID del carrito
+    private Integer asientoId; // ID del asiento
+    private Integer cantidad;
 }

@@ -7,11 +7,11 @@ import java.util.List;
 public interface ServicioEvento {
     DtoEvento crearEvento(DtoEvento dtoEvento);
 
-    DtoEvento obtenerEvento(Integer id);
+    DtoEvento getEvento(Integer evento_id);
 
-    DtoEvento actualizarEvento(Integer id, DtoEvento dtoEvento);
+    List<DtoEvento> getAllEventos();
 
-    void eliminarEvento(Integer id);
+    DtoEvento updateEvento(Integer evento_id, DtoEvento updateEvento);
 
-    List<DtoEvento> listarEventos();
+    void deleteEvento(Integer evento_id);
 }

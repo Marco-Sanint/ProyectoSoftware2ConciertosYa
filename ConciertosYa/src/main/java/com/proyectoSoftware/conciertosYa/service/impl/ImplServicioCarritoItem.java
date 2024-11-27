@@ -1,13 +1,14 @@
 package com.proyectoSoftware.conciertosYa.service.impl;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoCarritoItem;
-import com.proyectoSoftware.conciertosYa.entity.Asiento;
-import com.proyectoSoftware.conciertosYa.entity.Carrito;
 import com.proyectoSoftware.conciertosYa.entity.CarritoItem;
+import com.proyectoSoftware.conciertosYa.entity.Carrito; // Asegúrate de importar la entidad Carrito
+import com.proyectoSoftware.conciertosYa.entity.Asiento; // Asegúrate de importar la entidad Asiento
+import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
 import com.proyectoSoftware.conciertosYa.mapper.MapperCarritoItem;
-import com.proyectoSoftware.conciertosYa.repository.RepoAsiento;
-import com.proyectoSoftware.conciertosYa.repository.RepoCarrito;
 import com.proyectoSoftware.conciertosYa.repository.RepoCarritoItem;
+import com.proyectoSoftware.conciertosYa.repository.RepoCarrito; // Asegúrate de importar el repositorio de Carrito
+import com.proyectoSoftware.conciertosYa.repository.RepoAsiento; // Asegúrate de importar el repositorio de Asiento
 import com.proyectoSoftware.conciertosYa.service.ServicioCarritoItem;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,38 +21,63 @@ import java.util.stream.Collectors;
 public class ImplServicioCarritoItem implements ServicioCarritoItem {
 
     private final RepoCarritoItem repoCarritoItem;
-    private final RepoCarrito repoCarrito;
-    private final RepoAsiento repoAsiento;
-
-    public ImplServicioCarritoItem(RepoCarritoItem repoCarritoItem, RepoCarrito repoCarrito, RepoAsiento repoAsiento) {
-        this.repoCarritoItem = repoCarritoItem;
-        this.repoCarrito = repoCarrito;
-        this.repoAsiento = repoAsiento;
-    }
+    private final RepoCarrito repoCarrito; // Inyectamos el repositorio de Carrito
+    private final RepoAsiento repoAsiento; // Inyectamos el repositorio de Asiento
 
     @Override
-    public DtoCarritoItem crearCarritoItem(DtoCarritoItem dtoCarritoItem) {
+    public DtoCarritoItem createCarritoItem(DtoCarritoItem dtoCarritoItem) {
         Carrito carrito = repoCarrito.findById(dtoCarritoItem.getCarritoId())
-                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Carrito no encontrado: " + dtoCarritoItem.getCarritoId()));
         Asiento asiento = repoAsiento.findById(dtoCarritoItem.getAsientoId())
-                .orElseThrow(() -> new RuntimeException("Asiento no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Asiento no encontrado: " + dtoCarritoItem.getAsientoId()));
 
-        CarritoItem carritoItem = MapperCarritoItem.mapACarritoItem(dtoCarritoItem, carrito, asiento);
-        CarritoItem carritoItemGuardado = repoCarritoItem.save(carritoItem);
-        return MapperCarritoItem.mapADtoCarritoItem(carritoItemGuardado);
+        CarritoItem carritoItem = MapperCarritoItem.mapACarritoItem(dtoCarritoItem);
+        carritoItem.setCarrito(carrito); // Asignamos el carrito
+        carritoItem.setAsiento(asiento); // Asignamos el asiento
+        CarritoItem savedCarritoItem = repoCarritoItem.save(carritoItem);
+        return MapperCarritoItem.mapADtoCarritoItem(savedCarritoItem);
     }
 
     @Override
-    public List<DtoCarritoItem> listarCarritoItems(Integer carritoId) {
-        return repoCarritoItem.findByCarrito_Id(carritoId).stream()
+    public DtoCarritoItem getCarritoItem(Integer carritoItemId) {
+        CarritoItem carritoItem = repoCarritoItem.findById(carritoItemId)
+                .orElseThrow(() -> new ResourceNotFoundException("CarritoItem no encontrado: " + carritoItemId));
+        return MapperCarritoItem.mapADtoCarritoItem(carritoItem);
+    }
+
+    @Override
+    public List<DtoCarritoItem> getAllCarritoItems() {
+        List<CarritoItem> carritoItems = repoCarritoItem.findAll();
+        return carritoItems.stream()
                 .map(MapperCarritoItem::mapADtoCarritoItem)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void eliminarCarritoItem(Integer id) {
-        CarritoItem carritoItem = repoCarritoItem.findById(id)
-                .orElseThrow(() -> new RuntimeException("CarritoItem no encontrado"));
+    public DtoCarritoItem updateCarritoItem(Integer carritoItemId, DtoCarritoItem updateCarritoItem) {
+        CarritoItem carritoItem = repoCarritoItem.findById(carritoItemId)
+                .orElseThrow(() -> new ResourceNotFoundException("CarritoItem no encontrado: " + carritoItemId));
+
+        // Actualizamos los campos necesarios
+        carritoItem.setCantidad(updateCarritoItem.getCantidad());
+
+        // Buscamos el carrito y el asiento por sus IDs y los asignamos
+        Carrito carrito = repoCarrito.findById(updateCarritoItem.getCarritoId())
+                .orElseThrow(() -> new ResourceNotFoundException("Carrito no encontrado: " + updateCarritoItem.getCarritoId()));
+        Asiento asiento = repoAsiento.findById(updateCarritoItem.getAsientoId())
+                .orElseThrow(() -> new ResourceNotFoundException("Asiento no encontrado: " + updateCarritoItem.getAsientoId()));
+
+        carritoItem.setCarrito(carrito);
+        carritoItem.setAsiento(asiento);
+
+        CarritoItem updatedCarritoItem = repoCarritoItem.save(carritoItem);
+        return MapperCarritoItem.mapADtoCarritoItem(updatedCarritoItem);
+    }
+
+    @Override
+    public void deleteCarritoItem(Integer carritoItemId) {
+        CarritoItem carritoItem = repoCarritoItem.findById(carritoItemId)
+                .orElseThrow(() -> new ResourceNotFoundException("CarritoItem no encontrado: " + carritoItemId));
         repoCarritoItem.delete(carritoItem);
     }
 }

@@ -1,12 +1,13 @@
 package com.proyectoSoftware.conciertosYa.service.impl;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoFactura;
-import com.proyectoSoftware.conciertosYa.entity.Cliente;
 import com.proyectoSoftware.conciertosYa.entity.Factura;
+import com.proyectoSoftware.conciertosYa.entity.Cliente;
 import com.proyectoSoftware.conciertosYa.entity.MetodoPago;
+import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
 import com.proyectoSoftware.conciertosYa.mapper.MapperFactura;
-import com.proyectoSoftware.conciertosYa.repository.RepoCliente;
 import com.proyectoSoftware.conciertosYa.repository.RepoFactura;
+import com.proyectoSoftware.conciertosYa.repository.RepoCliente;
 import com.proyectoSoftware.conciertosYa.repository.RepoMetodoPago;
 import com.proyectoSoftware.conciertosYa.service.ServicioFactura;
 import lombok.AllArgsConstructor;
@@ -23,64 +24,49 @@ public class ImplServicioFactura implements ServicioFactura {
     private final RepoCliente repoCliente;
     private final RepoMetodoPago repoMetodoPago;
 
-    public ImplServicioFactura(RepoFactura repoFactura, RepoCliente repoCliente, RepoMetodoPago repoMetodoPago) {
-        this.repoFactura = repoFactura;
-        this.repoCliente = repoCliente;
-        this.repoMetodoPago = repoMetodoPago;
-    }
-
     @Override
     public DtoFactura crearFactura(DtoFactura dtoFactura) {
-        Cliente cliente = repoCliente.findById(dtoFactura.getClienteId())
-                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
-
         MetodoPago metodoPago = repoMetodoPago.findById(dtoFactura.getMetodoPagoId())
-                .orElseThrow(() -> new RuntimeException("Método de pago no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Método de pago no encontrado"));
+        Cliente cliente = repoCliente.findById(dtoFactura.getClienteCedula())
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
 
-        Factura factura = MapperFactura.mapAFactura(dtoFactura, cliente, metodoPago);
-        Factura facturaGuardada = repoFactura.save(factura);
-        return MapperFactura.mapADtoFactura(facturaGuardada);
+        Factura factura = MapperFactura.mapAFactura(dtoFactura);
+        factura.setMetodoPago(metodoPago);
+        factura.setCliente(cliente);
+        return MapperFactura.mapADtoFactura(repoFactura.save(factura));
     }
 
     @Override
-    public DtoFactura obtenerFactura(Integer id) {
-        Factura factura = repoFactura.findById(id)
-                .orElseThrow(() -> new RuntimeException("Factura no encontrada"));
+    public DtoFactura getFactura(Integer factura_id) {
+        Factura factura = repoFactura.findById(factura_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Factura no encontrada"));
         return MapperFactura.mapADtoFactura(factura);
     }
 
     @Override
-    public DtoFactura actualizarFactura(Integer id, DtoFactura dtoFactura) {
-        Factura factura = repoFactura.findById(id)
-                .orElseThrow(() -> new RuntimeException("Factura no encontrada"));
-
-        Cliente cliente = repoCliente.findById(dtoFactura.getClienteId())
-                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
-
-        MetodoPago metodoPago = repoMetodoPago.findById(dtoFactura.getMetodoPagoId())
-                .orElseThrow(() -> new RuntimeException("Método de pago no encontrado"));
-
-        factura.setFechaEmision(dtoFactura.getFechaEmision());
-        factura.setTotal(dtoFactura.getTotal());
-        factura.setCliente(cliente);
-        factura.setMetodoPago(metodoPago);
-        factura.setDetallesXml(dtoFactura.getDetallesXml());
-
-        Factura facturaActualizada = repoFactura.save(factura);
-        return MapperFactura.mapADtoFactura(facturaActualizada);
-    }
-
-    @Override
-    public void eliminarFactura(Integer id) {
-        Factura factura = repoFactura.findById(id)
-                .orElseThrow(() -> new RuntimeException("Factura no encontrada"));
-        repoFactura.delete(factura);
-    }
-
-    @Override
-    public List<DtoFactura> listarFacturas() {
+    public List<DtoFactura> getAllFacturas() {
         return repoFactura.findAll().stream()
                 .map(MapperFactura::mapADtoFactura)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public DtoFactura updateFactura(Integer factura_id, DtoFactura updateFactura) {
+        Factura factura = repoFactura.findById(factura_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Factura no encontrada"));
+
+        factura.setFechaEmision(updateFactura.getFechaEmision());
+        factura.setTotal(updateFactura.getTotal());
+        factura.setDetallesXml(updateFactura.getDetallesXml());
+        return MapperFactura.mapADtoFactura(repoFactura.save(factura));
+    }
+
+    @Override
+    public void deleteFactura(Integer factura_id) {
+        if (!repoFactura.existsById(factura_id)) {
+            throw new ResourceNotFoundException("Factura no encontrada");
+        }
+        repoFactura.deleteById(factura_id);
     }
 }

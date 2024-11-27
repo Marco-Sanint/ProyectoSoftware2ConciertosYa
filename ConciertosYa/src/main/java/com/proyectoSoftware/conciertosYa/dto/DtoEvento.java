@@ -1,5 +1,6 @@
 package com.proyectoSoftware.conciertosYa.dto;
 
+import com.proyectoSoftware.conciertosYa.entity.Evento.EstadoEvento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,13 +14,14 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoEvento {
-    private Integer id;                // ID del evento
-    private String nombre;             // Nombre del evento
-    private LocalDate fecha;           // Fecha del evento
-    private LocalTime hora;            // Hora del evento
-    private String descripcion;        // Descripción del evento
-    private String generoMusical;      // Género musical
-    private String estado;             // Estado del evento
-    private String imagenCartel;       // Imagen del cartel
-    private Integer lugarId;           // ID del lugar asociado
+
+    private Integer evento_id;
+    private String nombre;
+    private LocalDate fecha;
+    private LocalTime hora;
+    private String descripcion;
+    private String generoMusical;
+    private EstadoEvento estado;
+    private String imagenCartel;
+    private Integer lugarId;
 }

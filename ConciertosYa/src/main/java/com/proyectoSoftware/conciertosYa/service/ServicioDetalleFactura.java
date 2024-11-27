@@ -5,9 +5,13 @@ import com.proyectoSoftware.conciertosYa.dto.DtoDetalleFactura;
 import java.util.List;
 
 public interface ServicioDetalleFactura {
-    DtoDetalleFactura crearDetalleFactura(DtoDetalleFactura dtoDetalleFactura);
+    DtoDetalleFactura createDetalleFactura(DtoDetalleFactura dtoDetalleFactura);
 
-    List<DtoDetalleFactura> listarDetallesPorTicket(Integer ticketId);
+    DtoDetalleFactura getDetalleFactura(Integer detalleFacturaId);
 
-    void eliminarDetalleFactura(Integer id);
+    List<DtoDetalleFactura> getAllDetalleFacturas();
+
+    DtoDetalleFactura updateDetalleFactura(Integer detalleFacturaId, DtoDetalleFactura updateDetalleFactura);
+
+    void deleteDetalleFactura(Integer detalleFacturaId);
 }

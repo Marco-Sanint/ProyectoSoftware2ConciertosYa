@@ -2,10 +2,11 @@ package com.proyectoSoftware.conciertosYa.service.impl;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoDetalleFactura;
 import com.proyectoSoftware.conciertosYa.entity.DetalleFactura;
-import com.proyectoSoftware.conciertosYa.entity.Ticket;
+import com.proyectoSoftware.conciertosYa.entity.Ticket; // Asegúrate de importar la entidad Ticket
+import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
 import com.proyectoSoftware.conciertosYa.mapper.MapperDetalleFactura;
 import com.proyectoSoftware.conciertosYa.repository.RepoDetalleFactura;
-import com.proyectoSoftware.conciertosYa.repository.RepoTicket;
+import com.proyectoSoftware.conciertosYa.repository.RepoTicket; // Asegúrate de importar el repositorio de Ticket
 import com.proyectoSoftware.conciertosYa.service.ServicioDetalleFactura;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,35 +19,59 @@ import java.util.stream.Collectors;
 public class ImplServicioDetalleFactura implements ServicioDetalleFactura {
 
     private final RepoDetalleFactura repoDetalleFactura;
-    private final RepoTicket repoTicket;
-
-    public ImplServicioDetalleFactura(RepoDetalleFactura repoDetalleFactura, RepoTicket repoTicket) {
-        this.repoDetalleFactura = repoDetalleFactura;
-        this.repoTicket = repoTicket;
-    }
+    private final RepoTicket repoTicket; // Inyectamos el repositorio de Ticket
 
     @Override
-    public DtoDetalleFactura crearDetalleFactura(DtoDetalleFactura dtoDetalleFactura) {
+    public DtoDetalleFactura createDetalleFactura(DtoDetalleFactura dtoDetalleFactura) {
         Ticket ticket = repoTicket.findById(dtoDetalleFactura.getTicketId())
-                .orElseThrow(() -> new RuntimeException("Ticket no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Ticket no encontrado: " + dtoDetalleFactura.getTicketId()));
 
-        DetalleFactura detalleFactura = MapperDetalleFactura.mapADetalleFactura(dtoDetalleFactura, ticket);
-        DetalleFactura detalleGuardado = repoDetalleFactura.save(detalleFactura);
-
-        return MapperDetalleFactura.mapADtoDetalleFactura(detalleGuardado);
+        DetalleFactura detalleFactura = MapperDetalleFactura.mapADetalleFactura(dtoDetalleFactura);
+        detalleFactura.setTicket(ticket); // Asignamos el ticket
+        DetalleFactura savedDetalleFactura = repoDetalleFactura.save(detalleFactura);
+        return MapperDetalleFactura.mapADtoDetalleFactura (savedDetalleFactura);
     }
 
     @Override
-    public List<DtoDetalleFactura> listarDetallesPorTicket(Integer ticketId) {
-        return repoDetalleFactura.findByTicket_Id(ticketId).stream()
+    public DtoDetalleFactura getDetalleFactura(Integer detalleFacturaId) {
+        DetalleFactura detalleFactura = repoDetalleFactura.findById(detalleFacturaId)
+                .orElseThrow(() -> new ResourceNotFoundException("DetalleFactura no encontrado: " + detalleFacturaId));
+        return MapperDetalleFactura.mapADtoDetalleFactura(detalleFactura);
+    }
+
+    @Override
+    public List<DtoDetalleFactura> getAllDetalleFacturas() {
+        return repoDetalleFactura.findAll().stream()
                 .map(MapperDetalleFactura::mapADtoDetalleFactura)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void eliminarDetalleFactura(Integer id) {
-        DetalleFactura detalleFactura = repoDetalleFactura.findById(id)
-                .orElseThrow(() -> new RuntimeException("DetalleFactura no encontrado"));
-        repoDetalleFactura.delete(detalleFactura);
+    public DtoDetalleFactura updateDetalleFactura(Integer detalleFacturaId, DtoDetalleFactura updateDetalleFactura) {
+        DetalleFactura existingDetalleFactura = repoDetalleFactura.findById(detalleFacturaId)
+                .orElseThrow(() -> new ResourceNotFoundException("DetalleFactura no encontrado: " + detalleFacturaId));
+
+        existingDetalleFactura.setCantidad(updateDetalleFactura.getCantidad());
+        existingDetalleFactura.setPrecioUnitario(updateDetalleFactura.getPrecioUnitario());
+        existingDetalleFactura.setDescuento(updateDetalleFactura.getDescuento());
+        existingDetalleFactura.setPrecioTotal(updateDetalleFactura.getPrecioTotal());
+
+        // Aquí deberías actualizar el Ticket si es necesario
+        if (updateDetalleFactura.getTicketId() != null) {
+            Ticket ticket = repoTicket.findById(updateDetalleFactura.getTicketId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Ticket no encontrado: " + updateDetalleFactura.getTicketId()));
+            existingDetalleFactura.setTicket(ticket);
+        }
+
+        DetalleFactura updatedDetalleFactura = repoDetalleFactura.save(existingDetalleFactura);
+        return MapperDetalleFactura.mapADtoDetalleFactura(updatedDetalleFactura);
+    }
+
+    @Override
+    public void deleteDetalleFactura(Integer detalleFacturaId) {
+        if (!repoDetalleFactura.existsById(detalleFacturaId)) {
+            throw new ResourceNotFoundException("DetalleFactura no encontrado: " + detalleFacturaId);
+        }
+        repoDetalleFactura.deleteById(detalleFacturaId);
     }
 }

@@ -5,21 +5,17 @@ import com.proyectoSoftware.conciertosYa.entity.ArtistaEvento;
 
 public class MapperArtistaEvento {
 
-    // Convertir entidad a DTO
     public static DtoArtistaEvento mapADtoArtistaEvento(ArtistaEvento artistaEvento) {
         return new DtoArtistaEvento(
-                artistaEvento.getId(),
-                artistaEvento.getArtista().getId(),
-                artistaEvento.getEvento().getId()
+                artistaEvento.getArtista_evento_id(),
+                artistaEvento.getArtista() != null ? artistaEvento.getArtista().getArtista_id() : null,
+                artistaEvento.getEvento() != null ? artistaEvento.getEvento().getEvento_id() : null
         );
     }
 
-    // Convertir DTO a entidad
-    public static ArtistaEvento mapAArtistaEvento(DtoArtistaEvento dtoArtistaEvento, Artista artista, Evento evento) {
-        return new ArtistaEvento(
-                dtoArtistaEvento.getId(),
-                artista,
-                evento
-        );
+    public static ArtistaEvento mapAArtistaEvento(DtoArtistaEvento dtoArtistaEvento) {
+        ArtistaEvento artistaEvento = new ArtistaEvento();
+        artistaEvento.setArtista_evento_id(dtoArtistaEvento.getArtista_evento_id());
+        return artistaEvento;
     }
 }

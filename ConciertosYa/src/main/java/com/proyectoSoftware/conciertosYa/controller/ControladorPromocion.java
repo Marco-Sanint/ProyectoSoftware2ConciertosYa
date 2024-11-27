@@ -9,50 +9,44 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/promociones")
-@AllArgsConstructor
 public class ControladorPromocion {
-
     private final ServicioPromocion servicioPromocion;
 
-    public ControladorPromocion(ServicioPromocion servicioPromocion) {
-        this.servicioPromocion = servicioPromocion;
-    }
-
+    // Agregar Promocion a API REST
     @PostMapping
     public ResponseEntity<DtoPromocion> crearPromocion(@RequestBody DtoPromocion dtoPromocion) {
-        DtoPromocion promocionCreada = servicioPromocion.crearPromocion(dtoPromocion);
-        return new ResponseEntity<>(promocionCreada, HttpStatus.CREATED);
+        DtoPromocion promocionSalvada = servicioPromocion.crearPromocion(dtoPromocion);
+        return new ResponseEntity<>(promocionSalvada, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DtoPromocion> obtenerPromocion(@PathVariable Integer id) {
-        DtoPromocion promocion = servicioPromocion.obtenerPromocion(id);
-        return ResponseEntity.ok(promocion);
+    // Encontrar Promocion de API REST
+    @GetMapping("{promocion_id}")
+    public ResponseEntity<DtoPromocion> getPromocionById(@PathVariable("promocion_id") Integer promocionId) {
+        DtoPromocion dtoPromocion = servicioPromocion.getPromocion(promocionId);
+        return ResponseEntity.ok(dtoPromocion);
     }
 
+    // Mostrar Todas las Promociones de API REST
     @GetMapping
-    public ResponseEntity<List<DtoPromocion>> listarPromociones() {
-        List<DtoPromocion> promociones = servicioPromocion.listarPromociones();
+    public ResponseEntity<List<DtoPromocion>> getAllPromociones() {
+        List<DtoPromocion> promociones = servicioPromocion.getAllPromociones();
         return ResponseEntity.ok(promociones);
     }
 
-    @GetMapping("/tipo/{tipo}")
-    public ResponseEntity<List<DtoPromocion>> listarPromocionesPorTipo(@PathVariable String tipo) {
-        List<DtoPromocion> promociones = servicioPromocion.listarPromocionesPorTipo(tipo);
-        return ResponseEntity.ok(promociones);
+    // Actualizar Promocion de API REST
+    @PutMapping("{promocion_id}")
+    public ResponseEntity<DtoPromocion> updatePromocion(@PathVariable("promocion_id") Integer promocion_id, @RequestBody DtoPromocion updatedPromocion) {
+        DtoPromocion dtoPromocion = servicioPromocion.updatePromocion(promocion_id, updatedPromocion);
+        return ResponseEntity.ok(dtoPromocion);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<DtoPromocion> actualizarPromocion(@PathVariable Integer id, @RequestBody DtoPromocion dtoPromocion) {
-        DtoPromocion promocionActualizada = servicioPromocion.actualizarPromocion(id, dtoPromocion);
-        return ResponseEntity.ok(promocionActualizada);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarPromocion(@PathVariable Integer id) {
-        servicioPromocion.eliminarPromocion(id);
-        return ResponseEntity.noContent().build();
+    // Eliminar Promocion de API REST
+    @DeleteMapping("{promocion_id}")
+    public ResponseEntity<String> deletePromocion(@PathVariable("promocion_id") Integer promocion_id) {
+        servicioPromocion.deletePromocion(promocion_id);
+        return ResponseEntity.ok("Promocion eliminada");
     }
 }

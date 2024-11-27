@@ -7,11 +7,11 @@ import java.util.List;
 public interface ServicioLugar {
     DtoLugar crearLugar(DtoLugar dtoLugar);
 
-    DtoLugar obtenerLugar(Integer id);
+    DtoLugar getLugar(Integer lugar_id);
 
-    DtoLugar actualizarLugar(Integer id, DtoLugar dtoLugar);
+    List<DtoLugar> getAllLugares();
 
-    void eliminarLugar(Integer id);
+    DtoLugar updateLugar(Integer lugar_id, DtoLugar updateLugar);
 
-    List<DtoLugar> listarLugares();
+    void deleteLugar(Integer lugar_id);
 }

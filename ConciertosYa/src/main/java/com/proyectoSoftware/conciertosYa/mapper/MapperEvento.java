@@ -2,35 +2,33 @@ package com.proyectoSoftware.conciertosYa.mapper;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoEvento;
 import com.proyectoSoftware.conciertosYa.entity.Evento;
-import com.proyectoSoftware.conciertosYa.entity.Lugar;
 
 public class MapperEvento {
 
-    public static DtoEvento mapADto(Evento evento) {
+    public static DtoEvento mapADtoEvento(Evento evento) {
         return new DtoEvento(
-                evento.getId(),
+                evento.getEvento_id(),
                 evento.getNombre(),
                 evento.getFecha(),
                 evento.getHora(),
                 evento.getDescripcion(),
                 evento.getGeneroMusical(),
-                evento.getEstado().name(),
+                evento.getEstado(),
                 evento.getImagenCartel(),
-                evento.getLugar() != null ? evento.getLugar().getId() : null
+                evento.getLugar() != null ? evento.getLugar().getLugar_id() : null
         );
     }
 
-    public static Evento mapAEntidad(DtoEvento dtoEvento, Lugar lugar) {
-        return new Evento(
-                dtoEvento.getId(),
-                dtoEvento.getNombre(),
-                dtoEvento.getFecha(),
-                dtoEvento.getHora(),
-                dtoEvento.getDescripcion(),
-                dtoEvento.getGeneroMusical(),
-                Evento.EstadoEvento.valueOf(dtoEvento.getEstado()),
-                dtoEvento.getImagenCartel(),
-                lugar
-        );
+    public static Evento mapAEvento(DtoEvento dtoEvento) {
+        Evento evento = new Evento();
+        evento.setEvento_id(dtoEvento.getEvento_id());
+        evento.setNombre(dtoEvento.getNombre());
+        evento.setFecha(dtoEvento.getFecha());
+        evento.setHora(dtoEvento.getHora());
+        evento.setDescripcion(dtoEvento.getDescripcion());
+        evento.setGeneroMusical(dtoEvento.getGeneroMusical());
+        evento.setEstado(dtoEvento.getEstado());
+        evento.setImagenCartel(dtoEvento.getImagenCartel());
+        return evento;
     }
 }

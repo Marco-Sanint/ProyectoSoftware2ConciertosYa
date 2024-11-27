@@ -10,10 +10,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoDetalleFactura {
-    private Integer id; // ID del detalle de factura
-    private Integer ticketId; // ID del ticket asociado
-    private Integer cantidad; // Cantidad de artículos en el detalle
-    private double precioUnitario; // Precio unitario de cada artículo
-    private double descuento; // Descuento aplicado
-    private double precioTotal; // Precio total calculado
+    private Integer detalleFacturaId;
+    private Integer cantidad;
+    private double precioUnitario;
+    private double descuento;
+    private double precioTotal;
+    private Integer ticketId; // ID del ticket
 }

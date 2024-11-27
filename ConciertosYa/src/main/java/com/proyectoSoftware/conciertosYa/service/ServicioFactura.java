@@ -7,11 +7,11 @@ import java.util.List;
 public interface ServicioFactura {
     DtoFactura crearFactura(DtoFactura dtoFactura);
 
-    DtoFactura obtenerFactura(Integer id);
+    DtoFactura getFactura(Integer factura_id);
 
-    DtoFactura actualizarFactura(Integer id, DtoFactura dtoFactura);
+    List<DtoFactura> getAllFacturas();
 
-    void eliminarFactura(Integer id);
+    DtoFactura updateFactura(Integer factura_id, DtoFactura updateFactura);
 
-    List<DtoFactura> listarFacturas();
+    void deleteFactura(Integer factura_id);
 }

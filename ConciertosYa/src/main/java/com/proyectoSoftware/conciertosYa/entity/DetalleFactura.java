@@ -31,6 +31,6 @@ public class DetalleFactura {
     private double precioTotal;
 
     @ManyToOne
-    @JoinColumn(name = "ticket_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "ticket_id", nullable = false)
     private Ticket ticket;
 }

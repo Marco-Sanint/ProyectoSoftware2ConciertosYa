@@ -12,10 +12,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoFactura {
-    private Integer id;               // ID de la factura
-    private LocalDateTime fechaEmision; // Fecha de emisión de la factura
-    private double total;             // Total de la factura
-    private Integer metodoPagoId;     // ID del método de pago
-    private Integer clienteId;        // ID del cliente
-    private String detallesXml;       // Detalles en formato XML
+
+    private Integer factura_id;
+    private LocalDateTime fechaEmision;
+    private double total;
+    private Integer metodoPagoId; // ID del método de pago
+    private String clienteCedula; // Cédula del cliente
+    private String detallesXml;
 }

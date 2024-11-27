@@ -5,11 +5,13 @@ import com.proyectoSoftware.conciertosYa.dto.DtoCarrito;
 import java.util.List;
 
 public interface ServicioCarrito {
-    DtoCarrito crearCarrito(DtoCarrito dtoCarrito);
+    DtoCarrito createCarrito(DtoCarrito dtoCarrito);
 
-    DtoCarrito getCarrito(Integer id);
+    DtoCarrito getCarrito(Integer carritoId);
 
-    void eliminarCarrito(Integer id);
+    List<DtoCarrito> getAllCarritos();
 
-    List<DtoCarrito> listarCarritos();
+    DtoCarrito updateCarrito(Integer carritoId, DtoCarrito updateCarrito);
+
+    void deleteCarrito(Integer carritoId);
 }

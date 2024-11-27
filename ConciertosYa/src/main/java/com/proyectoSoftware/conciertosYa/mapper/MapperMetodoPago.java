@@ -7,15 +7,15 @@ public class MapperMetodoPago {
 
     public static DtoMetodoPago mapADtoMetodoPago(MetodoPago metodoPago) {
         return new DtoMetodoPago(
-                metodoPago.getId(),
-                metodoPago.getTipo().name()
+                metodoPago.getMetodo_pago_id(),
+                metodoPago.getTipo()
         );
     }
 
     public static MetodoPago mapAMetodoPago(DtoMetodoPago dtoMetodoPago) {
         return new MetodoPago(
-                dtoMetodoPago.getId(),
-                MetodoPago.TipoMetodoPago.valueOf(dtoMetodoPago.getTipo())
+                dtoMetodoPago.getMetodo_pago_id(),
+                dtoMetodoPago.getTipo()
         );
     }
 }

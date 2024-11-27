@@ -12,8 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoCarrito {
-    private Integer id; // ID del carrito
-    private String clienteCedula; // Cedula del cliente relacionado
-    private LocalDateTime fechaCreacion; // Fecha de creación del carrito
+    private Integer carritoId;
+    private String cedulaCliente; // ID del cliente (cedula)
+    private LocalDateTime fechaCreacion;
 }
-

@@ -16,10 +16,6 @@ public class ControladorArtista {
 
     private final ServicioArtista servicioArtista;
 
-    public ControladorArtista(ServicioArtista servicioArtista) {
-        this.servicioArtista = servicioArtista;
-    }
-
     // Crear Artista en API REST
     @PostMapping
     public ResponseEntity<DtoArtista> crearArtista(@RequestBody DtoArtista dtoArtista) {
@@ -38,22 +34,21 @@ public class ControladorArtista {
     @PutMapping("{artista_id}")
     public ResponseEntity<DtoArtista> actualizarArtista(@PathVariable("artista_id") Integer artistaId,
                                                         @RequestBody DtoArtista dtoArtista) {
-        DtoArtista artistaActualizado = servicioArtista.actualizarArtista(artistaId, dtoArtista);
+        DtoArtista artistaActualizado = servicioArtista.updateArtista(artistaId, dtoArtista);
         return ResponseEntity.ok(artistaActualizado);
     }
 
     // Eliminar Artista en API REST
     @DeleteMapping("{artista_id}")
     public ResponseEntity<Void> eliminarArtista(@PathVariable("artista_id") Integer artistaId) {
-        servicioArtista.eliminarArtista(artistaId);
+        servicioArtista.deleteArtista(artistaId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     // Obtener todos los Artistas (opcional)
     @GetMapping
     public ResponseEntity<List<DtoArtista>> listarArtistas() {
-        List<DtoArtista> artistas = servicioArtista.listarArtistas();
+        List<DtoArtista> artistas = servicioArtista.getAllArtistas();
         return ResponseEntity.ok(artistas);
     }
 }
-

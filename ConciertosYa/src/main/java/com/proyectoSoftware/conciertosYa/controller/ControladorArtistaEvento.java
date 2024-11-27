@@ -16,31 +16,34 @@ public class ControladorArtistaEvento {
 
     private final ServicioArtistaEvento servicioArtistaEvento;
 
-    public ControladorArtistaEvento(ServicioArtistaEvento servicioArtistaEvento) {
-        this.servicioArtistaEvento = servicioArtistaEvento;
-    }
-
     @PostMapping
-    public ResponseEntity<DtoArtistaEvento> crearArtistaEvento(@RequestBody DtoArtistaEvento dtoArtistaEvento) {
-        DtoArtistaEvento creado = servicioArtistaEvento.crearArtistaEvento(dtoArtistaEvento);
-        return new ResponseEntity<>(creado, HttpStatus.CREATED);
+    public ResponseEntity<DtoArtistaEvento> createArtistaEvento(@RequestBody DtoArtistaEvento dtoArtistaEvento) {
+        DtoArtistaEvento savedArtistaEvento = servicioArtistaEvento.createArtistaEvento(dtoArtistaEvento);
+        return new ResponseEntity<>(savedArtistaEvento, HttpStatus.CREATED);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<DtoArtistaEvento> getArtistaEvento(@PathVariable Integer id) {
-        DtoArtistaEvento dto = servicioArtistaEvento.getArtistaEvento(id);
-        return ResponseEntity.ok(dto);
-    }
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> eliminarArtistaEvento(@PathVariable Integer id) {
-        servicioArtistaEvento.eliminarArtistaEvento(id);
-        return ResponseEntity.noContent().build();
+    @GetMapping("{artistaEventoId}")
+    public ResponseEntity<DtoArtistaEvento> getArtistaEventoById(@PathVariable("artistaEventoId") Integer artistaEventoId) {
+        DtoArtistaEvento dtoArtistaEvento = servicioArtistaEvento.getArtistaEvento(artistaEventoId);
+        return ResponseEntity.ok(dtoArtistaEvento);
     }
 
     @GetMapping
-    public ResponseEntity<List<DtoArtistaEvento>> listarArtistasEventos() {
-        List<DtoArtistaEvento> lista = servicioArtistaEvento.listarArtistasEventos();
-        return ResponseEntity.ok(lista);
+    public ResponseEntity<List<DtoArtistaEvento>> getAllArtistasEventos() {
+        List<DtoArtistaEvento> artistasEventos = servicioArtistaEvento.getAllArtistasEventos();
+        return ResponseEntity.ok(artistasEventos);
+    }
+
+    @PutMapping("{artistaEventoId}")
+    public ResponseEntity<DtoArtistaEvento> updateArtistaEvento(@PathVariable("artistaEventoId") Integer artistaEventoId,
+                                                                @RequestBody DtoArtistaEvento updatedArtistaEvento) {
+        DtoArtistaEvento dtoArtistaEvento = servicioArtistaEvento.updateArtistaEvento(artistaEventoId, updatedArtistaEvento);
+        return ResponseEntity.ok(dtoArtistaEvento);
+    }
+
+    @DeleteMapping("{artistaEventoId}")
+    public ResponseEntity<String> deleteArtistaEvento(@PathVariable("artistaEventoId") Integer artistaEventoId) {
+        servicioArtistaEvento.deleteArtistaEvento(artistaEventoId);
+        return ResponseEntity.ok("ArtistaEvento eliminado");
     }
 }

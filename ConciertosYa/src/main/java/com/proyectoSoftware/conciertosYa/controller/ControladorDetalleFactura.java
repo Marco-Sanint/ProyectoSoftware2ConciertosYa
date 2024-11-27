@@ -9,33 +9,41 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/detalles-factura")
 @AllArgsConstructor
+@RestController
+@RequestMapping("/api/detalle-facturas")
 public class ControladorDetalleFactura {
 
     private final ServicioDetalleFactura servicioDetalleFactura;
 
-    public ControladorDetalleFactura(ServicioDetalleFactura servicioDetalleFactura) {
-        this.servicioDetalleFactura = servicioDetalleFactura;
-    }
-
     @PostMapping
-    public ResponseEntity<DtoDetalleFactura> crearDetalleFactura(@RequestBody DtoDetalleFactura dtoDetalleFactura) {
-        DtoDetalleFactura detalleCreado = servicioDetalleFactura.crearDetalleFactura(dtoDetalleFactura);
-        return new ResponseEntity<>(detalleCreado, HttpStatus.CREATED);
+    public ResponseEntity<DtoDetalleFactura> createDetalleFactura(@RequestBody DtoDetalleFactura dtoDetalleFactura) {
+        DtoDetalleFactura savedDetalleFactura = servicioDetalleFactura.createDetalleFactura(dtoDetalleFactura);
+        return new ResponseEntity<>(savedDetalleFactura, HttpStatus.CREATED);
     }
 
-    @GetMapping("/ticket/{ticketId}")
-    public ResponseEntity<List<DtoDetalleFactura>> listarDetallesPorTicket(@PathVariable Integer ticketId) {
-        List<DtoDetalleFactura> detalles = servicioDetalleFactura.listarDetallesPorTicket(ticketId);
-        return ResponseEntity.ok(detalles);
+    @GetMapping("/{detalleFacturaId}")
+    public ResponseEntity<DtoDetalleFactura> getDetalleFacturaById(@PathVariable("detalleFacturaId") Integer detalleFacturaId) {
+        DtoDetalleFactura dtoDetalleFactura = servicioDetalleFactura.getDetalleFactura(detalleFacturaId);
+        return ResponseEntity.ok(dtoDetalleFactura);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarDetalleFactura(@PathVariable Integer id) {
-        servicioDetalleFactura.eliminarDetalleFactura(id);
-        return ResponseEntity.noContent().build();
+    @GetMapping
+    public ResponseEntity<List<DtoDetalleFactura>> getAllDetalleFacturas() {
+        List<DtoDetalleFactura> detalleFacturas = servicioDetalleFactura.getAllDetalleFacturas();
+        return ResponseEntity.ok(detalleFacturas);
+    }
+
+    @PutMapping("/{detalleFacturaId}")
+    public ResponseEntity<DtoDetalleFactura> updateDetalleFactura(@PathVariable("detalleFacturaId") Integer detalleFacturaId,
+                                                                  @RequestBody DtoDetalleFactura updateDetalleFactura) {
+        DtoDetalleFactura dtoDetalleFactura = servicioDetalleFactura.updateDetalleFactura(detalleFacturaId, updateDetalleFactura);
+        return ResponseEntity.ok(dtoDetalleFactura);
+    }
+
+    @DeleteMapping("/{detalleFacturaId}")
+    public ResponseEntity<String> deleteDetalleFactura(@PathVariable("detalleFacturaId") Integer detalleFacturaId) {
+        servicioDetalleFactura.deleteDetalleFactura(detalleFacturaId);
+        return ResponseEntity.ok("DetalleFactura eliminado");
     }
 }
-

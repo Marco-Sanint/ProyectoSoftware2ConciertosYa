@@ -1,27 +1,27 @@
 package com.proyectoSoftware.conciertosYa.mapper;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoCarritoItem;
-import com.proyectoSoftware.conciertosYa.entity.Asiento;
-import com.proyectoSoftware.conciertosYa.entity.Carrito;
 import com.proyectoSoftware.conciertosYa.entity.CarritoItem;
 
 public class MapperCarritoItem {
 
     public static DtoCarritoItem mapADtoCarritoItem(CarritoItem carritoItem) {
         return new DtoCarritoItem(
-                carritoItem.getId(),
-                carritoItem.getCarrito().getId(),
-                carritoItem.getAsiento().getAsiento_id(),
+                carritoItem.getCarrito_item_id(),
+                carritoItem.getCarrito().getCarrito_id(), // Asumiendo que Carrito tiene un método getCarrito_id()
+                carritoItem.getAsiento().getAsiento_id(), // Asumiendo que Asiento tiene un método getAsiento_id()
                 carritoItem.getCantidad()
         );
     }
 
-    public static CarritoItem mapACarritoItem(DtoCarritoItem dtoCarritoItem, Carrito carrito, Asiento asiento) {
-        return new CarritoItem(
-                dtoCarritoItem.getId(),
-                carrito,
-                asiento,
-                dtoCarritoItem.getCantidad()
-        );
+    public static CarritoItem mapACarritoItem(DtoCarritoItem dtoCarritoItem) {
+        CarritoItem carritoItem = new CarritoItem();
+        carritoItem.setCarrito_item_id(dtoCarritoItem.getCarritoItemId());
+        // Aquí deberías buscar el Carrito y Asiento por sus IDs y asignarlos
+        // Por ejemplo:
+        // carritoItem.setCarrito(carritoRepository.findById(dtoCarritoItem.getCarritoId()).orElse(null));
+        // carritoItem.setAsiento(asientoRepository.findById(dtoCarritoItem.getAsientoId()).orElse(null));
+        carritoItem.setCantidad(dtoCarritoItem.getCantidad());
+        return carritoItem;
     }
 }

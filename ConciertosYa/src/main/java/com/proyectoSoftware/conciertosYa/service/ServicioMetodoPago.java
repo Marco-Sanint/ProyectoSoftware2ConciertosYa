@@ -7,9 +7,11 @@ import java.util.List;
 public interface ServicioMetodoPago {
     DtoMetodoPago crearMetodoPago(DtoMetodoPago dtoMetodoPago);
 
-    DtoMetodoPago obtenerMetodoPago(Integer id);
+    DtoMetodoPago getMetodoPago(Integer metodo_pago_id);
 
-    List<DtoMetodoPago> listarMetodosPago();
+    List<DtoMetodoPago> getAllMetodosPago();
 
-    void eliminarMetodoPago(Integer id);
+    DtoMetodoPago updateMetodoPago(Integer metodo_pago_id, DtoMetodoPago updateMetodoPago);
+
+    void deleteMetodoPago(Integer metodo_pago_id);
 }

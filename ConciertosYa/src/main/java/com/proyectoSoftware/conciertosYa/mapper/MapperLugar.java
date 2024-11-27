@@ -7,7 +7,7 @@ public class MapperLugar {
 
     public static DtoLugar mapADtoLugar(Lugar lugar) {
         return new DtoLugar(
-                lugar.getId(),
+                lugar.getLugar_id(),
                 lugar.getNombre(),
                 lugar.getDireccion(),
                 lugar.getCapacidad(),
@@ -18,7 +18,7 @@ public class MapperLugar {
 
     public static Lugar mapALugar(DtoLugar dtoLugar) {
         return new Lugar(
-                dtoLugar.getId(),
+                dtoLugar.getLugar_id(),
                 dtoLugar.getNombre(),
                 dtoLugar.getDireccion(),
                 dtoLugar.getCapacidad(),

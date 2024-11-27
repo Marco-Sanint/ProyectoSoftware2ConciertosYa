@@ -2,6 +2,7 @@ package com.proyectoSoftware.conciertosYa.service.impl;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoMetodoPago;
 import com.proyectoSoftware.conciertosYa.entity.MetodoPago;
+import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
 import com.proyectoSoftware.conciertosYa.mapper.MapperMetodoPago;
 import com.proyectoSoftware.conciertosYa.repository.RepoMetodoPago;
 import com.proyectoSoftware.conciertosYa.service.ServicioMetodoPago;
@@ -17,35 +18,42 @@ public class ImplServicioMetodoPago implements ServicioMetodoPago {
 
     private final RepoMetodoPago repoMetodoPago;
 
-    public ImplServicioMetodoPago(RepoMetodoPago repoMetodoPago) {
-        this.repoMetodoPago = repoMetodoPago;
-    }
-
     @Override
     public DtoMetodoPago crearMetodoPago(DtoMetodoPago dtoMetodoPago) {
         MetodoPago metodoPago = MapperMetodoPago.mapAMetodoPago(dtoMetodoPago);
-        MetodoPago metodoPagoGuardado = repoMetodoPago.save(metodoPago);
-        return MapperMetodoPago.mapADtoMetodoPago(metodoPagoGuardado);
+        MetodoPago salvadoMetodoPago = repoMetodoPago.save(metodoPago);
+        return MapperMetodoPago.mapADtoMetodoPago(salvadoMetodoPago);
     }
 
     @Override
-    public DtoMetodoPago obtenerMetodoPago(Integer id) {
-        MetodoPago metodoPago = repoMetodoPago.findById(id)
-                .orElseThrow(() -> new RuntimeException("Método de pago no encontrado"));
+    public DtoMetodoPago getMetodoPago(Integer metodo_pago_id) {
+        MetodoPago metodoPago = repoMetodoPago.findById(metodo_pago_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Método de pago no encontrado: " + metodo_pago_id));
         return MapperMetodoPago.mapADtoMetodoPago(metodoPago);
     }
 
     @Override
-    public List<DtoMetodoPago> listarMetodosPago() {
-        return repoMetodoPago.findAll().stream()
+    public List<DtoMetodoPago> getAllMetodosPago() {
+        List<MetodoPago> metodosPago = repoMetodoPago.findAll();
+        return metodosPago.stream()
                 .map(MapperMetodoPago::mapADtoMetodoPago)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void eliminarMetodoPago(Integer id) {
-        MetodoPago metodoPago = repoMetodoPago.findById(id)
-                .orElseThrow(() -> new RuntimeException("Método de pago no encontrado"));
+    public DtoMetodoPago updateMetodoPago(Integer metodo_pago_id, DtoMetodoPago updateMetodoPago) {
+        MetodoPago metodoPago = repoMetodoPago.findById(metodo_pago_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Método de pago no encontrado: " + metodo_pago_id));
+
+        metodoPago.setTipo(updateMetodoPago.getTipo());
+        MetodoPago actualizado = repoMetodoPago.save(metodoPago);
+        return MapperMetodoPago.mapADtoMetodoPago(actualizado);
+    }
+
+    @Override
+    public void deleteMetodoPago(Integer metodo_pago_id) {
+        MetodoPago metodoPago = repoMetodoPago.findById(metodo_pago_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Método de pago no encontrado: " + metodo_pago_id));
         repoMetodoPago.delete(metodoPago);
     }
 }

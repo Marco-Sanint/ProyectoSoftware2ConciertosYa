@@ -33,7 +33,7 @@ public class Ticket {
     private double precioConDescuento;
 
     @ManyToOne
-    @JoinColumn(name = "id_asiento", referencedColumnName = "asiento_id", nullable = false)
+    @JoinColumn(name = "id_asiento", nullable = false)
     private Asiento asiento;
     @ManyToOne
     @JoinColumn(name = "id_cliente", referencedColumnName = "cedula", nullable = false)

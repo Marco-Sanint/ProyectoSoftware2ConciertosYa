@@ -6,14 +6,8 @@ import java.util.List;
 
 public interface ServicioPromocion {
     DtoPromocion crearPromocion(DtoPromocion dtoPromocion);
-
-    DtoPromocion obtenerPromocion(Integer id);
-
-    List<DtoPromocion> listarPromociones();
-
-    List<DtoPromocion> listarPromocionesPorTipo(String tipo);
-
-    DtoPromocion actualizarPromocion(Integer id, DtoPromocion dtoPromocion);
-
-    void eliminarPromocion(Integer id);
+    DtoPromocion getPromocion(Integer promocion_id);
+    List<DtoPromocion> getAllPromociones();
+    DtoPromocion updatePromocion(Integer promocion_id, DtoPromocion updatePromocion);
+    void deletePromocion(Integer promocion_id);
 }

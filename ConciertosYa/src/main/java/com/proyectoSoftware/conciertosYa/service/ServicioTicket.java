@@ -5,11 +5,13 @@ import com.proyectoSoftware.conciertosYa.dto.DtoTicket;
 import java.util.List;
 
 public interface ServicioTicket {
-    DtoTicket crearTicket(DtoTicket dtoTicket);
+    DtoTicket createTicket(DtoTicket dtoTicket);
 
-    DtoTicket obtenerTicket(Integer id);
+    DtoTicket getTicket(Integer ticketId);
 
-    List<DtoTicket> listarTicketsPorCliente(String clienteId);
+    List<DtoTicket> getAllTickets();
 
-    void eliminarTicket(Integer id);
+    DtoTicket updateTicket(Integer ticketId, DtoTicket updateTicket);
+
+    void deleteTicket(Integer ticketId);
 }

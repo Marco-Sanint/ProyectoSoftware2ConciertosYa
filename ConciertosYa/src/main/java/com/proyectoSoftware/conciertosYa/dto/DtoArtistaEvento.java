@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DtoArtistaEvento {
 
-    private Integer id; // ID de la relación Artista-Evento
-    private Integer artistaId; // ID del artista relacionado
-    private Integer eventoId; // ID del evento relacionado
+    private Integer artista_evento_id;
+    private Integer artistaId;
+    private Integer eventoId;
 }

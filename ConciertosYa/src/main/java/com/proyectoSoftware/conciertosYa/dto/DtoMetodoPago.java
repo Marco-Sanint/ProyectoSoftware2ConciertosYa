@@ -1,5 +1,6 @@
 package com.proyectoSoftware.conciertosYa.dto;
 
+import com.proyectoSoftware.conciertosYa.entity.MetodoPago;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoMetodoPago {
-    private Integer id; // ID del método de pago
-    private String tipo; // Tipo de método de pago (enum como cadena)
+
+    private Integer metodo_pago_id;
+    private MetodoPago.TipoMetodoPago tipo;
 }

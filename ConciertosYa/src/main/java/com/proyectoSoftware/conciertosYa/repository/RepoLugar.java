@@ -1,4 +1,7 @@
 package com.proyectoSoftware.conciertosYa.repository;
 
-public interface RepoLugar {
+import com.proyectoSoftware.conciertosYa.entity.Lugar;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RepoLugar extends JpaRepository<Lugar, Integer> {
 }
