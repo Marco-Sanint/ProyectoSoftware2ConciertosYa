@@ -7,8 +7,6 @@ import Artistas from './Artistas';
 import Lugares from './Lugares';
 import Eventos from './Eventos';
 import Footer from './Footer';
-import '../App.css';
-
 
 const Home = () => {
   // Estado para los datos
@@ -48,15 +46,40 @@ const Home = () => {
     <div className="home-container">
       {/* Cabecera */}
       <Header />
+      <div className="carousel">
+        <Carousel />
+      </div>
+      
+      <section className="section artistas">
+        <h2>Artistas Destacados</h2>
+        <div className="grid">
+          {artistas.map(artista => (
+            <div key={artista.id} className="card">
+              <h3>{artista.nombre}</h3>
+              <p>Género: {artista.genero_musical}</p>
+              <a href={artista.redes_sociales} target="_blank" rel="noopener noreferrer" className="social-link">Redes Sociales</a>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      {/* Sección de Artistas */}
-      <Artistas artistas={artistas} />
+      <section className="section lugares">
+        <h2>Lugares de Eventos</h2>
+        <div className="grid">
+          {lugares.map(lugar => (
+            <div key={lugar.id} className="card lugar-card">
+              <h3>{lugar.nombre}</h3>
+              <p>Dirección: {lugar.direccion}</p>
+              <p>Capacidad: {lugar.capacidad}</p>
+              <p>Ciudad: {lugar.ciudad}</p>
+              <img src={lugar.imagen} alt={lugar.nombre} className="imagen-lugar" />
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Sección de Lugares */}
       <Lugares lugares={lugares} />
-
-      {/* Sección de Eventos */}
-      <Eventos eventos={eventos} handleCompra={handleCompra} />
 
       {/* Pie de página */}
       <Footer />

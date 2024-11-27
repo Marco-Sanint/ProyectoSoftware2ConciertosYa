@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/clientes")
@@ -29,4 +31,24 @@ public class ControladorCliente {
         return ResponseEntity.ok(dtoCliente);
     }
 
+    //Mostrar Todos Los Clientes De API REST
+    @GetMapping
+    public  ResponseEntity<List<DtoCliente>> getAllClientes(){
+        List<DtoCliente> clientes =  servicioCliente.getAllClientes();
+        return ResponseEntity.ok(clientes);
+    }
+
+    //Actualizar Cliente De API REST
+    @PutMapping("{cedula}")
+    public ResponseEntity<DtoCliente> updateCliente(@PathVariable("cedula") String cedulaCliente, @RequestBody DtoCliente updatedCliente){
+        DtoCliente dtoCliente = servicioCliente.updateCliente(cedulaCliente, updatedCliente);
+        return ResponseEntity.ok(dtoCliente);
+    }
+
+    //Eliminar Cliente REST API
+    @DeleteMapping("{cedula}")
+    public ResponseEntity<String> deleteCliente(@PathVariable("cedula") String cedulaCliente){
+        servicioCliente.deleteCliente(cedulaCliente);
+        return ResponseEntity.ok("Cliente eliminado");
+    }
 }

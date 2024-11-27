@@ -16,7 +16,7 @@ public class MetodoPago {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer metodo_pago_id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)

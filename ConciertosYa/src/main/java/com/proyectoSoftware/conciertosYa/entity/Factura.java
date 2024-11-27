@@ -18,20 +18,20 @@ public class Factura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer factura_id;
 
     @Column(name = "fecha_emision", nullable = false)
     private LocalDateTime fechaEmision;
 
-    @Column(name = "total", nullable = false, precision = 10, scale = 2)
+    @Column(name = "total", nullable = false, precision = 10)
     private double total;
 
     @ManyToOne
-    @JoinColumn(name = "metodo_pago_id", referencedColumnName = "id")
+    @JoinColumn(name = "metodo_pago_id")
     private MetodoPago metodoPago;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
+    @JoinColumn(name = "cliente_id", referencedColumnName = "cedula")
     private Cliente cliente;
 
     @Column(name = "detalles_xml", columnDefinition = "TEXT")
