@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Login from "./components/Login";
 import Home from "./components/Home";
 import SeatSelection from "./components/SeatSelection";
+import Checkout from "./components/Checkout/Checkout";
+import SeatMap from "./components/SeatMap";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -20,6 +22,10 @@ function App() {
           element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
         <Route path="Seats" element={<SeatSelection />} 
+        />
+        <Route path="SeatMap" element={<SeatMap/>} 
+        />
+        <Route path="checkout" element={<Checkout />} 
         />
       </Routes>
     </Router>
