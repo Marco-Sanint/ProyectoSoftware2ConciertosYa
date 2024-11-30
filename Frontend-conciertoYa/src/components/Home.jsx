@@ -7,6 +7,7 @@ import Artistas from './Artistas';
 import Lugares from './Lugares';
 import Eventos from './Eventos';
 import Footer from './Footer';
+import CustomCarousel from './CustomCarousel'; // Importa el carrusel
 
 const Home = () => {
   // Estado para los datos
@@ -46,15 +47,15 @@ const Home = () => {
     <div className="home-container">
       {/* Cabecera */}
       <Header />
-      <div className="carousel">
-        <Carousel />
-      </div>
+      {/* Carrusel agregado aquí */}
+      <CustomCarousel />
+
       
       <section className="section artistas">
         <h2>Artistas Destacados</h2>
-        <div className="grid">
+        <div className="horizontal-scroll">
           {artistas.map(artista => (
-            <div key={artista.id} className="card">
+            <div key={artista.id} className="artista-card">
               <h3>{artista.nombre}</h3>
               <p>Género: {artista.genero_musical}</p>
               <a href={artista.redes_sociales} target="_blank" rel="noopener noreferrer" className="social-link">Redes Sociales</a>
@@ -63,25 +64,28 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="section lugares">
-        <h2>Lugares de Eventos</h2>
-        <div className="grid">
-          {lugares.map(lugar => (
-            <div key={lugar.id} className="card lugar-card">
-              <h3>{lugar.nombre}</h3>
-              <p>Dirección: {lugar.direccion}</p>
-              <p>Capacidad: {lugar.capacidad}</p>
-              <p>Ciudad: {lugar.ciudad}</p>
-              <img src={lugar.imagen} alt={lugar.nombre} className="imagen-lugar" />
+      <section className="section eventos">
+        <h2>Eventos Próximos</h2>
+        <div className="horizontal-scroll">
+          {eventos.map(evento => (
+            <div key={evento.id} className="evento-card" onClick={() => handleCompra(evento.id)}>
+              <h3>{evento.nombre}</h3>
+              <p>Fecha: {evento.fecha}</p>
+              <p>Hora: {evento.hora}</p>
+              <p>Descripción: {evento.descripcion}</p>
+              <button className="btn-comprar">Comprar Entradas</button>
+
             </div>
           ))}
         </div>
       </section>
 
+
       {/* Sección de Lugares */}
       <Lugares lugares={lugares} />
 
       {/* Pie de página */}
+
       <Footer />
     </div>
   );
