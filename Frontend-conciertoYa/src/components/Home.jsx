@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Home.css';
 import Header from './Header';
 import Footer from './Footer';
+import CustomCarousel from './CustomCarousel'; // Importa el carrusel
 
 const Home = () => {
   const [artistas, setArtistas] = useState([]);
@@ -35,11 +36,14 @@ const Home = () => {
     <div className="home">
       <Header />
 
+      {/* Carrusel agregado aquí */}
+      <CustomCarousel />
+      
       <section className="section artistas">
         <h2>Artistas Destacados</h2>
-        <div className="grid">
+        <div className="horizontal-scroll">
           {artistas.map(artista => (
-            <div key={artista.id} className="card">
+            <div key={artista.id} className="artista-card">
               <h3>{artista.nombre}</h3>
               <p>Género: {artista.genero_musical}</p>
               <a href={artista.redes_sociales} target="_blank" rel="noopener noreferrer" className="social-link">Redes Sociales</a>
@@ -48,45 +52,20 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="section lugares">
-        <h2>Lugares de Eventos</h2>
-        <div className="grid">
-          {lugares.map(lugar => (
-            <div key={lugar.id} className="card lugar-card">
-              <h3>{lugar.nombre}</h3>
-              <p>Dirección: {lugar.direccion}</p>
-              <p>Capacidad: {lugar.capacidad}</p>
-              <p>Ciudad: {lugar.ciudad}</p>
-              <img src={lugar.imagen} alt={lugar.nombre} className="imagen-lugar" />
-            </div>
-          ))}
-        </div>
-      </section>
-
       <section className="section eventos">
         <h2>Eventos Próximos</h2>
-        <div className="grid">
+        <div className="horizontal-scroll">
           {eventos.map(evento => (
-            <div key={evento.id} className="card evento-card" onClick={() => handleCompra(evento.id)}>
+            <div key={evento.id} className="evento-card" onClick={() => handleCompra(evento.id)}>
               <h3>{evento.nombre}</h3>
               <p>Fecha: {evento.fecha}</p>
               <p>Hora: {evento.hora}</p>
               <p>Descripción: {evento.descripcion}</p>
-              <p>Género: {evento.genero_musical}</p>
-              <p>Estado: {evento.estado}</p>
-              <button className="btn-comprar">
-                Comprar Entradas
-              </button>
+              <button className="btn-comprar">Comprar Entradas</button>
             </div>
           ))}
         </div>
       </section>
-
-      <div className="cart-icon" onClick={() => alert('¡Carrito de compras!')}>
-        {/* Cambié el ícono FontAwesome por Material Icons */}
-        <span className="material-icons" style={{ fontSize: '2rem' }}>shopping_cart</span>
-        {compras > 0 && <span className="cart-count">{compras}</span>}
-      </div>
 
       <Footer />
     </div>

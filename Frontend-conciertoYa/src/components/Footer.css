@@ -1,6 +1,7 @@
 
 .footer {
   text-align: center;
+  height: 30px;
   
 }
 .footer {
@@ -17,23 +18,22 @@
   width: 100%;
   z-index: 100;
   box-shadow: 0 -15px 50px rgba(0, 89, 255, 0.2); /* Sombra superior */
-  height: auto; /* Ajusta la altura según el contenido */
+  height: 35px; /* Ajusta la altura según el contenido */
 }
 
 .footer-logo-container {
   display: flex;
   align-items: center;
 }
-
 .footer-logo {
-  height: 50px;
+  height: 60px;
   width: auto;
   max-width: 100%;
 }
 
 .footer-links {
   display: flex;
-  gap: 20px;
+  gap: 10px
 }
 
 .footer-link {
@@ -48,8 +48,9 @@
 }
 
 .footer-social-icons {
-  display: flex;
-  gap: 15px;
+  justify-content: center;
+  gap: 10px;
+  margin-top: -10px;
 }
 
 .footer-social-icon {

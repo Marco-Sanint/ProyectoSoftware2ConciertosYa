@@ -32,14 +32,15 @@ const Header = () => {
         <div className="user-icon">
           <FaUserCircle size={30} className="icon" />
         </div>
-      </div>
-      <div className="user-tools">
+        <div className="user-tools">
         <select className="language-select">
           <option value="es">ES</option>
           <option value="en">EN</option>
         </select>
         <input type="text" placeholder="Buscar eventos..." className="search-bar" />
       </div>
+      </div>
+    
     </header>
   );
 };

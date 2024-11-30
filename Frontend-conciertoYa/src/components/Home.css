@@ -1,72 +1,32 @@
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-}
-
-.home {
-  padding: 0 20px;
-}
-
-.hero {
-  background-color: #1abc9c;
-  color: white;
-  padding: 100px 20px;
-  text-align: center;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  margin-bottom: 40px;
-}
-
-.hero h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  font-family: 'Roboto', sans-serif;
-}
-
-.hero p {
-  font-size: 20px;
-  margin-bottom: 0;
-}
-
-.section {
-  margin-bottom: 60px;
-}
-
-.section h2 {
-  font-size: 32px;
-  margin-bottom: 20px;
-  color: #2c3e50;
-  border-bottom: 2px solid #1abc9c;
-  display: inline-block;
-  padding-bottom: 10px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+/* Estilo para el contenedor de las tarjetas horizontales */
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto; /* Permite el desplazamiento horizontal */
   gap: 20px;
+  padding: 20px 0;
+  scroll-snap-type: x mandatory; /* Habilita el "snap" (ajuste) al final de cada tarjeta */
+  -webkit-overflow-scrolling: touch; /* Mejora la experiencia en dispositivos móviles */
 }
 
+/* Contenedor de cada tarjeta */
 .card {
+  flex-shrink: 0; /* Evita que las tarjetas se reduzcan de tamaño */
+  width: 280px; /* Ancho fijo para cada tarjeta */
   background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
-  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  scroll-snap-align: start; /* Hace que las tarjetas se alineen al comenzar el desplazamiento */
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .card h3 {
-  font-size: 24px;
+  font-size: 22px;
   margin-bottom: 10px;
   color: #1abc9c;
 }
@@ -74,6 +34,44 @@ body {
 .card p {
   font-size: 16px;
   color: #555;
+}
+
+/* Tarjetas de los artistas y eventos con estilos adicionales */
+.artista-card, .evento-card {
+  padding: 15px;
+  width: 250px; /* Ajusta el tamaño según la cantidad de contenido */
+  background-color: #ecf0f1;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.artista-card:hover, .evento-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.evento-card h3 {
+  color: #e67e22;
+  font-size: 20px;
+}
+
+.evento-card p {
+  font-size: 14px;
+}
+
+/* Estilo para el carrusel en general */
+.carousel {
+  margin: 20px auto;
+  max-width: 1200px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Contenedor para las secciones horizontales */
+.section {
+  padding: 20px;
 }
 
 .social-link {
@@ -91,55 +89,34 @@ body {
   background-color: #16a085;
 }
 
+/* Mejora la vista de los lugares (imagen y tarjeta) */
 .lugar-card .imagen-lugar {
   width: 100%;
-  height: auto;
+  height: 200px; /* Establecer una altura fija */
+  object-fit: cover;
   border-radius: 5px;
   margin-top: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.evento-card {
-  background-color: #ecf0f1;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.evento-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.evento-card h3 {
-  color: #e67e22;
-  font-size: 22px;
-  margin-bottom: 10px;
-}
-
-.evento-card p {
-  font-size: 16px;
-  color: #555;
-}
-
+/* Botón de compra (mejorado con efecto) */
 .btn-comprar {
-  background-color: #e67e22;
+  background-color: #007bff;
   color: white;
-  padding: 12px 18px;
   border: none;
-  border-radius: 8px;
+  padding: 10px 15px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-comprar:hover {
-  background-color: #d35400;
+  background-color: #0056b3;
   transform: scale(1.05);
 }
 
+/* Estilo del carrito de compras */
 .cart-icon {
   position: fixed;
   bottom: 30px;
@@ -164,5 +141,13 @@ body {
   border-radius: 50%;
   padding: 4px 8px;
   font-size: 12px;
+}
 
+/* Footer */
+footer {
+  margin-top: auto;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
 }

@@ -1,12 +1,13 @@
 // src/App.js
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from "./components/Login";
 import Home from "./components/Home";
 import SeatSelection from "./components/SeatSelection";
 import Checkout from "./components/Checkout/Checkout";
 import SeatMap from "./components/SeatMap";
-
+import Carousel from "./components/CustomCarousel";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   console.log(isAuthenticated); // Verifica si el estado cambia después del login
