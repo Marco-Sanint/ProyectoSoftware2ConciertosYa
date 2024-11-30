@@ -18,25 +18,24 @@ public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer ticket_id;
 
     @Column(name = "fecha_compra", nullable = false)
     private LocalDateTime fechaCompra;
 
-    @Column(name = "descuento", precision = 10, scale = 2)
+    @Column(name = "descuento", precision = 10)
     private double descuento;
 
-    @Column(name = "precio", nullable = false, precision = 10, scale = 2)
+    @Column(name = "precio", nullable = false, precision = 10)
     private double precio;
 
-    @Column(name = "precio_con_descuento", precision = 10, scale = 2)
+    @Column(name = "precio_con_descuento", precision = 10)
     private double precioConDescuento;
 
     @ManyToOne
-    @JoinColumn(name = "id_asiento", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_asiento", nullable = false)
     private Asiento asiento;
-
     @ManyToOne
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_cliente", referencedColumnName = "cedula", nullable = false)
     private Cliente cliente;
 }

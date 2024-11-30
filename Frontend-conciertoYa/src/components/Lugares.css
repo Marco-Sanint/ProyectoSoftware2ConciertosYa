@@ -1,0 +1,39 @@
+/* src/components/Lugares/Lugares.css */
+.section.lugares {
+    margin-bottom: 60px;
+  }
+  
+  .section.lugares h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #2c3e50;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+  }
+  
+  .card-lugar {
+    background-color: #ecf0f1;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .card-lugar:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .social-link {
+    color: #1abc9c;
+    text-decoration: none;
+  }
+  
+  .social-link:hover {
+    text-decoration: underline;
+  }
+  

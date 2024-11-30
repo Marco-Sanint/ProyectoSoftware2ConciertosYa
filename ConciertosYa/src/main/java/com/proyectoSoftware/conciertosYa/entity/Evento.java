@@ -19,7 +19,7 @@ public class Evento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer evento_id;
 
     @Column(name = "nombre", nullable = false, length = 255)
     private String nombre;
@@ -44,7 +44,7 @@ public class Evento {
     private String imagenCartel;
 
     @ManyToOne
-    @JoinColumn(name = "lugar_id", referencedColumnName = "id")
+    @JoinColumn(name = "lugar_id")
     private Lugar lugar; // Relación con Lugar
 
     // Enumeración para el estado del evento

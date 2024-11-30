@@ -7,10 +7,10 @@ const Header = () => {
   return (
     <header className="header">
       <div className="logo-container">
-        <img
-          src="/imagenes/LogoConciertoYA.png"
-          alt="Logo de ConciertoYa"
-          className="logo"
+        <img 
+          src="/imagenes/LogoConciertoYA.png" 
+          alt="Logo de ConciertoYa" 
+          className="logo" 
         />
       </div>
       <div className="links">
@@ -26,11 +26,14 @@ const Header = () => {
       </div>
       <div className="user-actions">
         <div className="notification-icon">
-          <FaBell size={25} className="icon" />
-          <span className="badge">3</span>
+          <FaBell size={25} />
+          <span className="badge"></span> {/* Número de notificaciones */}
         </div>
         <div className="user-icon">
-          <FaUserCircle size={30} className="icon" />
+          {/* Envolvemos el icono de usuario en un Link */}
+          <Link to="/profile">
+            <FaUserCircle size={30} color="#f0f0f0" />
+          </Link>
         </div>
         <div className="user-tools">
         <select className="language-select">
