@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/metodos-pago")
+@RequestMapping("/api/metodos-pago")
 @AllArgsConstructor
 public class ControladorMetodoPago {
 

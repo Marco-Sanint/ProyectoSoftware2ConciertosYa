@@ -1,7 +1,9 @@
 package com.proyectoSoftware.conciertosYa.controller;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoEvento;
+import com.proyectoSoftware.conciertosYa.dto.DtoLugar;
 import com.proyectoSoftware.conciertosYa.service.ServicioEvento;
+import com.proyectoSoftware.conciertosYa.service.ServicioLugar;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,15 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/eventos")
+@RequestMapping("/api/eventos")
 @AllArgsConstructor
 public class ControladorEvento {
 
     private final ServicioEvento servicioEvento;
+    private final ServicioLugar servicioLugar;
 
     @PostMapping
     public ResponseEntity<DtoEvento> crearEvento(@RequestBody DtoEvento dtoEvento) {
-        DtoEvento eventoCreado = servicioEvento.crearEvento(dtoEvento);
+        DtoLugar lugarEvento = servicioLugar.getLugar(dtoEvento.getLugarId());
+
+        DtoEvento eventoCreado = servicioEvento.crearEvento(dtoEvento, lugarEvento);
         return ResponseEntity.ok(eventoCreado);
     }
 

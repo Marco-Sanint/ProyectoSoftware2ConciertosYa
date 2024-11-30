@@ -16,7 +16,7 @@ public class ArtistaEvento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer artista_evento_id;
+    private int artista_evento_id;
 
     @ManyToOne
     @JoinColumn(name = "artista_id", nullable = false)

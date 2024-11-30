@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lugares")
+@RequestMapping("/api/lugares")
 @AllArgsConstructor
 public class ControladorLugar {
 
@@ -22,7 +22,7 @@ public class ControladorLugar {
     }
 
     @GetMapping("/{lugar_id}")
-    public ResponseEntity<DtoLugar> getLugar(@PathVariable Integer lugar_id) {
+    public ResponseEntity<DtoLugar> getLugar(@PathVariable int lugar_id) {
         DtoLugar lugar = servicioLugar.getLugar(lugar_id);
         return ResponseEntity.ok(lugar);
     }
@@ -34,13 +34,13 @@ public class ControladorLugar {
     }
 
     @PutMapping("/{lugar_id}")
-    public ResponseEntity<DtoLugar> updateLugar(@PathVariable Integer lugar_id, @RequestBody DtoLugar updateLugar) {
+    public ResponseEntity<DtoLugar> updateLugar(@PathVariable int lugar_id, @RequestBody DtoLugar updateLugar) {
         DtoLugar lugarActualizado = servicioLugar.updateLugar(lugar_id, updateLugar);
         return ResponseEntity.ok(lugarActualizado);
     }
 
     @DeleteMapping("/{lugar_id}")
-    public ResponseEntity<Void> deleteLugar(@PathVariable Integer lugar_id) {
+    public ResponseEntity<Void> deleteLugar(@PathVariable int lugar_id) {
         servicioLugar.deleteLugar(lugar_id);
         return ResponseEntity.noContent().build();
     }

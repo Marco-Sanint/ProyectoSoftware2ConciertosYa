@@ -11,12 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Lugar")
+@Table(name = "lugar")
 public class Lugar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer lugar_id;
+    private int lugar_id;
 
     @Column(name = "nombre", nullable = false, length = 255)
     private String nombre;
@@ -25,7 +25,7 @@ public class Lugar {
     private String direccion;
 
     @Column(name = "capacidad")
-    private Integer capacidad;
+    private int capacidad;
 
     @Column(name = "ciudad", length = 100)
     private String ciudad;

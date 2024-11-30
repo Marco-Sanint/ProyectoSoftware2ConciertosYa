@@ -29,4 +29,3 @@ public class MetodoPago {
         TARJETA_DE_CREDITO_Y_TARJETA_CONCIERTOSYA
     }
 }
-

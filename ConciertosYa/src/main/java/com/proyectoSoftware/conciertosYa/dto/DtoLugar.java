@@ -11,10 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DtoLugar {
 
-    private Integer lugar_id;
+    private int lugar_id;
     private String nombre;
     private String direccion;
-    private Integer capacidad;
+    private int capacidad;
     private String ciudad;
     private String imagen;
 }

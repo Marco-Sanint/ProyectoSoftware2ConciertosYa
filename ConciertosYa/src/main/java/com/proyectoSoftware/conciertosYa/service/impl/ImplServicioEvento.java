@@ -1,10 +1,12 @@
 package com.proyectoSoftware.conciertosYa.service.impl;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoEvento;
+import com.proyectoSoftware.conciertosYa.dto.DtoLugar;
 import com.proyectoSoftware.conciertosYa.entity.Evento;
 import com.proyectoSoftware.conciertosYa.entity.Lugar;
 import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
 import com.proyectoSoftware.conciertosYa.mapper.MapperEvento;
+import com.proyectoSoftware.conciertosYa.mapper.MapperLugar; // Asegúrate de tener este mapper
 import com.proyectoSoftware.conciertosYa.repository.RepoEvento;
 import com.proyectoSoftware.conciertosYa.repository.RepoLugar;
 import com.proyectoSoftware.conciertosYa.service.ServicioEvento;
@@ -22,12 +24,12 @@ public class ImplServicioEvento implements ServicioEvento {
     private final RepoLugar repoLugar;
 
     @Override
-    public DtoEvento crearEvento(DtoEvento dtoEvento) {
-        Lugar lugar = repoLugar.findById(dtoEvento.getLugarId())
-                .orElseThrow(() -> new ResourceNotFoundException("Lugar no encontrado"));
+    public DtoEvento crearEvento(DtoEvento dtoEvento, DtoLugar dtoLugar) {
+        Lugar lugar = MapperLugar.mapALugar(dtoLugar);
 
         Evento evento = MapperEvento.mapAEvento(dtoEvento);
         evento.setLugar(lugar);
+
         return MapperEvento.mapADtoEvento(repoEvento.save(evento));
     }
 
@@ -57,6 +59,7 @@ public class ImplServicioEvento implements ServicioEvento {
         evento.setGeneroMusical(updateEvento.getGeneroMusical());
         evento.setEstado(updateEvento.getEstado());
         evento.setImagenCartel(updateEvento.getImagenCartel());
+
         return MapperEvento.mapADtoEvento(repoEvento.save(evento));
     }
 
