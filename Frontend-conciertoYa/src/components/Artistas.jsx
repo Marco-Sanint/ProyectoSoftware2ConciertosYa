@@ -66,8 +66,7 @@ const Artistas = () => {
             <a href="https://facebook.com" className="social-link"><FaFacebook /></a>
           </div>
         </div>
-
-        {/* Agrega más artistas según sea necesario */}
+          
       </Slider>
     </div>
   );

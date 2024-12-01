@@ -8,11 +8,11 @@ const Lugares = () => {
       <h2>Lugares Destacados</h2>
       <div className="grid">
         <div className="card-lugar">
-          <img src="ruta/a/imagen/lugar1.jpg" alt="Lugar 1" />
-          <h3>Lugar 1</h3>
-          <p>Descripción breve del lugar 1. Un lugar ideal para conciertos y eventos masivos.</p>
+          <img src="/imagenes/lugar1.webp" alt="Lugar 1" />
+          <h3>Movistar Arena </h3>
+          <p>El principal centro de eventos de Colombia Un lugar ideal para conciertos y eventos masivos.</p>
           <div>
-            <a href="https://google.com/maps?q=lugar1" className="social-link" target="_blank" rel="noopener noreferrer">
+            <a href="https://maps.app.goo.gl/wtruequmoj1BnNWy5" className="social-link" target="_blank" rel="noopener noreferrer">
               <FaMapMarkerAlt />
               Ver en Google Maps
             </a>
@@ -20,11 +20,11 @@ const Lugares = () => {
         </div>
 
         <div className="card-lugar">
-          <img src="ruta/a/imagen/lugar2.jpg" alt="Lugar 2" />
-          <h3>Lugar 2</h3>
-          <p>Un hermoso lugar con una arquitectura impresionante y una vista increíble.</p>
+          <img src="/imagenes/lugar2.webp" alt="Lugar 2" />
+          <h3>Teatro Mayor Julio Mario Santo Domingo</h3>
+          <p>El Centro Cultural Julio Mario Santo Domingo Un hermoso lugar con una arquitectura impresionante y una vista increíble.</p>
           <div>
-            <a href="https://google.com/maps?q=lugar2" className="social-link" target="_blank" rel="noopener noreferrer">
+            <a href="https://maps.app.goo.gl/hKyVzauxir6wg5za9" target="_blank" rel="noopener noreferrer">
               <FaMapMarkerAlt />
               Ver en Google Maps
             </a>

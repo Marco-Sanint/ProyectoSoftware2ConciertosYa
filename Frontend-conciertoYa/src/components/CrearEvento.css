@@ -1,0 +1,130 @@
+/* Estilos generales del formulario de crear evento */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f7fa;
+    min-height: 100vh;
+    padding: 30px;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
+.form-header .form-title {
+    font-size: 30px;
+    font-weight: 500;
+    color: #333;
+    margin-top:60px;
+    text-transform: capitalize;
+    text-shadow: 0 0 10px rgba(11, 174, 185, 0.952), 0 0 20px rgba(110, 63, 193, 0.6), 0 0 30px rgba(110, 63, 193, 0.4);
+    animation: glow 1.5s infinite alternate;
+    padding: 15px;
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px rgba(22, 172, 192, 0.8), 0 0 20px rgba(11, 68, 175, 0.596), 0 0 30px rgba(110, 63, 193, 0.4);
+    }
+    50% {
+        text-shadow: 0 0 20px rgb(22.172.0), 0 0 30px rgba(8, 21, 211, 0.8), 0 0 40px rgba(110, 63, 193, 0.6);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(22.172.192.0.8), 0 0 30px rgba(7, 10, 194, 0.4);
+    }
+}
+
+.form-details {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 700px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.form-field {
+    margin-bottom: 25px;
+}
+
+.form-field label {
+    font-size: 18px;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-field input,
+.form-field textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    color: #555;
+    box-sizing: border-box;
+}
+
+.form-field textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    border-color: #6e3fc1;
+    outline: none;
+}
+
+.form-btn {
+    background-color: #6e3fc1;
+    color: white;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.form-btn:hover {
+    transform: translateY(-4px);
+    background-color: #5a2496;
+}
+
+.form-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(110, 63, 193, 0.4);
+}
+
+.form-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.dropzone {
+    border: 2px dashed #6e3fc1;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.selected-image {
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+.form-btn {
+    background-color: #6e3fc1;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+

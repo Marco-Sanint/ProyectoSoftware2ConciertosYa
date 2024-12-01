@@ -1,4 +1,3 @@
-// src/Home.jsx
 import React, { useState, useEffect } from 'react';
 
 // Importación de componentes
@@ -7,7 +6,7 @@ import Artistas from './Artistas';
 import Lugares from './Lugares';
 import Eventos from './Eventos';
 import Footer from './Footer';
-import '../App.css';
+import "./Home.css";  
 
 
 const Home = () => {
@@ -51,12 +50,23 @@ const Home = () => {
 
       {/* Sección de Artistas */}
       <Artistas artistas={artistas} />
-
+      
       {/* Sección de Lugares */}
       <Lugares lugares={lugares} />
 
       {/* Sección de Eventos */}
       <Eventos eventos={eventos} handleCompra={handleCompra} />
+
+      <div className="card-container">
+        <div className="card-crearArtista">
+            <h3>¿Quieres ser parte de nuestros artistas?</h3>
+            <a href="/nuevoartista" className="btn btn-primary">¡Crea tu perfil!</a>
+        </div>
+        <div className="card-crearEvento">
+            <h3>¿Quieres ser parte de nuestros eventos?</h3>
+            <a href="/nuevoevento" className="btn btn-primary">¡Crea tu evento!</a>
+        </div>
+      </div>
 
       {/* Pie de página */}
       <Footer />

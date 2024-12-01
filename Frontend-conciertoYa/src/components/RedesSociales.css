@@ -1,0 +1,82 @@
+/* Contenedor general para las redes sociales */
+.redes-container {
+background-color: #f9f9f9;
+border-radius: 10px;
+padding: 20px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+margin-top: 20px;
+width: 100%;
+max-width: 600px; /* Limita el tamaño del formulario */
+margin: 0 auto;
+}
+
+/* Título */
+.redes-container h2 {
+text-align: center;
+font-size: 24px;
+font-weight: 600;
+color: #333;
+margin-bottom: 20px;
+}
+
+/* Estilos para los campos de red social seleccionados */
+.red-social-container {
+margin-top: 20px;
+padding: 15px;
+background-color: #ffffff;
+border-radius: 8px;
+border: 1px solid #ddd;
+margin-bottom: 10px;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para los botones de "Quitar" */
+button[type="button"] {
+background-color: #e57373;
+color: white;
+padding: 8px 16px;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+margin-top: 5px;
+}
+
+button[type="button"]:hover {
+background-color: #d32f2f;
+}
+
+/* Mejorar el espacio y alineación en el formulario */
+.MuiFormControl-root {
+margin-bottom: 20px; /* Aumentamos el espacio entre los campos */
+width: 100%;
+}
+
+.MuiInputLabel-root {
+margin-bottom: 5px; /* Alineamos mejor el label */
+}
+
+.MuiTextField-root {
+display: flex;
+flex-direction: column;
+gap: 5px;
+}
+
+.MuiInputBase-root {
+padding: 12px; /* Aumentamos el padding para que los campos sean más grandes */
+font-size: 16px;
+}
+
+.MuiInputLabel-outlined {
+top: 0; /* Para que el label quede más cerca del campo */
+}
+
+/* Estilo adicional para los campos de texto */
+.MuiTextField-root input {
+padding: 12px; /* Aseguramos el padding dentro del input */
+}
+
+/* Aseguramos la alineación del contenido del TextField */
+.MuiFormControl-root .MuiOutlinedInput-root {
+display: flex;
+justify-content: space-between;
+}

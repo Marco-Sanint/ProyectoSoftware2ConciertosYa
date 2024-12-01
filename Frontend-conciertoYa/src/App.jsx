@@ -1,12 +1,16 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import React, { useState } from "react"; 
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import SeatSelection from "./components/SeatSelection";
-import Profile from "./components/Profile";  // Asegúrate de importar el componente de perfil
+import Profile from "./components/Profile";  
 import Register from "./components/Register";
+import CrearEvento from "./components/CrearEvento";
+import CrearArtista from "./components/CrearArtista";
+import Checlist from "./components/Checkout/Checkout";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import Checkout from "./components/Checkout/Checkout";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -14,33 +18,27 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Home accesible sin autenticación */}
-        <Route 
-          path="/" 
-          element={<Home />} 
-        />
+        {/* Ruta de inicio (Home) */}
+        <Route path="/" element={<Home />} />
 
-        {/* Ruta de login */}
-        <Route 
-          path="/login"
-          element={<Login setIsAuthenticated={setIsAuthenticated} />}
-        />
+        {/* Ruta de inicio de sesión (Login) */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Ruta de registro (Register) */}
+        <Route path="/register" element={<Register />} />
+        {/* Ruta de perfil (Profile) */}
+        <Route path="/profile" element={<Profile />} />
+
+        {/* Ruta de selección de asientos (SeatSelection) */}
+        <Route path="/Seat" element={<SeatSelection />} />
+
+        <Route path="/nuevoevento" element={<CrearEvento />} />
+
+        <Route path="/nuevoartista" element={<CrearArtista />} />
         
-        {/* Ruta a seleccionar asientos, solo accesible si está autenticado */}
-        <Route 
-          path="/seats" 
-          element={isAuthenticated ? <SeatSelection /> : <Navigate to="/login" />}
-        />
-        
-        {/* Ruta al perfil, solo accesible si está autenticado */}
-        <Route 
-          path="/profile" 
-          element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} 
-        />
+        <Route path="/checkout" element={<Checkout />} />
+
       </Routes>
-      <Route path="/register"
-        element={isAuthenticated ? <Register /> : <Navigate to="/login" />} 
-      />
     </Router>
   );
 }
