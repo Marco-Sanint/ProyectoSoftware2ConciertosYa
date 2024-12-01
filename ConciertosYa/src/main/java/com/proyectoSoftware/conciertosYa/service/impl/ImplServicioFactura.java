@@ -1,11 +1,11 @@
 package com.proyectoSoftware.conciertosYa.service.impl;
 
+import com.proyectoSoftware.conciertosYa.dto.DtoCliente;
 import com.proyectoSoftware.conciertosYa.dto.DtoFactura;
-import com.proyectoSoftware.conciertosYa.entity.Factura;
-import com.proyectoSoftware.conciertosYa.entity.Cliente;
-import com.proyectoSoftware.conciertosYa.entity.MetodoPago;
+import com.proyectoSoftware.conciertosYa.dto.DtoMetodoPago;
+import com.proyectoSoftware.conciertosYa.entity.*;
 import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
-import com.proyectoSoftware.conciertosYa.mapper.MapperFactura;
+import com.proyectoSoftware.conciertosYa.mapper.*;
 import com.proyectoSoftware.conciertosYa.repository.RepoFactura;
 import com.proyectoSoftware.conciertosYa.repository.RepoCliente;
 import com.proyectoSoftware.conciertosYa.repository.RepoMetodoPago;
@@ -25,15 +25,14 @@ public class ImplServicioFactura implements ServicioFactura {
     private final RepoMetodoPago repoMetodoPago;
 
     @Override
-    public DtoFactura crearFactura(DtoFactura dtoFactura) {
-        MetodoPago metodoPago = repoMetodoPago.findById(dtoFactura.getMetodoPagoId())
-                .orElseThrow(() -> new ResourceNotFoundException("Método de pago no encontrado"));
-        Cliente cliente = repoCliente.findById(dtoFactura.getClienteCedula())
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
+    public DtoFactura crearFactura(DtoFactura dtoFactura, DtoMetodoPago dtoMetodoPago, DtoCliente dtoCliente) {
+        MetodoPago metodoPago = MapperMetodoPago.mapAMetodoPago(dtoMetodoPago);
+        Cliente cliente = MapperCliente.mapACliente(dtoCliente);
 
         Factura factura = MapperFactura.mapAFactura(dtoFactura);
         factura.setMetodoPago(metodoPago);
         factura.setCliente(cliente);
+
         return MapperFactura.mapADtoFactura(repoFactura.save(factura));
     }
 

@@ -1,11 +1,11 @@
 package com.proyectoSoftware.conciertosYa.service.impl;
 
+import com.proyectoSoftware.conciertosYa.dto.DtoAsiento;
+import com.proyectoSoftware.conciertosYa.dto.DtoCarrito;
 import com.proyectoSoftware.conciertosYa.dto.DtoCarritoItem;
-import com.proyectoSoftware.conciertosYa.entity.CarritoItem;
-import com.proyectoSoftware.conciertosYa.entity.Carrito; // Asegúrate de importar la entidad Carrito
-import com.proyectoSoftware.conciertosYa.entity.Asiento; // Asegúrate de importar la entidad Asiento
+import com.proyectoSoftware.conciertosYa.entity.*;
 import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
-import com.proyectoSoftware.conciertosYa.mapper.MapperCarritoItem;
+import com.proyectoSoftware.conciertosYa.mapper.*;
 import com.proyectoSoftware.conciertosYa.repository.RepoCarritoItem;
 import com.proyectoSoftware.conciertosYa.repository.RepoCarrito; // Asegúrate de importar el repositorio de Carrito
 import com.proyectoSoftware.conciertosYa.repository.RepoAsiento; // Asegúrate de importar el repositorio de Asiento
@@ -25,17 +25,15 @@ public class ImplServicioCarritoItem implements ServicioCarritoItem {
     private final RepoAsiento repoAsiento; // Inyectamos el repositorio de Asiento
 
     @Override
-    public DtoCarritoItem createCarritoItem(DtoCarritoItem dtoCarritoItem) {
-        Carrito carrito = repoCarrito.findById(dtoCarritoItem.getCarritoId())
-                .orElseThrow(() -> new ResourceNotFoundException("Carrito no encontrado: " + dtoCarritoItem.getCarritoId()));
-        Asiento asiento = repoAsiento.findById(dtoCarritoItem.getAsientoId())
-                .orElseThrow(() -> new ResourceNotFoundException("Asiento no encontrado: " + dtoCarritoItem.getAsientoId()));
+    public DtoCarritoItem createCarritoItem(DtoCarritoItem dtoCarritoItem, DtoAsiento dtoAsiento, DtoCarrito dtoCarrito) {
+        Carrito carrito = MapperCarrito.mapACarrito(dtoCarrito);
+        Asiento asiento = MapperAsiento.mapAAsiento(dtoAsiento);
 
         CarritoItem carritoItem = MapperCarritoItem.mapACarritoItem(dtoCarritoItem);
-        carritoItem.setCarrito(carrito); // Asignamos el carrito
-        carritoItem.setAsiento(asiento); // Asignamos el asiento
-        CarritoItem savedCarritoItem = repoCarritoItem.save(carritoItem);
-        return MapperCarritoItem.mapADtoCarritoItem(savedCarritoItem);
+        carritoItem.setCarrito(carrito);
+        carritoItem.setAsiento(asiento);
+
+        return MapperCarritoItem.mapADtoCarritoItem(repoCarritoItem.save(carritoItem));
     }
 
     @Override

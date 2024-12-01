@@ -13,7 +13,8 @@ public class MapperCliente {
                 cliente.getNombre(),
                 cliente.getTelefono(),
                 cliente.getMail(),
-                cliente.getDireccion()
+                cliente.getDireccion(),
+                cliente.getPassword()
         );
     }
 
@@ -23,7 +24,8 @@ public class MapperCliente {
                 dtoCliente.getNombre(),
                 dtoCliente.getTelefono(),
                 dtoCliente.getMail(),
-                dtoCliente.getDireccion()
+                dtoCliente.getDireccion(),
+                dtoCliente.getPassword()
         );
     }
 }

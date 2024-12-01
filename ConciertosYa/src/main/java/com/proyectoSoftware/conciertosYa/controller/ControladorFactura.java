@@ -1,7 +1,9 @@
 package com.proyectoSoftware.conciertosYa.controller;
 
-import com.proyectoSoftware.conciertosYa.dto.DtoFactura;
+import com.proyectoSoftware.conciertosYa.dto.*;
+import com.proyectoSoftware.conciertosYa.service.ServicioCliente;
 import com.proyectoSoftware.conciertosYa.service.ServicioFactura;
+import com.proyectoSoftware.conciertosYa.service.ServicioMetodoPago;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +16,15 @@ import java.util.List;
 public class ControladorFactura {
 
     private final ServicioFactura servicioFactura;
+    private final ServicioMetodoPago servicioMetodoPago;
+    private final ServicioCliente servicioCliente;
 
     @PostMapping
     public ResponseEntity<DtoFactura> crearFactura(@RequestBody DtoFactura dtoFactura) {
-        DtoFactura facturaCreada = servicioFactura.crearFactura(dtoFactura);
+        DtoMetodoPago dtoMetodoPago = servicioMetodoPago.getMetodoPago(dtoFactura.getMetodoPagoId());
+        DtoCliente dtoCliente = servicioCliente.getCliente(dtoFactura.getClienteCedula());
+
+        DtoFactura facturaCreada = servicioFactura.crearFactura(dtoFactura, dtoMetodoPago, dtoCliente);
         return ResponseEntity.ok(facturaCreada);
     }
 
