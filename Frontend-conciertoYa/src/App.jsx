@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from "./components/Login";
 import Home from "./components/Home";
 import SeatSelection from "./components/SeatSelection";
-import Checkout from "./components/Checkout/Checkout";
-import SeatMap from "./components/SeatMap";
-import Carousel from "./components/CustomCarousel";
 import Profile from "./components/Profile";  // Asegúrate de importar el componente de perfil
+import Register from "./components/Register";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
@@ -40,11 +37,10 @@ function App() {
           path="/profile" 
           element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} 
         />
-        <Route path="SeatMap" element={<SeatMap/>} 
-        />
-        <Route path="checkout" element={<Checkout />} 
-        />
       </Routes>
+      <Route path="/register"
+        element={isAuthenticated ? <Register /> : <Navigate to="/login" />} 
+      />
     </Router>
   );
 }

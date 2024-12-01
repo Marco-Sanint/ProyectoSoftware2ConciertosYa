@@ -1,109 +1,82 @@
 import React, { useState } from "react";
-import "./SeatMap.css";
+import Draggable from "react-draggable";
+import "./SeatSelection.css"; // Archivo CSS
 
-const seatData = [
-  { id: "A1", zone: "VIP", price: 300, isOccupied: false },
-  { id: "A2", zone: "VIP", price: 300, isOccupied: true },
-  { id: "A3", zone: "VIP", price: 300, isOccupied: false },
-  { id: "B1", zone: "General", price: 150, isOccupied: false },
-  { id: "B2", zone: "General", price: 150, isOccupied: false },
-  { id: "B3", zone: "General", price: 150, isOccupied: true },
-  { id: "C1", zone: "Economy", price: 100, isOccupied: false },
-  { id: "C2", zone: "Economy", price: 100, isOccupied: false },
-  { id: "C3", zone: "Economy", price: 100, isOccupied: false },
-];
+const SeatSelection = () => {
+const [seats, setSeats] = useState([
+{ id: 1, name: "VIP 1", price: 100, selected: false, position: { top: "30%", left: "40%" } },
+{ id: 2, name: "VIP 2", price: 100, selected: false, position: { top: "35%", left: "50%" } },
+{ id: 3, name: "General 1", price: 50, selected: false, position: { top: "50%", left: "20%" } },
+]);
 
-const SeatMap = () => {
-  const [selectedSeats, setSelectedSeats] = useState([]);
+const [cart, setCart] = useState([]);
 
-  const handleSeatClick = (seat) => {
-    if (selectedSeats.includes(seat)) {
-      setSelectedSeats(selectedSeats.filter((s) => s !== seat));
-    } else {
-      setSelectedSeats([...selectedSeats, seat]);
-    }
-  };
-
-  const totalPrice = selectedSeats.reduce((total, seatId) => {
-    const seat = seatData.find((s) => s.id === seatId);
-    return total + (seat ? seat.price : 0);
-  }, 0);
-
-  return (
-    <div className="seat-map">
-      <h2 className="title">Selecciona tu asiento</h2>
-
-      <div className="seat-container">
-        {["VIP", "General", "Economy"].map((zone) => (
-          <div key={zone} className="zone">
-            <h3 className="zone-title">{zone}</h3>
-            <div className="row">
-              {seatData
-                .filter((seat) => seat.zone === zone)
-                .map((seat) => (
-                  <div
-                    key={seat.id}
-                    className={`seat ${seat.isOccupied ? "occupied" : ""} ${
-                      selectedSeats.includes(seat.id) ? "selected" : ""
-                    }`}
-                    onClick={() => !seat.isOccupied && handleSeatClick(seat.id)}
-                  >
-                    <svg
-                      width="50"
-                      height="50"
-                      viewBox="0 0 64 64"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <rect
-                        x="12"
-                        y="22"
-                        width="40"
-                        height="20"
-                        rx="5"
-                        ry="5"
-                        fill={
-                          seat.isOccupied
-                            ? "gray"
-                            : selectedSeats.includes(seat.id)
-                            ? "#42a5f5"
-                            : "#66bb6a"
-                        }
-                      />
-                      <rect
-                        x="18"
-                        y="10"
-                        width="28"
-                        height="15"
-                        rx="5"
-                        ry="5"
-                        fill="white"
-                      />
-                    </svg>
-                    <span className="seat-label">{seat.id}</span>
-                  </div>
-                ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="selection">
-        <h3>Tu selección:</h3>
-        {selectedSeats.length > 0 ? (
-          <ul>
-            {selectedSeats.map((seat) => (
-              <li key={seat}>
-                {seat} - ${seatData.find((s) => s.id === seat)?.price}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No has seleccionado asientos</p>
-        )}
-        <h3>Total: ${totalPrice}</h3>
-      </div>
-    </div>
-  );
+const handleDrop = (seatId) => {
+const seat = seats.find((s) => s.id === seatId);
+if (seat && !seat.selected) {
+    setSeats((prev) => prev.map((s) => (s.id === seatId ? { ...s, selected: true } : s)));
+    setCart((prev) => [...prev, seat]);
+}
 };
 
-export default SeatMap;
+const calculateTotal = () => {
+return cart.reduce((sum, seat) => sum + seat.price, 0);
+};
+
+return (
+<div className="page-container">
+    {/* Detalles del evento */}
+    <section className="event-details">
+    <img src="/imagenes/event-image.jpg" alt="Evento" className="event-image" />
+    <div className="event-info">
+        <h1>Concierto de XYZ</h1>
+        <p>Fecha: 25 de diciembre de 2024</p>
+        <p>Ubicación: Gran Arena</p>
+    </div>
+    </section>
+
+    {/* Selección de asientos */}
+    <section className="seat-selection">
+    <h2>Selección de Asientos</h2>
+    <div className="seat-map-container">
+        <img src="/imagenes/seating-circular.jpg" alt="Mapa de asientos" className="seat-map" />
+
+        {/* Asientos */}
+        {seats
+        .filter((seat) => !seat.selected)
+        .map((seat) => (
+            <Draggable key={seat.id} onStop={() => handleDrop(seat.id)}>
+            <div
+                className="seat-location"
+                style={{ top: seat.position.top, left: seat.position.left }}
+            >
+                {seat.name} <br /> ${seat.price}
+            </div>
+            </Draggable>
+        ))}
+    </div>
+    </section>
+
+    {/* Resumen del pedido */}
+    <section className="cart-summary">
+    <h2>Resumen del Pedido</h2>
+    <div className="cart">
+        {cart.length > 0 ? (
+        <>
+            {cart.map((item) => (
+            <div key={item.id} className="cart-item">
+                {item.name} - ${item.price}
+            </div>
+            ))}
+            <p className="total">Total: ${calculateTotal()}</p>
+        </>
+        ) : (
+        <p>No hay asientos seleccionados</p>
+        )}
+    </div>
+    </section>
+</div>
+);
+};
+
+export default SeatSelection;

@@ -7,7 +7,8 @@ import Artistas from './Artistas';
 import Lugares from './Lugares';
 import Eventos from './Eventos';
 import Footer from './Footer';
-import CustomCarousel from './CustomCarousel'; // Importa el carrusel
+import '../App.css';
+
 
 const Home = () => {
   // Estado para los datos
@@ -47,45 +48,17 @@ const Home = () => {
     <div className="home-container">
       {/* Cabecera */}
       <Header />
-      {/* Carrusel agregado aquí */}
-      <CustomCarousel />
 
-      
-      <section className="section artistas">
-        <h2>Artistas Destacados</h2>
-        <div className="horizontal-scroll">
-          {artistas.map(artista => (
-            <div key={artista.id} className="artista-card">
-              <h3>{artista.nombre}</h3>
-              <p>Género: {artista.genero_musical}</p>
-              <a href={artista.redes_sociales} target="_blank" rel="noopener noreferrer" className="social-link">Redes Sociales</a>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="section eventos">
-        <h2>Eventos Próximos</h2>
-        <div className="horizontal-scroll">
-          {eventos.map(evento => (
-            <div key={evento.id} className="evento-card" onClick={() => handleCompra(evento.id)}>
-              <h3>{evento.nombre}</h3>
-              <p>Fecha: {evento.fecha}</p>
-              <p>Hora: {evento.hora}</p>
-              <p>Descripción: {evento.descripcion}</p>
-              <button className="btn-comprar">Comprar Entradas</button>
-
-            </div>
-          ))}
-        </div>
-      </section>
-
+      {/* Sección de Artistas */}
+      <Artistas artistas={artistas} />
 
       {/* Sección de Lugares */}
       <Lugares lugares={lugares} />
 
-      {/* Pie de página */}
+      {/* Sección de Eventos */}
+      <Eventos eventos={eventos} handleCompra={handleCompra} />
 
+      {/* Pie de página */}
       <Footer />
     </div>
   );

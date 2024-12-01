@@ -1,79 +1,3 @@
-
-/* Estilo para el contenedor de las tarjetas horizontales */
-.horizontal-scroll {
-  display: flex;
-  overflow-x: auto; /* Permite el desplazamiento horizontal */
-  gap: 20px;
-  padding: 20px 0;
-  scroll-snap-type: x mandatory; /* Habilita el "snap" (ajuste) al final de cada tarjeta */
-  -webkit-overflow-scrolling: touch; /* Mejora la experiencia en dispositivos móviles */
-}
-
-/* Contenedor de cada tarjeta */
-.card {
-  flex-shrink: 0; /* Evita que las tarjetas se reduzcan de tamaño */
-  width: 280px; /* Ancho fijo para cada tarjeta */
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  scroll-snap-align: start; /* Hace que las tarjetas se alineen al comenzar el desplazamiento */
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.card h3 {
-  font-size: 22px;
-  margin-bottom: 10px;
-  color: #1abc9c;
-}
-
-.card p {
-  font-size: 16px;
-  color: #555;
-}
-
-/* Tarjetas de los artistas y eventos con estilos adicionales */
-.artista-card, .evento-card {
-  padding: 15px;
-  width: 250px; /* Ajusta el tamaño según la cantidad de contenido */
-  background-color: #ecf0f1;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.artista-card:hover, .evento-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.evento-card h3 {
-  color: #e67e22;
-  font-size: 20px;
-}
-
-.evento-card p {
-  font-size: 14px;
-}
-
-/* Estilo para el carrusel en general */
-.carousel {
-  margin: 20px auto;
-  max-width: 1200px;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-}
-
-/* Contenedor para las secciones horizontales */
-.section {
-  padding: 20px;
-
 /* Fondo animado con gradientes suaves */
 @keyframes gradientAnimation {
   0% {
@@ -133,7 +57,6 @@
 .card p {
   color: #bdc3c7;
   font-size: 1.1rem;
-
 }
 
 .card a {
@@ -147,69 +70,6 @@
 .card a:hover {
   text-decoration: underline;
 }
-
-
-/* Mejora la vista de los lugares (imagen y tarjeta) */
-.lugar-card .imagen-lugar {
-  width: 100%;
-  height: 200px; /* Establecer una altura fija */
-  object-fit: cover;
-  border-radius: 5px;
-  margin-top: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Botón de compra (mejorado con efecto) */
-.btn-comprar {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.btn-comprar:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
-}
-
-/* Estilo del carrito de compras */
-.cart-icon {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background-color: #1abc9c;
-  color: white;
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cart-count {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: #e74c3c;
-  color: white;
-  border-radius: 50%;
-  padding: 4px 8px;
-  font-size: 12px;
-}
-
-/* Footer */
-footer {
-  margin-top: auto;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
 
 /* Grid de tarjetas con espacio entre ellas */
 .grid {
@@ -310,5 +170,4 @@ h2 {
   color: #ecf0f1;
   padding: 50px 20px;
   z-index: 0; /* Asegura que el fondo esté detrás del contenido */
-
 }

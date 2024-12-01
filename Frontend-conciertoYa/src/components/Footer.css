@@ -1,87 +1,48 @@
-
+/* Footer.css */
 .footer {
+  background-color: #1abc9c; /* Color de fondo */
+  color: white;
   text-align: center;
-  height: 30px;
-  
-}
-.footer {
-  display: flex;
-  flex-wrap: wrap; /* Ajuste para pantallas pequeñas */
-  justify-content: space-between; /* Espaciado automático entre bloques principales */
-  align-items: center;
-  padding: 10px;
-  background-color:  rgb(11, 118, 184);
-  color: #fff;
-  position: fixed;
+  padding: 20px 0; /* Mayor espacio vertical */
+  position: relative;
   bottom: 0;
-  left: 0;
   width: 100%;
-  z-index: 100;
-  box-shadow: 0 -15px 50px rgba(0, 89, 255, 0.2); /* Sombra superior */
-  height: 35px; /* Ajusta la altura según el contenido */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
 }
 
-.footer-logo-container {
-  display: flex;
-  align-items: center;
-}
-.footer-logo {
-  height: 60px;
-  width: auto;
-  max-width: 100%;
+.footer p {
+  font-size: 16px;
+  margin: 0;
 }
 
-.footer-links {
-  display: flex;
-  gap: 10px
+.footer .social-links {
+  margin: 10px 0; /* Espacio entre el texto y los enlaces sociales */
 }
 
-.footer-link {
-  color: #f0f0f0;
+.footer .social-links a {
+  color: white;
+  margin: 0 10px;
   text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s;
+  font-size: 20px; /* Tamaño de iconos */
+  transition: color 0.3s ease;
 }
 
-.footer-link:hover {
-  color: #61dafb;
+.footer .social-links a:hover {
+  color: #ff6347; /* Color al pasar el mouse */
 }
 
-.footer-social-icons {
-  justify-content: center;
-  gap: 10px;
-  margin-top: -10px;
+.footer .footer-links {
+  margin: 10px 0; /* Espacio entre el texto y los enlaces */
 }
 
-.footer-social-icon {
-  color: #f0f0f0;
-  font-size: 20px; /* Ajusta el tamaño de los iconos */
-  transition: color 0.3s, transform 0.3s;
-  cursor: pointer;
+.footer .footer-links a {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 14px; /* Tamaño de texto para enlaces */
+  transition: color 0.3s ease;
 }
 
-.footer-social-icon:hover {
-  color: #61dafb;
-  transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
-  .footer {
-    flex-direction: column; /* Los elementos se apilan verticalmente */
-    align-items: center;
-    text-align: center;
-    padding: 15px;
-  }
-
-  .footer-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .footer-social-icons {
-    justify-content: center;
-    gap: 10px;
-  }
+.footer .footer-links a:hover {
+  color: white; /* Color al pasar el mouse */
 }
