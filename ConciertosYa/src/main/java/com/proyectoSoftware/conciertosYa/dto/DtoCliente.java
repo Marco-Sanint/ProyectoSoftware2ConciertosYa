@@ -15,4 +15,5 @@ public class DtoCliente {
     private String telefono;
     private String mail;
     private String direccion;
+    private String password;
 }

@@ -28,4 +28,7 @@ public class Cliente {
 
     @Column(name = "direccion")
     private String direccion;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 }

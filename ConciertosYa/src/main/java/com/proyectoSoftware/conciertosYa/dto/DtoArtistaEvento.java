@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DtoArtistaEvento {
 
-    private Integer artista_evento_id;
-    private Integer artistaId;
-    private Integer eventoId;
+    private int artista_evento_id;
+    private int artistaId;
+    private int eventoId;
 }

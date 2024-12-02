@@ -23,14 +23,8 @@ public class Ticket {
     @Column(name = "fecha_compra", nullable = false)
     private LocalDateTime fechaCompra;
 
-    @Column(name = "descuento", precision = 10)
-    private double descuento;
-
-    @Column(name = "precio", nullable = false, precision = 10)
+    @Column(name = "precio", nullable = false, precision = 5)
     private double precio;
-
-    @Column(name = "precio_con_descuento", precision = 10)
-    private double precioConDescuento;
 
     @ManyToOne
     @JoinColumn(name = "id_asiento", nullable = false)

@@ -23,7 +23,7 @@ public class Factura {
     @Column(name = "fecha_emision", nullable = false)
     private LocalDateTime fechaEmision;
 
-    @Column(name = "total", nullable = false, precision = 10)
+    @Column(name = "total", nullable = false, precision = 5)
     private double total;
 
     @ManyToOne

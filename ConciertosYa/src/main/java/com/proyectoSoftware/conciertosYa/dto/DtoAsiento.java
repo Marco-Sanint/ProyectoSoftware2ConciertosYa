@@ -17,7 +17,6 @@ public class DtoAsiento {
     private String codigo;
     private String columna;
     private double precio;
-    private double descuento;
     private Asiento.TipoAsiento tipo;
     private Asiento.EstadoAsiento estado;
 }

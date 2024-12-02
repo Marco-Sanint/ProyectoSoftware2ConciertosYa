@@ -48,6 +48,7 @@ public class ImplServicioCliente implements ServicioCliente {
         cliente.setTelefono(updateCliente.getTelefono());
         cliente.setMail(updateCliente.getMail());
         cliente.setDireccion(updateCliente.getDireccion());
+        cliente.setPassword(updateCliente.getPassword());
 
         Cliente updateClienteObj = repoCliente.save(cliente);
 

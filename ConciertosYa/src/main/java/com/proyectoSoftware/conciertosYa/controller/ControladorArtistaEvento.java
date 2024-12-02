@@ -1,7 +1,9 @@
 package com.proyectoSoftware.conciertosYa.controller;
 
-import com.proyectoSoftware.conciertosYa.dto.DtoArtistaEvento;
+import com.proyectoSoftware.conciertosYa.dto.*;
+import com.proyectoSoftware.conciertosYa.service.ServicioArtista;
 import com.proyectoSoftware.conciertosYa.service.ServicioArtistaEvento;
+import com.proyectoSoftware.conciertosYa.service.ServicioEvento;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +17,16 @@ import java.util.List;
 public class ControladorArtistaEvento {
 
     private final ServicioArtistaEvento servicioArtistaEvento;
+    private final ServicioArtista servicioArtista;
+    private final ServicioEvento servicioEvento;
 
     @PostMapping
     public ResponseEntity<DtoArtistaEvento> createArtistaEvento(@RequestBody DtoArtistaEvento dtoArtistaEvento) {
-        DtoArtistaEvento savedArtistaEvento = servicioArtistaEvento.createArtistaEvento(dtoArtistaEvento);
-        return new ResponseEntity<>(savedArtistaEvento, HttpStatus.CREATED);
+        DtoEvento dtoEvento = servicioEvento.getEvento(dtoArtistaEvento.getEventoId());
+        DtoArtista dtoArtista = servicioArtista.getArtista(dtoArtistaEvento.getArtistaId());
+
+        DtoArtistaEvento artistaEventoCreado = servicioArtistaEvento.createArtistaEvento(dtoArtistaEvento, dtoArtista, dtoEvento);
+        return ResponseEntity.ok(artistaEventoCreado);
     }
 
     @GetMapping("{artistaEventoId}")

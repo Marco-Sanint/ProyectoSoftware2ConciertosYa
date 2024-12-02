@@ -1,9 +1,11 @@
 package com.proyectoSoftware.conciertosYa.service.impl;
 
+import com.proyectoSoftware.conciertosYa.dto.DtoArtista;
 import com.proyectoSoftware.conciertosYa.dto.DtoArtistaEvento;
-import com.proyectoSoftware.conciertosYa.entity.ArtistaEvento;
+import com.proyectoSoftware.conciertosYa.dto.DtoEvento;
+import com.proyectoSoftware.conciertosYa.entity.*;
 import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
-import com.proyectoSoftware.conciertosYa.mapper.MapperArtistaEvento;
+import com.proyectoSoftware.conciertosYa.mapper.*;
 import com.proyectoSoftware.conciertosYa.repository.RepoArtistaEvento;
 import com.proyectoSoftware.conciertosYa.service.ServicioArtistaEvento;
 import lombok.AllArgsConstructor;
@@ -19,10 +21,15 @@ public class ImplServicioArtistaEvento implements ServicioArtistaEvento {
     private final RepoArtistaEvento repoArtistaEvento;
 
     @Override
-    public DtoArtistaEvento createArtistaEvento(DtoArtistaEvento dtoArtistaEvento) {
+    public DtoArtistaEvento createArtistaEvento(DtoArtistaEvento dtoArtistaEvento, DtoArtista dtoArtista, DtoEvento dtoEvento) {
+        Artista artista = MapperArtista.mapAArtista(dtoArtista);
+        Evento evento = MapperEvento.mapAEvento(dtoEvento);
+
         ArtistaEvento artistaEvento = MapperArtistaEvento.mapAArtistaEvento(dtoArtistaEvento);
-        ArtistaEvento savedArtistaEvento = repoArtistaEvento.save(artistaEvento);
-        return MapperArtistaEvento.mapADtoArtistaEvento(savedArtistaEvento);
+        artistaEvento.setArtista(artista);
+        artistaEvento.setEvento(evento);
+
+        return MapperArtistaEvento.mapADtoArtistaEvento(repoArtistaEvento.save(artistaEvento));
     }
 
     @Override

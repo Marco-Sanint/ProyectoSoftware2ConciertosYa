@@ -13,7 +13,7 @@ public class DtoDetalleFactura {
     private Integer detalleFacturaId;
     private Integer cantidad;
     private double precioUnitario;
-    private double descuento;
+    private Integer promocion;
     private double precioTotal;
     private Integer ticketId; // ID del ticket
 }

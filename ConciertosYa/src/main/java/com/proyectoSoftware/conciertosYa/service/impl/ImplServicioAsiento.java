@@ -48,7 +48,6 @@ public class ImplServicioAsiento implements ServicioAsiento {
         asiento.setCodigo(updateAsiento.getCodigo());
         asiento.setColumna(updateAsiento.getColumna());
         asiento.setPrecio(updateAsiento.getPrecio());
-        asiento.setDescuento(updateAsiento.getDescuento());
         asiento.setTipo(updateAsiento.getTipo());
         asiento.setEstado(updateAsiento.getEstado());
 
