@@ -1,12 +1,14 @@
 package com.proyectoSoftware.conciertosYa.service.impl;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoCarrito;
+import com.proyectoSoftware.conciertosYa.dto.DtoCliente;
 import com.proyectoSoftware.conciertosYa.entity.Carrito;
-import com.proyectoSoftware.conciertosYa.entity.Cliente; // Asegúrate de importar la entidad Cliente
+import com.proyectoSoftware.conciertosYa.entity.Cliente;
 import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
 import com.proyectoSoftware.conciertosYa.mapper.MapperCarrito;
+import com.proyectoSoftware.conciertosYa.mapper.MapperCliente;
 import com.proyectoSoftware.conciertosYa.repository.RepoCarrito;
-import com.proyectoSoftware.conciertosYa.repository.RepoCliente; // Asegúrate de importar el repositorio de Cliente
+import com.proyectoSoftware.conciertosYa.repository.RepoCliente;
 import com.proyectoSoftware.conciertosYa.service.ServicioCarrito;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,18 +21,16 @@ import java.util.stream.Collectors;
 public class ImplServicioCarrito implements ServicioCarrito {
 
     private final RepoCarrito repoCarrito;
-    private final RepoCliente repoCliente; // Inyectamos el repositorio de Cliente
+    private final RepoCliente repoCliente;
 
     @Override
-    public DtoCarrito createCarrito(DtoCarrito dtoCarrito) {
-        // Buscamos el cliente por su cédula
-        Cliente cliente = repoCliente.findById(dtoCarrito.getCedulaCliente())
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado: " + dtoCarrito.getCedulaCliente()));
+    public DtoCarrito createCarrito(DtoCarrito dtoCarrito, DtoCliente dtoCliente) {
+        Cliente cliente = MapperCliente.mapACliente(dtoCliente);
 
         Carrito carrito = MapperCarrito.mapACarrito(dtoCarrito);
-        carrito.setCliente(cliente); // Asignamos el cliente al carrito
-        Carrito savedCarrito = repoCarrito.save(carrito);
-        return MapperCarrito.mapADtoCarrito(savedCarrito);
+        carrito.setCliente(cliente);
+
+        return MapperCarrito.mapADtoCarrito(repoCarrito.save(carrito));
     }
 
     @Override

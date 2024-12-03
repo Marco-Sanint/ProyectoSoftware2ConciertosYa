@@ -14,9 +14,7 @@ import java.time.LocalDateTime;
 public class DtoTicket {
     private Integer ticketId;
     private LocalDateTime fechaCompra;
-    private double descuento;
     private double precio;
-    private double precioConDescuento;
     private Integer asientoId; // ID del asiento
     private String clienteCedula; // Cédula del cliente
 }

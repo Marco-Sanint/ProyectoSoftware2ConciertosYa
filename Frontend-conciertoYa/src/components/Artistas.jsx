@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import { FaInstagram, FaTwitter, FaFacebook } from 'react-icons/fa';
 import './Artistas.css';
-
+import { FaTicketAlt } from 'react-icons/fa';
 const Artistas = () => {
   const settings = {
     dots: true,
@@ -38,6 +38,9 @@ const Artistas = () => {
           <img src="/imagenes/artista1.jpg" alt="Artista 1" />
           <h3>Artista 1</h3>
           <p>Descripción del artista 1</p>
+          <a href="/Seat" className="btn-comprar">
+            <FaTicketAlt /> Comprar Boletos
+          </a>
           <div className="social-links">
             <a href="https://instagram.com" className="social-link"><FaInstagram /></a>
             <a href="https://twitter.com" className="social-link"><FaTwitter /></a>
@@ -49,6 +52,9 @@ const Artistas = () => {
           <img src="/imagenes/artista2.jpg" alt="Artista 2" />
           <h3>Artista 2</h3>
           <p>Descripción del artista 2</p>
+          <a href="/Seat" className="btn-comprar">
+            <FaTicketAlt /> Comprar Boletos
+          </a>
           <div className="social-links">
             <a href="https://instagram.com" className="social-link"><FaInstagram /></a>
             <a href="https://twitter.com" className="social-link"><FaTwitter /></a>
@@ -60,6 +66,9 @@ const Artistas = () => {
           <img src="/imagenes/artista3.jpg" alt="Artista 3" />
           <h3>Artista 3</h3>
           <p>Descripción del artista 3</p>
+          <a href="/Seat" className="btn-comprar">
+            <FaTicketAlt /> Comprar Boletos
+          </a>
           <div className="social-links">
             <a href="https://instagram.com" className="social-link"><FaInstagram /></a>
             <a href="https://twitter.com" className="social-link"><FaTwitter /></a>

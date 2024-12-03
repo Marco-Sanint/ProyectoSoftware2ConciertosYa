@@ -28,9 +28,6 @@ public class Asiento {
     @Column(name = "precio", nullable = false, precision = 10)
     private double precio;
 
-    @Column(name = "descuento", nullable = false, precision = 10)
-    private double descuento;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)
     private TipoAsiento tipo;

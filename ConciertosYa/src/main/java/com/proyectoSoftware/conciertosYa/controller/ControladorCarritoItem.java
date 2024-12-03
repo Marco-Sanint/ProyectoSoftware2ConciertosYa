@@ -1,6 +1,9 @@
 package com.proyectoSoftware.conciertosYa.controller;
 
-import com.proyectoSoftware.conciertosYa.dto.DtoCarritoItem;
+import com.proyectoSoftware.conciertosYa.dto.*;
+import com.proyectoSoftware.conciertosYa.service.ServicioArtista;
+import com.proyectoSoftware.conciertosYa.service.ServicioAsiento;
+import com.proyectoSoftware.conciertosYa.service.ServicioCarrito;
 import com.proyectoSoftware.conciertosYa.service.ServicioCarritoItem;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,11 +18,16 @@ import java.util.List;
 public class ControladorCarritoItem {
 
     private final ServicioCarritoItem servicioCarritoItem;
+    private final ServicioCarrito servicioCarrito;
+    private final ServicioAsiento servicioAsiento;
 
     @PostMapping
     public ResponseEntity<DtoCarritoItem> createCarritoItem(@RequestBody DtoCarritoItem dtoCarritoItem) {
-        DtoCarritoItem savedCarritoItem = servicioCarritoItem.createCarritoItem(dtoCarritoItem);
-        return new ResponseEntity<>(savedCarritoItem, HttpStatus.CREATED);
+        DtoCarrito dtoCarrito = servicioCarrito.getCarrito(dtoCarritoItem.getCarritoId());
+        DtoAsiento dtoAsiento = servicioAsiento.getAsiento(dtoCarritoItem.getAsientoId());
+
+        DtoCarritoItem carritoItemCreado = servicioCarritoItem.createCarritoItem(dtoCarritoItem, dtoAsiento, dtoCarrito);
+        return ResponseEntity.ok(carritoItemCreado);
     }
 
     @GetMapping("/{carritoItemId}")

@@ -12,7 +12,6 @@ public class MapperAsiento {
                 asiento.getCodigo(),
                 asiento.getColumna(),
                 asiento.getPrecio(),
-                asiento.getDescuento(),
                 asiento.getTipo(),
                 asiento.getEstado()
         );
@@ -24,7 +23,6 @@ public class MapperAsiento {
                 dtoAsiento.getCodigo(),
                 dtoAsiento.getColumna(),
                 dtoAsiento.getPrecio(),
-                dtoAsiento.getDescuento(),
                 dtoAsiento.getTipo(),
                 dtoAsiento.getEstado()
         );

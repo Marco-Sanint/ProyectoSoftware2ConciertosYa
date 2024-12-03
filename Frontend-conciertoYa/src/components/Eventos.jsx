@@ -29,6 +29,7 @@ const Eventos = () => {
     <div className="section eventos">
       <h2>Próximos Eventos</h2>
       <div className="grid">
+
         {eventos.map((evento) => (
           <div className="card-evento" key={evento.id}>
             <img src={evento.imagen} alt={evento.nombre} />
@@ -43,6 +44,7 @@ const Eventos = () => {
             </Link>
           </div>
         ))}
+
       </div>
     </div>
   );

@@ -1,11 +1,14 @@
 package com.proyectoSoftware.conciertosYa.service.impl;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoDetalleFactura;
+import com.proyectoSoftware.conciertosYa.entity.Carrito;
 import com.proyectoSoftware.conciertosYa.entity.DetalleFactura;
+import com.proyectoSoftware.conciertosYa.entity.Promocion;
 import com.proyectoSoftware.conciertosYa.entity.Ticket; // Asegúrate de importar la entidad Ticket
 import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
 import com.proyectoSoftware.conciertosYa.mapper.MapperDetalleFactura;
 import com.proyectoSoftware.conciertosYa.repository.RepoDetalleFactura;
+import com.proyectoSoftware.conciertosYa.repository.RepoPromocion;
 import com.proyectoSoftware.conciertosYa.repository.RepoTicket; // Asegúrate de importar el repositorio de Ticket
 import com.proyectoSoftware.conciertosYa.service.ServicioDetalleFactura;
 import lombok.AllArgsConstructor;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class ImplServicioDetalleFactura implements ServicioDetalleFactura {
 
     private final RepoDetalleFactura repoDetalleFactura;
+    private final RepoPromocion repoPromocion;
     private final RepoTicket repoTicket; // Inyectamos el repositorio de Ticket
 
     @Override
@@ -53,7 +57,8 @@ public class ImplServicioDetalleFactura implements ServicioDetalleFactura {
 
         existingDetalleFactura.setCantidad(updateDetalleFactura.getCantidad());
         existingDetalleFactura.setPrecioUnitario(updateDetalleFactura.getPrecioUnitario());
-        existingDetalleFactura.setDescuento(updateDetalleFactura.getDescuento());
+        Promocion promocion = repoPromocion.findById(updateDetalleFactura.getPromocion())
+                .orElseThrow(() -> new ResourceNotFoundException("Carrito no encontrado: " + updateDetalleFactura.getPromocion()));
         existingDetalleFactura.setPrecioTotal(updateDetalleFactura.getPrecioTotal());
 
         // Aquí deberías actualizar el Ticket si es necesario

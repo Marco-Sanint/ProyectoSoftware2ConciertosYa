@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUserCircle, FaBell } from "react-icons/fa"; // Iconos de usuario y campana
 import './Header.css';
 
 const Header = () => {
+  const [isHidden, setIsHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+
+    // Detecta el desplazamiento hacia abajo y hacia arriba
+    if (currentScrollY > lastScrollY) {
+      setIsHidden(true); // Desplazamiento hacia abajo, ocultar el header
+    } else {
+      setIsHidden(false); // Desplazamiento hacia arriba, mostrar el header
+    }
+
+    setLastScrollY(currentScrollY <= 0 ? 0 : currentScrollY); // Evitar valores negativos
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    // Limpiar el event listener al desmontar el componente
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+
   return (
-    <header className="header">
+    <header className={`header ${isHidden ? "hidden" : ""}`}>
       <div className="logo-container">
         <img 
           src="/imagenes/LogoConciertoYA.png" 

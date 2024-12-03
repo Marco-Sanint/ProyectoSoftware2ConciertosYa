@@ -10,7 +10,7 @@ public class MapperDetalleFactura {
                 detalleFactura.getDetalle_factura_id(),
                 detalleFactura.getCantidad(),
                 detalleFactura.getPrecioUnitario(),
-                detalleFactura.getDescuento(),
+                detalleFactura.getPromocion() != null ? detalleFactura.getPromocion().getPromocion_id() : null,
                 detalleFactura.getPrecioTotal(),
                 detalleFactura.getTicket().getTicket_id() // Asumiendo que Ticket tiene un método getId()
         );
@@ -21,7 +21,9 @@ public class MapperDetalleFactura {
         detalleFactura.setDetalle_factura_id(dtoDetalleFactura.getDetalleFacturaId());
         detalleFactura.setCantidad(dtoDetalleFactura.getCantidad());
         detalleFactura.setPrecioUnitario(dtoDetalleFactura.getPrecioUnitario());
-        detalleFactura.setDescuento(dtoDetalleFactura.getDescuento());
+        // Aquí deberías buscar la promocion por su ID y asignarlo
+        // Por ejemplo:
+        // detalleFactura.setPromocion(ticketRepository.findById(dtoDetalleFactura.getPromocionId()).orElse(null));
         detalleFactura.setPrecioTotal(dtoDetalleFactura.getPrecioTotal());
         // Aquí deberías buscar el Ticket por su ID y asignarlo
         // Por ejemplo:

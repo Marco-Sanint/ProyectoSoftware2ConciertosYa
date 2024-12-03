@@ -15,7 +15,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class DtoEvento {
 
-    private Integer evento_id;
+    private int evento_id;
     private String nombre;
     private LocalDate fecha;
     private LocalTime hora;
@@ -23,5 +23,5 @@ public class DtoEvento {
     private String generoMusical;
     private EstadoEvento estado;
     private String imagenCartel;
-    private Integer lugarId;
+    private int lugarId;
 }

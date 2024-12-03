@@ -59,11 +59,8 @@ public class ImplServicioTicket implements ServicioTicket {
                 .orElseThrow(() -> new ResourceNotFoundException("Ticket no encontrado: " + ticketId));
 
         existingTicket.setFechaCompra(updateTicket.getFechaCompra());
-        existingTicket.setDescuento(updateTicket.getDescuento());
         existingTicket.setPrecio(updateTicket.getPrecio());
-        existingTicket.setPrecioConDescuento(updateTicket.getPrecioConDescuento());
 
-        // Aquí deberías actualizar el Asiento y el Cliente si es necesario
         if (updateTicket.getAsientoId() != null) {
             Asiento asiento = repoAsiento.findById(updateTicket.getAsientoId())
                     .orElseThrow(() -> new ResourceNotFoundException("Asiento no encontrado: " + updateTicket.getAsientoId()));

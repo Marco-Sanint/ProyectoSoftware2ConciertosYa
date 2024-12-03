@@ -46,7 +46,7 @@ const Home = () => {
   return (
     <div className="home-container">
       {/* Cabecera */}
-      <Header />
+      <Header  />
 
       {/* Sección de Artistas */}
       <Artistas artistas={artistas} />
@@ -65,6 +65,10 @@ const Home = () => {
         <div className="card-crearEvento">
             <h3>¿Quieres ser parte de nuestros eventos?</h3>
             <a href="/nuevoevento" className="btn btn-primary">¡Crea tu evento!</a>
+        </div>
+        <div className="card-crearlugar">
+            <h3>¿Quieres ser parte de nuestros lugares de eventos ?</h3>
+            <a href="/nuevolugar" className="btn btn-primary">¡Crea un Lugar!</a>
         </div>
       </div>
 
