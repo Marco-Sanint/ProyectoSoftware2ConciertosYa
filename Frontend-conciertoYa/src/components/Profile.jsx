@@ -24,7 +24,7 @@ const Profile = () => {
     // Aquí iría tu API o lógica para cargar los datos del usuario
     axios.get('/api/user/profile')
       .then(response => {
-        setUserData(response.data); // Suponiendo que la respuesta tenga los datos en este formato
+        setUserData(response.data); 
       })
       .catch(err => {
         setError('Error al cargar los datos');

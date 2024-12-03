@@ -107,10 +107,10 @@ default:
 export default function Checkout() {
 const [activeStep, setActiveStep] = useState(0);
 const [cliente, setCliente] = useState({
-id: "12345",
-nombre: "Juan Pérez",
-email: "juan.perez@example.com",
-telefono: "123456789",
+id: "12",
+nombre: "Jhonatan Tamayo",
+email: "jhonatan@example.com",
+telefono: "12345",
 });
 const [asientoSeleccionado, setAsientoSeleccionado] = useState("");
 const [metodoPago, setMetodoPago] = useState("");

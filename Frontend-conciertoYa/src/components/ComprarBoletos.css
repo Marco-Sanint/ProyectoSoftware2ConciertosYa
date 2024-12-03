@@ -1,0 +1,195 @@
+/* Estilo general de la página */
+.comprar-boletos-page {
+  font-family: 'Poppins', sans-serif; /* Tipografía moderna */
+  background-color: #f4f7fb; /* Fondo suave */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  min-height: 100vh;
+  color: #333;
+}
+
+/* Contenedor principal */
+.comprar-boletos-container {
+  max-width: 1200px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 50px;
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Información del evento */
+.evento-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+/* Imagen del evento */
+.evento-imagen {
+  flex: 1;
+  max-width: 50%;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.evento-imagen img {
+  width: 100%;
+  height: auto;
+}
+
+.evento-imagen:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Detalles del evento */
+.evento-detalles {
+  flex: 1;
+  max-width: 45%;
+}
+
+.evento-detalles h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #2a2e45;
+  margin-bottom: 20px;
+}
+
+.evento-detalles p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #5a5d6e;
+  margin-bottom: 20px;
+}
+
+.evento-detalles strong {
+  color: #0056b3;
+  font-weight: bold;
+}
+
+/* Formulario de compra */
+.formulario-compra {
+  background-color: #f8fafc;
+  border: 1px solid #e1e6ec;
+  border-radius: 12px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Input de cantidad de boletos */
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.input-boletos {
+  width: 100px;
+  padding: 12px;
+  font-size: 1.2rem;
+  border: 1px solid #d1d9e6;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-boletos:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 8px rgba(0, 86, 179, 0.2);
+  outline: none;
+}
+
+.input-boletos::placeholder {
+  color: #aaa;
+}
+
+/* Botón de compra */
+.btn-comprar-boletos {
+  padding: 14px 30px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-comprar-boletos:hover {
+  background-color: #218838;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-comprar-boletos:active {
+  background-color: #1e7e34;
+  transform: translateY(0);
+}
+
+.btn-comprar-boletos:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  background-color: #f1f1f1;
+  font-size: 0.9rem;
+  color: #777;
+  border-top: 1px solid #ddd;
+}
+
+/* Títulos */
+h1, h3 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 3rem;
+  color: #2a2e45;
+}
+
+h3 {
+  font-size: 1.6rem;
+  color: #5a5d6e;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .evento-info {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .evento-imagen,
+  .evento-detalles {
+    max-width: 100%;
+  }
+
+  .evento-detalles h1 {
+    font-size: 2.4rem;
+  }
+
+  .input-boletos {
+    width: 80px;
+  }
+}
