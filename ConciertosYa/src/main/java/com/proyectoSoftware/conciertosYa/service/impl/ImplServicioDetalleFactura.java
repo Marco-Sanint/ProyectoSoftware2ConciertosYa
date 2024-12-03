@@ -1,12 +1,11 @@
 package com.proyectoSoftware.conciertosYa.service.impl;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoDetalleFactura;
-import com.proyectoSoftware.conciertosYa.entity.Carrito;
-import com.proyectoSoftware.conciertosYa.entity.DetalleFactura;
-import com.proyectoSoftware.conciertosYa.entity.Promocion;
-import com.proyectoSoftware.conciertosYa.entity.Ticket; // Asegúrate de importar la entidad Ticket
+import com.proyectoSoftware.conciertosYa.dto.DtoPromocion;
+import com.proyectoSoftware.conciertosYa.dto.DtoTicket;
+import com.proyectoSoftware.conciertosYa.entity.*;
 import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
-import com.proyectoSoftware.conciertosYa.mapper.MapperDetalleFactura;
+import com.proyectoSoftware.conciertosYa.mapper.*;
 import com.proyectoSoftware.conciertosYa.repository.RepoDetalleFactura;
 import com.proyectoSoftware.conciertosYa.repository.RepoPromocion;
 import com.proyectoSoftware.conciertosYa.repository.RepoTicket; // Asegúrate de importar el repositorio de Ticket
@@ -26,14 +25,15 @@ public class ImplServicioDetalleFactura implements ServicioDetalleFactura {
     private final RepoTicket repoTicket; // Inyectamos el repositorio de Ticket
 
     @Override
-    public DtoDetalleFactura createDetalleFactura(DtoDetalleFactura dtoDetalleFactura) {
-        Ticket ticket = repoTicket.findById(dtoDetalleFactura.getTicketId())
-                .orElseThrow(() -> new ResourceNotFoundException("Ticket no encontrado: " + dtoDetalleFactura.getTicketId()));
+    public DtoDetalleFactura createDetalleFactura(DtoDetalleFactura dtoDetalleFactura, DtoPromocion dtoPromocion, DtoTicket dtoTicket) {
+        Promocion promocion = MapperPromocion.mapAPromocion(dtoPromocion);
+        Ticket ticket = MapperTicket.mapATicket(dtoTicket);
 
         DetalleFactura detalleFactura = MapperDetalleFactura.mapADetalleFactura(dtoDetalleFactura);
-        detalleFactura.setTicket(ticket); // Asignamos el ticket
-        DetalleFactura savedDetalleFactura = repoDetalleFactura.save(detalleFactura);
-        return MapperDetalleFactura.mapADtoDetalleFactura (savedDetalleFactura);
+        detalleFactura.setPromocion(promocion);
+        detalleFactura.setTicket(ticket);
+
+        return MapperDetalleFactura.mapADtoDetalleFactura(repoDetalleFactura.save(detalleFactura));
     }
 
     @Override
