@@ -1,40 +1,48 @@
 import React from 'react';
-import './Eventos.css'; // Asegúrate de que este archivo esté correctamente importado.
+import './Eventos.css';
 import { FaTicketAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Eventos = () => {
+  const eventos = [
+    {
+      id: 1,
+      imagen: "/imagenes/rock1.webp",
+      nombre: "Concierto de Rock",
+      descripcion: "Un evento lleno de energía y emoción, con los mejores artistas del género.",
+    },
+    {
+      id: 2,
+      imagen: "/imagenes/teatro1.jpg",
+      nombre: "Teatro en Vivo",
+      descripcion: "Una noche de teatro con una obra emocionante e inolvidable.",
+    },
+    {
+      id: 3,
+      imagen: "/imagenes/arte1.webp",
+      nombre: "Exposición de Arte Contemporáneo",
+      descripcion: "Sumérgete en un mundo de arte contemporáneo y descubre obras únicas.",
+    },
+  ];
+
   return (
     <div className="section eventos">
       <h2>Próximos Eventos</h2>
       <div className="grid">
-        <div className="card-evento">
-          <img src="/imagenes/rock1.webp" alt="Concierto de Rock" />
-          <h3>Concierto de Rock</h3>
-          <p>Un evento lleno de energía y emoción, con los mejores artistas del género.</p>
-          <a href="/comprar-boletos" className="btn-comprar">
-            <FaTicketAlt /> Comprar Boletos
-          </a>
-        </div>
-
-        <div className="card-evento">
-          <img src="/imagenes/teatro1.jpg" alt="Teatro en Vivo" />
-          <h3>Teatro en Vivo</h3>
-          <p>Una noche de teatro con una obra emocionante e inolvidable.</p>
-          <a href="/comprar-boletos" className="btn-comprar">
-            <FaTicketAlt /> Comprar Boletos
-          </a>
-        </div>
-
-        <div className="card-evento">
-          <img src="/imagenes/arte1.webp" alt="Exposición de Arte" />
-          <h3>Exposición de Arte Contemporáneo</h3>
-          <p>Sumérgete en un mundo de arte contemporáneo y descubre obras únicas.</p>
-          <a href="/comprar-boletos" className="btn-comprar">
-            <FaTicketAlt /> Comprar Boletos
-          </a>
-        </div>
-
-        {/* Agrega más eventos según sea necesario */}
+        {eventos.map((evento) => (
+          <div className="card-evento" key={evento.id}>
+            <img src={evento.imagen} alt={evento.nombre} />
+            <h3>{evento.nombre}</h3>
+            <p>{evento.descripcion}</p>
+            <Link
+              to="/comprar-boletos"
+              state={evento}  // Pasamos el evento como estado
+              className="btn-comprar"
+            >
+              <FaTicketAlt /> Comprar Boletos
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
   );
