@@ -11,6 +11,8 @@ import Checlist from "./components/Checkout/Checkout";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Checkout from "./components/Checkout/Checkout";
+import CrearLugares from "./components/Crearlugares";
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,9 +40,14 @@ function App() {
         
         <Route path="/checkout" element={<Checkout />} />
 
+        <Route path="/crearlugares" element={<CrearLugares />} />
+
       </Routes>
     </Router>
   );
 }
 
 export default App;
+/*  CODIGO CON RUTAS PERO NO SIRVE POR QUE MANTIENDE PIDIENDO LOGIN TOCA MEJORAR 
+LO DEJO EN UN TXT POR SI ACASO 
+*/ 

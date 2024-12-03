@@ -2,6 +2,7 @@
 
 .section.artistas {
   margin-bottom: 60px;
+  padding: 5px;
 }
 
 .section.artistas h2 {
@@ -9,6 +10,7 @@
   margin-bottom: 30px;
   color: #2c3e50;
   text-align: center;
+  
 }
 
 .carousel .slick-slide {
@@ -25,15 +27,18 @@
   text-align: center;
   margin-left: 15px;
   margin-right: 15px;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .card-artista:hover {
   transform: translateY(-10px);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  padding: 5px;
 }
 
 .card-artista img {
-  width: 101%;
+  width: 90%;
   height: 315px; /* Ajuste para las imágenes */
   object-fit: cover;
   border-radius: 10px;
@@ -49,7 +54,7 @@
 }
 
 .card-artista p {
-  color: #7f8c8d;
+  color: #4c5050c5;
   font-size: 16px;
   margin: 10px 0;
 }
@@ -59,6 +64,7 @@
   justify-content: center;
   gap: 15px;
   margin-top: 10px;
+  color: #000;
 }
 
 .social-link {
@@ -66,6 +72,7 @@
   font-size: 24px;
   text-decoration: none;
   transition: color 0.3s ease;
+  
 }
 
 .social-link:hover {

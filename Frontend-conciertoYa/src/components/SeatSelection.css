@@ -81,19 +81,7 @@ padding: 5px 0;
 border-bottom: 1px solid #ddd;
 }
 
-.pay-btn {
-background-color: #27ae60;
-border: none;
-padding: 10px 15px;
-color: white;
-border-radius: 5px;
-cursor: pointer;
-margin-top: 10px;
-}
 
-.pay-btn:hover {
-background-color: #2ecc71;
-}
 
 /* Footer */
 .footer {
