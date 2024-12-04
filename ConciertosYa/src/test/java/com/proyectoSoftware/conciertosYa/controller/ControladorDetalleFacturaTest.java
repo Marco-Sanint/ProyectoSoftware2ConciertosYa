@@ -1,12 +1,19 @@
 package com.proyectoSoftware.conciertosYa.controller;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoDetalleFactura;
+import com.proyectoSoftware.conciertosYa.dto.DtoPromocion;
+import com.proyectoSoftware.conciertosYa.dto.DtoTicket;
+import com.proyectoSoftware.conciertosYa.entity.Promocion.TipoPromocion;
 import com.proyectoSoftware.conciertosYa.service.ServicioDetalleFactura;
+import com.proyectoSoftware.conciertosYa.service.ServicioPromocion;
+import com.proyectoSoftware.conciertosYa.service.ServicioTicket;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,26 +24,46 @@ import static org.mockito.Mockito.*;
 class ControladorDetalleFacturaTest {
 
     private ServicioDetalleFactura servicioDetalleFactura;
+    private ServicioPromocion servicioPromocion;
+    private ServicioTicket servicioTicket;
     private ControladorDetalleFactura controladorDetalleFactura;
 
     @BeforeEach
     void setUp() {
+        // Mock de los tres servicios requeridos por el controlador
         servicioDetalleFactura = Mockito.mock(ServicioDetalleFactura.class);
-        controladorDetalleFactura = new ControladorDetalleFactura(servicioDetalleFactura);
+        servicioPromocion = Mockito.mock(ServicioPromocion.class);
+        servicioTicket = Mockito.mock(ServicioTicket.class);
+
+        // Inicializar el controlador con los tres servicios
+        controladorDetalleFactura = new ControladorDetalleFactura(servicioDetalleFactura, servicioPromocion, servicioTicket);
     }
 
     @Test
     void testCreateDetalleFactura() {
+        // Datos de prueba
         DtoDetalleFactura nuevoDetalleFactura = new DtoDetalleFactura(null, 2, 100.0, 0, 200.0, 1);
+
+        // Crear objetos DtoPromocion y DtoTicket que serán devueltos por los servicios
+        DtoPromocion dtoPromocion = new DtoPromocion(1, "Descuento Especial", "Código123", 10.0, LocalDate.now(), LocalDate.now().plusMonths(1), TipoPromocion.GENERAL);
+        DtoTicket dtoTicket = new DtoTicket(1, LocalDateTime.now(), 150.0, 1, "Ticket Concierto");
+
+        // Crear el objeto que será devuelto por el servicio
         DtoDetalleFactura detalleFacturaGuardado = new DtoDetalleFactura(1, 2, 100.0, 0, 200.0, 1);
 
-        when(servicioDetalleFactura.createDetalleFactura(any(DtoDetalleFactura.class))).thenReturn(detalleFacturaGuardado);
+        // Configuración del mock
+        when(servicioPromocion.getPromocion(anyInt())).thenReturn(dtoPromocion);
+        when(servicioTicket.getTicket(anyInt())).thenReturn(dtoTicket);
+        when(servicioDetalleFactura.createDetalleFactura(any(DtoDetalleFactura.class), any(DtoPromocion.class), any(DtoTicket.class)))
+                .thenReturn(detalleFacturaGuardado);
 
+        // Llamada al controlador
         ResponseEntity<DtoDetalleFactura> response = controladorDetalleFactura.createDetalleFactura(nuevoDetalleFactura);
 
-        assertEquals(201, response.getStatusCodeValue());
+        // Verificaciones
+        assertEquals(200, response.getStatusCodeValue());
         assertEquals(detalleFacturaGuardado, response.getBody());
-        verify(servicioDetalleFactura, times(1)).createDetalleFactura(any(DtoDetalleFactura.class));
+        verify(servicioDetalleFactura, times(1)).createDetalleFactura(any(DtoDetalleFactura.class), any(DtoPromocion.class), any(DtoTicket.class));
     }
 
     @Test
