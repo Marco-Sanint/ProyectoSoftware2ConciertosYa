@@ -22,28 +22,29 @@ public class ImplServicioEvento implements ServicioEvento {
 
     private final RepoEvento repoEvento;
     private final RepoLugar repoLugar;
+    private final MapperEvento mapperEvento;  // Inyectamos MapperEvento
 
     @Override
     public DtoEvento crearEvento(DtoEvento dtoEvento, DtoLugar dtoLugar) {
         Lugar lugar = MapperLugar.mapALugar(dtoLugar);
 
-        Evento evento = MapperEvento.mapAEvento(dtoEvento);
+        Evento evento = mapperEvento.mapAEvento(dtoEvento);  // Usamos el objeto inyectado para llamar al método no estático
         evento.setLugar(lugar);
 
-        return MapperEvento.mapADtoEvento(repoEvento.save(evento));
+        return mapperEvento.mapADtoEvento(repoEvento.save(evento));
     }
 
     @Override
     public DtoEvento getEvento(Integer evento_id) {
         Evento evento = repoEvento.findById(evento_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Evento no encontrado"));
-        return MapperEvento.mapADtoEvento(evento);
+        return mapperEvento.mapADtoEvento(evento);
     }
 
     @Override
     public List<DtoEvento> getAllEventos() {
         return repoEvento.findAll().stream()
-                .map(MapperEvento::mapADtoEvento)
+                .map(mapperEvento::mapADtoEvento)
                 .collect(Collectors.toList());
     }
 
@@ -60,7 +61,7 @@ public class ImplServicioEvento implements ServicioEvento {
         evento.setEstado(updateEvento.getEstado());
         evento.setImagenCartel(updateEvento.getImagenCartel());
 
-        return MapperEvento.mapADtoEvento(repoEvento.save(evento));
+        return mapperEvento.mapADtoEvento(repoEvento.save(evento));
     }
 
     @Override

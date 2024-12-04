@@ -2,13 +2,24 @@ package com.proyectoSoftware.conciertosYa.mapper;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoEvento;
 import com.proyectoSoftware.conciertosYa.entity.Evento;
+import com.proyectoSoftware.conciertosYa.entity.Lugar;  // Importa la clase Lugar
 import com.proyectoSoftware.conciertosYa.service.ServicioLugar;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component  // Aseguramos que Spring maneje esta clase como un bean
 public class MapperEvento {
 
-    private static ServicioLugar servicioLugar;
+    private final ServicioLugar servicioLugar;  // Inyectamos el servicio
 
-    public static DtoEvento mapADtoEvento(Evento evento) {
+    // Inyección de dependencia a través del constructor
+    @Autowired
+    public MapperEvento(ServicioLugar servicioLugar) {
+        this.servicioLugar = servicioLugar;
+    }
+
+    // Método para mapear de Evento a DtoEvento
+    public DtoEvento mapADtoEvento(Evento evento) {
         return new DtoEvento(
                 evento.getEvento_id(),
                 evento.getNombre(),
@@ -22,7 +33,8 @@ public class MapperEvento {
         );
     }
 
-    public static Evento mapAEvento(DtoEvento dtoEvento) {
+    // Método para mapear de DtoEvento a Evento
+    public Evento mapAEvento(DtoEvento dtoEvento) {
         Evento evento = new Evento();
         evento.setEvento_id(dtoEvento.getEvento_id());
         evento.setNombre(dtoEvento.getNombre());
@@ -32,7 +44,11 @@ public class MapperEvento {
         evento.setGeneroMusical(dtoEvento.getGeneroMusical());
         evento.setEstado(dtoEvento.getEstado());
         evento.setImagenCartel(dtoEvento.getImagenCartel());
-        evento.setLugar(MapperLugar.mapALugar(servicioLugar.getLugar(dtoEvento.getLugarId())));
+
+        // Convertimos DtoLugar a Lugar usando MapperLugar
+        Lugar lugar = MapperLugar.mapALugar(servicioLugar.getLugar(dtoEvento.getLugarId()));
+        evento.setLugar(lugar);
+
         return evento;
     }
 }

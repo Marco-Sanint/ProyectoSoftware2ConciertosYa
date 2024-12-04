@@ -3,9 +3,13 @@ package com.proyectoSoftware.conciertosYa.service.impl;
 import com.proyectoSoftware.conciertosYa.dto.DtoArtista;
 import com.proyectoSoftware.conciertosYa.dto.DtoArtistaEvento;
 import com.proyectoSoftware.conciertosYa.dto.DtoEvento;
-import com.proyectoSoftware.conciertosYa.entity.*;
+import com.proyectoSoftware.conciertosYa.entity.Artista;
+import com.proyectoSoftware.conciertosYa.entity.ArtistaEvento;
+import com.proyectoSoftware.conciertosYa.entity.Evento;
 import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
-import com.proyectoSoftware.conciertosYa.mapper.*;
+import com.proyectoSoftware.conciertosYa.mapper.MapperArtista;
+import com.proyectoSoftware.conciertosYa.mapper.MapperArtistaEvento;
+import com.proyectoSoftware.conciertosYa.mapper.MapperEvento;
 import com.proyectoSoftware.conciertosYa.repository.RepoArtistaEvento;
 import com.proyectoSoftware.conciertosYa.service.ServicioArtistaEvento;
 import lombok.AllArgsConstructor;
@@ -19,11 +23,12 @@ import java.util.stream.Collectors;
 public class ImplServicioArtistaEvento implements ServicioArtistaEvento {
 
     private final RepoArtistaEvento repoArtistaEvento;
+    private final MapperEvento mapperEvento;  // MapperEvento still needs to be injected
 
     @Override
     public DtoArtistaEvento createArtistaEvento(DtoArtistaEvento dtoArtistaEvento, DtoArtista dtoArtista, DtoEvento dtoEvento) {
-        Artista artista = MapperArtista.mapAArtista(dtoArtista);
-        Evento evento = MapperEvento.mapAEvento(dtoEvento);
+        Artista artista = MapperArtista.mapAArtista(dtoArtista);  // Call static method directly
+        Evento evento = mapperEvento.mapAEvento(dtoEvento);      // Assuming MapperEvento is still injected
 
         ArtistaEvento artistaEvento = MapperArtistaEvento.mapAArtistaEvento(dtoArtistaEvento);
         artistaEvento.setArtista(artista);
@@ -52,10 +57,7 @@ public class ImplServicioArtistaEvento implements ServicioArtistaEvento {
         ArtistaEvento artistaEvento = repoArtistaEvento.findById(artistaEventoId)
                 .orElseThrow(() -> new ResourceNotFoundException("ArtistaEvento no encontrado: " + artistaEventoId));
 
-        // Aquí deberías actualizar los campos necesarios
-        // Por ejemplo:
-        // artistaEvento.setArtista(artistaRepository.findById(updateArtistaEvento.getArtistaId()).orElse(null));
-        // artistaEvento.setEvento(eventoRepository.findById(updateArtistaEvento.getEventoId()).orElse(null));
+        // Here you can update the necessary fields as needed
 
         ArtistaEvento updatedArtistaEvento = repoArtistaEvento.save(artistaEvento);
         return MapperArtistaEvento.mapADtoArtistaEvento(updatedArtistaEvento);
