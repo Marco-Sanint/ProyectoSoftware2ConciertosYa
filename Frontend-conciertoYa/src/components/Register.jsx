@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Register.css"; // Importamos el archivo CSS
+import "./Register.css"; 
+import { Mail } from "@mui/icons-material";
 
 function Register() {
-  const [id, setId] = useState("");
+  const [cedula, setcedula] = useState("");
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [Mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // Para confirmar contraseña
-  const [showPassword, setShowPassword] = useState(false); // Controla la visibilidad de la contraseña
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Controla la visibilidad de la confirmación
+  const [confirmPassword, setConfirmPassword] = useState(""); 
+  const [showPassword, setShowPassword] = useState(false); 
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -23,9 +24,38 @@ function Register() {
       return;
     }
 
-    // Lógica para registrar un usuario (API, almacenamiento, etc.)
-    alert("Registro exitoso");
-    navigate("/login");
+    // Crear el objeto cliente para enviar a la API
+    const cliente = {
+      cedula, // cedula
+      nombre: name,
+      correo: Mail,
+      telefono: phone,
+      direccion: address,
+      password, 
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/api/clientes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cliente),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert("Registro exitoso");
+        console.log("Cliente registrado:", data);
+        navigate("/login");
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || "Error al registrar el cliente");
+      }
+    } catch (err) {
+      console.error("Error al conectar con la API:", err);
+      setError("No se pudo conectar con el servcedulaor");
+    }
   };
 
   return (
@@ -34,14 +64,14 @@ function Register() {
         <h2 className="welcome-text">Crear una cuenta</h2>
 
         <div className="input-group">
-          <label htmlFor="id">ID</label>
+          <label htmlFor="cedula">cedula</label>
           <input
-            id="id"
+            cedula="cedula"
             type="text"
             className="input-text"
-            placeholder="ID"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            placeholder="cedula"
+            value={cedula}
+            onChange={(e) => setcedula(e.target.value)}
             required
           />
         </div>
@@ -49,7 +79,7 @@ function Register() {
         <div className="input-group">
           <label htmlFor="name">Nombre</label>
           <input
-            id="name"
+            cedula="name"
             type="text"
             className="input-text"
             placeholder="Nombre completo"
@@ -60,14 +90,14 @@ function Register() {
         </div>
 
         <div className="input-group">
-          <label htmlFor="email">Correo electrónico</label>
+          <label htmlFor="Mail">Correo electrónico</label>
           <input
-            id="email"
-            type="email"
+            cedula="Mail"
+            type="Mail"
             className="input-text"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Mail"
+            value={Mail}
+            onChange={(e) => setMail(e.target.value)}
             required
           />
         </div>
@@ -75,7 +105,7 @@ function Register() {
         <div className="input-group">
           <label htmlFor="phone">Teléfono</label>
           <input
-            id="phone"
+            cedula="phone"
             type="tel"
             className="input-text"
             placeholder="Teléfono"
@@ -88,7 +118,7 @@ function Register() {
         <div className="input-group">
           <label htmlFor="address">Dirección</label>
           <input
-            id="address"
+            cedula="address"
             type="text"
             className="input-text"
             placeholder="Dirección"
@@ -102,7 +132,7 @@ function Register() {
         <div className="input-group password-group">
           <label htmlFor="password">Contraseña</label>
           <input
-            id="password"
+            cedula="password"
             type={showPassword ? "text" : "password"}
             className="input-text"
             placeholder="Contraseña"
@@ -122,7 +152,7 @@ function Register() {
         <div className="input-group password-group">
           <label htmlFor="confirmPassword">Confirmar contraseña</label>
           <input
-            id="confirmPassword"
+            cedula="confirmPassword"
             type={showConfirmPassword ? "text" : "password"}
             className="input-text"
             placeholder="Confirmar contraseña"
@@ -145,7 +175,9 @@ function Register() {
         </button>
 
         <div className="other-options">
-          <p>¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a></p>
+          <p>
+            ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
+          </p>
         </div>
       </form>
     </div>

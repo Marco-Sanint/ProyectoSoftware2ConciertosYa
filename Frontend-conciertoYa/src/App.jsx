@@ -11,7 +11,6 @@ import ComprarBoletos from "./components/ComprarBoletos";
 import Checkout from "./components/Checkout/Checkout";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import Checkout from "./components/Checkout/Checkout";
 import CrearLugares from "./components/Crearlugares";
 
 

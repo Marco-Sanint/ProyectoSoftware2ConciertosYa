@@ -2,8 +2,11 @@ package com.proyectoSoftware.conciertosYa.mapper;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoEvento;
 import com.proyectoSoftware.conciertosYa.entity.Evento;
+import com.proyectoSoftware.conciertosYa.service.ServicioLugar;
 
 public class MapperEvento {
+
+    private static ServicioLugar servicioLugar;
 
     public static DtoEvento mapADtoEvento(Evento evento) {
         return new DtoEvento(
@@ -29,6 +32,7 @@ public class MapperEvento {
         evento.setGeneroMusical(dtoEvento.getGeneroMusical());
         evento.setEstado(dtoEvento.getEstado());
         evento.setImagenCartel(dtoEvento.getImagenCartel());
+        evento.setLugar(MapperLugar.mapALugar(servicioLugar.getLugar(dtoEvento.getLugarId())));
         return evento;
     }
 }

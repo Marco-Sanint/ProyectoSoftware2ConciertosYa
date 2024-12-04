@@ -1,7 +1,9 @@
 package com.proyectoSoftware.conciertosYa.controller;
 
-import com.proyectoSoftware.conciertosYa.dto.DtoDetalleFactura;
+import com.proyectoSoftware.conciertosYa.dto.*;
 import com.proyectoSoftware.conciertosYa.service.ServicioDetalleFactura;
+import com.proyectoSoftware.conciertosYa.service.ServicioPromocion;
+import com.proyectoSoftware.conciertosYa.service.ServicioTicket;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +17,16 @@ import java.util.List;
 public class ControladorDetalleFactura {
 
     private final ServicioDetalleFactura servicioDetalleFactura;
+    private final ServicioPromocion servicioPromocion;
+    private final ServicioTicket servicioTicket;
 
     @PostMapping
     public ResponseEntity<DtoDetalleFactura> createDetalleFactura(@RequestBody DtoDetalleFactura dtoDetalleFactura) {
-        DtoDetalleFactura savedDetalleFactura = servicioDetalleFactura.createDetalleFactura(dtoDetalleFactura);
-        return new ResponseEntity<>(savedDetalleFactura, HttpStatus.CREATED);
+        DtoPromocion dtoPromocion = servicioPromocion.getPromocion(dtoDetalleFactura.getPromocion());
+        DtoTicket dtoTicket = servicioTicket.getTicket(dtoDetalleFactura.getTicketId());
+
+        DtoDetalleFactura detalleFacturaCreado = servicioDetalleFactura.createDetalleFactura(dtoDetalleFactura, dtoPromocion, dtoTicket);
+        return ResponseEntity.ok(detalleFacturaCreado);
     }
 
     @GetMapping("/{detalleFacturaId}")
