@@ -13,12 +13,12 @@ const CrearEvento = () => {
         hora: '',
         descripcion: '',
         generoMusical: '',
-        estado: 'PROGRAMADO',  // Valor inicial actualizado a 'PROGRAMADO'
-        lugarId: '',  // lugarId por defecto vacío
+        estado: 'PROGRAMADO', 
+        lugarId: '',  
     });
 
-    const [imagenCartel, setImagenCartel] = useState(null); // Imagen seleccionada
-    const [lugares, setLugares] = useState([]); // Lugar vacío inicialmente
+    const [imagenCartel, setImagenCartel] = useState(null); 
+    const [lugares, setLugares] = useState([]); 
     const [showModal, setShowModal] = useState(false);
     const [error, setError] = useState('');
 
@@ -31,10 +31,9 @@ const CrearEvento = () => {
     });
 
     useEffect(() => {
-        // Obtener lugares desde el backend
         axios.get('http://localhost:8080/api/lugares')
             .then(response => {
-                setLugares(response.data); // Asumimos que la respuesta es un array de lugares
+                setLugares(response.data); 
             })
             .catch(error => {
                 console.error('Error al cargar los lugares:', error);
@@ -52,13 +51,11 @@ const CrearEvento = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validación de campos obligatorios
         if (!evento.nombre || !evento.fecha || !evento.hora || !evento.lugarId) {
             setError('Por favor, completa todos los campos obligatorios.');
             return;
         }
 
-        // Validación de imagen seleccionada (si es necesario)
         if (!imagenCartel) {
             setError('Por favor, selecciona una imagen para el cartel.');
             return;
@@ -70,8 +67,8 @@ const CrearEvento = () => {
         formData.append('hora', evento.hora);
         formData.append('descripcion', evento.descripcion);
         formData.append('generoMusical', evento.generoMusical);
-        formData.append('estado', evento.estado); // Enviamos el estado (PROGRAMADO)
-        formData.append('lugarId', evento.lugarId); // Asegúrate de pasar el lugarId correctamente
+        formData.append('estado', evento.estado); 
+        formData.append('lugarId', evento.lugarId); 
         formData.append('imagenCartel', imagenCartel);
 
         try {
@@ -81,8 +78,8 @@ const CrearEvento = () => {
                 },
             });
             console.log('Evento creado:', response.data);
-            setShowModal(true); // Mostrar modal de confirmación
-            setError(''); // Limpiar posibles errores previos
+            setShowModal(true);
+            setError(''); 
         } catch (err) {
             console.error('Error al crear el evento:', err.response?.data || err);
             setError('No se pudo crear el evento. Por favor, intenta nuevamente.');
@@ -91,7 +88,7 @@ const CrearEvento = () => {
 
     const handleModalClose = () => {
         setShowModal(false);
-        window.location.href = '/'; // Redirigir al inicio
+        window.location.href = '/'; 
     };
 
     return (

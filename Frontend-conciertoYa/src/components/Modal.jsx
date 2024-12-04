@@ -5,11 +5,11 @@ function Modal({ showModal, handleClose }) {
 return (
 <BootstrapModal show={showModal} onHide={handleClose}>
     <BootstrapModal.Header closeButton>
-    <BootstrapModal.Title>Creación de Artista</BootstrapModal.Title>
+    <BootstrapModal.Title>Creación exitosa</BootstrapModal.Title>
     </BootstrapModal.Header>
 
     <BootstrapModal.Body>
-    <p>Artista creado exitosamente!</p>
+    <p>Ha sido creado exitosamente!</p>
     </BootstrapModal.Body>
 
     <BootstrapModal.Footer>
