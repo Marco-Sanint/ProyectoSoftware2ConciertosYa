@@ -2,8 +2,14 @@ package com.proyectoSoftware.conciertosYa.mapper;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoTicket;
 import com.proyectoSoftware.conciertosYa.entity.Ticket;
+import com.proyectoSoftware.conciertosYa.service.ServicioAsiento;
+import com.proyectoSoftware.conciertosYa.service.ServicioCliente;
+import com.proyectoSoftware.conciertosYa.service.ServicioMetodoPago;
 
 public class MapperTicket {
+
+    private static ServicioCliente servicioCliente;
+    private static ServicioAsiento servicioAsiento;
 
     public static DtoTicket mapADtoTicket(Ticket ticket) {
         return new DtoTicket(
@@ -20,10 +26,8 @@ public class MapperTicket {
         ticket.setTicket_id(dtoTicket.getTicketId());
         ticket.setFechaCompra(dtoTicket.getFechaCompra());
         ticket.setPrecio(dtoTicket.getPrecio());
-        // Aquí deberías buscar el Asiento y el Cliente por sus IDs y asignarlos
-        // Por ejemplo:
-        // ticket.setAsiento(asientoRepository.findById(dtoTicket.getAsientoId()).orElse(null));
-        // ticket.setCliente(clienteRepository.findById(dtoTicket.getClienteCedula()).orElse(null));
+        ticket.setCliente(MapperCliente.mapACliente(servicioCliente.getCliente(dtoTicket.getClienteCedula())));
+        ticket.setAsiento(MapperAsiento.mapAAsiento(servicioAsiento.getAsiento(dtoTicket.getAsientoId())));
         return ticket;
     }
 }
