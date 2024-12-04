@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
 
 @AllArgsConstructor
 @RestController
@@ -22,6 +24,22 @@ public class ControladorCliente {
     public ResponseEntity<DtoCliente> createCliente(@RequestBody DtoCliente dtoCliente){
         DtoCliente clienteSalvado = servicioCliente.createCliente(dtoCliente);
         return new ResponseEntity<>(clienteSalvado, HttpStatus.CREATED);
+    }
+
+    // Ruta de login
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");  // Cambiar "email" según lo que envíe el frontend
+        String password = requestBody.get("password");
+
+        boolean isAuthenticated = servicioCliente.authenticate(email, password);
+
+        if (isAuthenticated) {
+            return ResponseEntity.ok(Map.of("message", "Autenticación exitosa"));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Credenciales incorrectas"));
+        }
     }
 
     //Encontrar Cliente De API REST

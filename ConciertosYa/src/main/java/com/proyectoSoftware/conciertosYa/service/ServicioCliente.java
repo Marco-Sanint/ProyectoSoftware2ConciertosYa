@@ -15,5 +15,8 @@ public interface ServicioCliente {
     DtoCliente updateCliente(String cedulaCliente, DtoCliente updateCliente);
 
     void deleteCliente(String cedulaCliente);
+
+    // Método de autenticación
+    boolean authenticate(String mail, String password);
 }
 

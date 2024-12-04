@@ -1,23 +1,47 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
-  const navigate = useNavigate(); // hook para navegación
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validación de credenciales fijas
-    if (email === 'user@example.com' && password === 'password') {
-      // Guardar el estado de autenticación en el localStorage
-      localStorage.setItem('isAuthenticated', 'true');
-      // Redirigir al componente Home ("/")
-      navigate("/");  // Redirección a la página principal
-    } else {
-      alert('Credenciales incorrectas');
+
+    if (!email || !password) {
+      setError('Por favor ingrese ambos campos');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8080/api/clientes/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email, // Usar `email` según el DTO esperado en el backend
+          password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Éxito en la autenticación
+        console.log('Autenticación exitosa:', result.message);
+        localStorage.setItem('isAuthenticated', 'true'); // Guardar estado de autenticación
+        navigate('/'); // Redirigir al home
+      } else {
+        // Error de autenticación
+        setError(result.message || 'Credenciales incorrectas');
+      }
+    } catch (err) {
+      console.error('Error al conectar con la API:', err);
+      setError('No se pudo conectar con el servidor');
     }
   };
 
@@ -34,7 +58,7 @@ const Login = () => {
               className="input-text"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)} // Actualizar el estado correctamente
               required
             />
           </div>
@@ -44,21 +68,14 @@ const Login = () => {
               className="input-text"
               placeholder="Contraseña"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)} // Actualizar el estado correctamente
               required
             />
           </div>
-          <div className="checkbox-container">
-            <input
-              type="checkbox"
-              id="keep-logged"
-              checked={isChecked}
-              onChange={() => setIsChecked(!isChecked)}
-            />
-            <label htmlFor="keep-logged">Sigue conectado</label>
-          </div>
           <button type="submit" className="login-btn">CONTINUAR</button>
         </form>
+
+        {error && <p className="error-text">{error}</p>}
 
         <div className="forgot-password">
           <a href="#">¿OLVIDASTE LA CONTRASEÑA?</a>
@@ -70,6 +87,6 @@ const Login = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

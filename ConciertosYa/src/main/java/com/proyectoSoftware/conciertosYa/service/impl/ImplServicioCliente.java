@@ -1,4 +1,3 @@
-
 package com.proyectoSoftware.conciertosYa.service.impl;
 
 import com.proyectoSoftware.conciertosYa.dto.DtoCliente;
@@ -60,5 +59,19 @@ public class ImplServicioCliente implements ServicioCliente {
         Cliente cliente = repoCliente.findById(cedulaCliente).orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado en la cedula: " + cedulaCliente));
 
         repoCliente.deleteById(cedulaCliente);
+    }
+
+    // Método de autenticación
+    @Override
+    public boolean authenticate(String mail, String password) {
+        // Buscar el cliente por correo electrónico
+        Cliente cliente = repoCliente.findByMail(mail);
+
+        // Verificar si el cliente existe y si la contraseña coincide
+        if (cliente != null && cliente.getPassword().equals(password)) {
+            return true; // Autenticación exitosa
+        }
+
+        return false; // Autenticación fallida
     }
 }

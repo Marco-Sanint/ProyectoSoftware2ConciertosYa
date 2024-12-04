@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Register.css"; 
-import { Mail } from "@mui/icons-material";
+import "./Register.css";
 
 function Register() {
-  const [cedula, setcedula] = useState("");
+  const [cedula, setCedula] = useState("");
   const [name, setName] = useState("");
-  const [Mail, setMail] = useState("");
+  const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +18,13 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validar el correo electrónico
+    if (!/\S+@\S+\.\S+/.test(mail)) {
+      setError("Por favor, ingresa un correo electrónico válido.");
+      return;
+    }
+
+    // Validar las contraseñas
     if (password !== confirmPassword) {
       setError("Las contraseñas no coinciden");
       return;
@@ -26,9 +32,9 @@ function Register() {
 
     // Crear el objeto cliente para enviar a la API
     const cliente = {
-      cedula, // cedula
+      cedula,
       nombre: name,
-      correo: Mail,
+      mail, // Cambié "correo" por "mail" para coincidir con el backend
       telefono: phone,
       direccion: address,
       password, 
@@ -47,14 +53,14 @@ function Register() {
         const data = await response.json();
         alert("Registro exitoso");
         console.log("Cliente registrado:", data);
-        navigate("/login");
+        navigate("/login"); // Redirigir al login
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Error al registrar el cliente");
       }
     } catch (err) {
       console.error("Error al conectar con la API:", err);
-      setError("No se pudo conectar con el servcedulaor");
+      setError("No se pudo conectar con el servidor");
     }
   };
 
@@ -64,14 +70,14 @@ function Register() {
         <h2 className="welcome-text">Crear una cuenta</h2>
 
         <div className="input-group">
-          <label htmlFor="cedula">cedula</label>
+          <label htmlFor="cedula">Cédula</label>
           <input
-            cedula="cedula"
+            name="cedula"
             type="text"
             className="input-text"
-            placeholder="cedula"
+            placeholder="Cédula"
             value={cedula}
-            onChange={(e) => setcedula(e.target.value)}
+            onChange={(e) => setCedula(e.target.value)}
             required
           />
         </div>
@@ -79,7 +85,7 @@ function Register() {
         <div className="input-group">
           <label htmlFor="name">Nombre</label>
           <input
-            cedula="name"
+            name="name"
             type="text"
             className="input-text"
             placeholder="Nombre completo"
@@ -90,14 +96,14 @@ function Register() {
         </div>
 
         <div className="input-group">
-          <label htmlFor="Mail">Correo electrónico</label>
+          <label htmlFor="mail">Correo electrónico</label>
           <input
-            cedula="Mail"
-            type="Mail"
+            name="mail"
+            type="email"
             className="input-text"
-            placeholder="Mail"
-            value={Mail}
-            onChange={(e) => setMail(e.target.value)}
+            placeholder="Correo electrónico"
+            value={mail}
+            onChange={(e) => setMail(e.target.value.trim())} // Asegurarse de no tener espacios al principio o al final
             required
           />
         </div>
@@ -105,7 +111,7 @@ function Register() {
         <div className="input-group">
           <label htmlFor="phone">Teléfono</label>
           <input
-            cedula="phone"
+            name="phone"
             type="tel"
             className="input-text"
             placeholder="Teléfono"
@@ -118,7 +124,7 @@ function Register() {
         <div className="input-group">
           <label htmlFor="address">Dirección</label>
           <input
-            cedula="address"
+            name="address"
             type="text"
             className="input-text"
             placeholder="Dirección"
@@ -132,7 +138,7 @@ function Register() {
         <div className="input-group password-group">
           <label htmlFor="password">Contraseña</label>
           <input
-            cedula="password"
+            name="password"
             type={showPassword ? "text" : "password"}
             className="input-text"
             placeholder="Contraseña"
@@ -152,7 +158,7 @@ function Register() {
         <div className="input-group password-group">
           <label htmlFor="confirmPassword">Confirmar contraseña</label>
           <input
-            cedula="confirmPassword"
+            name="confirmPassword"
             type={showConfirmPassword ? "text" : "password"}
             className="input-text"
             placeholder="Confirmar contraseña"
