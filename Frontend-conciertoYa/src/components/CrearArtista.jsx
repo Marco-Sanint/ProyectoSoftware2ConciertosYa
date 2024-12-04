@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import './CrearArtista.css'; // Estilos del formulario
+import './CrearArtista.css'; 
 import Header from './Header';
 import Footer from './Footer';
-import Modal from './Modal'; // Modal de confirmación
+import Modal from './Modal'; 
 import RedesSociales from './RedesSociales';
+
 const CrearArtista = () => {
     const [artista, setArtista] = useState({
         nombre: '',
@@ -12,6 +13,7 @@ const CrearArtista = () => {
     });
 
     const [showModal, setShowModal] = useState(false);
+    const [error, setError] = useState(''); // Para manejar errores
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,19 +23,47 @@ const CrearArtista = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Artista creado:', artista);
 
-        // Aquí podrías agregar la lógica para guardar el artista (ej. Axios para la API)
-        
-        // Mostrar el modal después de crear el artista
-        setShowModal(true);
+        // Validar que los campos obligatorios no estén vacíos
+        if (!artista.nombre || !artista.generoMusical) {
+            setError('Por favor completa los campos obligatorios.');
+            return;
+        }
+
+        try {
+            // Realizar la solicitud POST al backend
+            const response = await fetch('http://localhost:8080/api/artistas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(artista),
+            });
+
+            if (response.ok) {
+                // Éxito en la creación del artista
+                const data = await response.json();
+                console.log('Artista creado:', data);
+
+                // Mostrar el modal de éxito
+                setShowModal(true);
+                setError('');
+            } else {
+                // Manejar errores del backend
+                const errorData = await response.json();
+                setError(errorData.message || 'Error al crear el artista');
+            }
+        } catch (err) {
+            console.error('Error al conectar con la API:', err);
+            setError('No se pudo conectar con el servidor.');
+        }
     };
 
     const handleModalClose = () => {
         setShowModal(false);
-        // Redirigir al Home, podrías usar `window.location.href` o `useNavigate`
+        // Redirigir al Home
         window.location.href = '/'; // Usando redirección simple
     };
 
@@ -62,6 +92,7 @@ const CrearArtista = () => {
                             name="generoMusical"
                             value={artista.generoMusical}
                             onChange={handleChange}
+                            required
                         />
                     </div>
                     <div className="form-field">
@@ -76,6 +107,7 @@ const CrearArtista = () => {
 
                     <button type="submit" className="form-btn">Crear Artista</button>
                 </form>
+                {error && <p className="error-text">{error}</p>}
             </div>
             <Footer />
 
@@ -83,6 +115,7 @@ const CrearArtista = () => {
             <Modal 
                 showModal={showModal} 
                 handleClose={handleModalClose} 
+                message="¡Artista creado exitosamente!" // Mensaje para el modal
             />
         </div>
     );

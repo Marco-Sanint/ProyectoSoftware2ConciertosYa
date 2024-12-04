@@ -18,23 +18,20 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validar el correo electrónico
     if (!/\S+@\S+\.\S+/.test(mail)) {
       setError("Por favor, ingresa un correo electrónico válido.");
       return;
     }
 
-    // Validar las contraseñas
     if (password !== confirmPassword) {
       setError("Las contraseñas no coinciden");
       return;
     }
 
-    // Crear el objeto cliente para enviar a la API
     const cliente = {
       cedula,
       nombre: name,
-      mail, // Cambié "correo" por "mail" para coincidir con el backend
+      mail, 
       telefono: phone,
       direccion: address,
       password, 
@@ -53,7 +50,7 @@ function Register() {
         const data = await response.json();
         alert("Registro exitoso");
         console.log("Cliente registrado:", data);
-        navigate("/login"); // Redirigir al login
+        navigate("/login"); 
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Error al registrar el cliente");
@@ -103,7 +100,7 @@ function Register() {
             className="input-text"
             placeholder="Correo electrónico"
             value={mail}
-            onChange={(e) => setMail(e.target.value.trim())} // Asegurarse de no tener espacios al principio o al final
+            onChange={(e) => setMail(e.target.value.trim())}
             required
           />
         </div>

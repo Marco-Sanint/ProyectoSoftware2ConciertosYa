@@ -23,7 +23,7 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email, // Usar `email` según el DTO esperado en el backend
+          email, 
           password,
         }),
       });
@@ -31,12 +31,11 @@ const Login = () => {
       const result = await response.json();
 
       if (response.ok) {
-        // Éxito en la autenticación
         console.log('Autenticación exitosa:', result.message);
-        localStorage.setItem('isAuthenticated', 'true'); // Guardar estado de autenticación
-        navigate('/'); // Redirigir al home
+        localStorage.setItem('isAuthenticated', 'true'); 
+        navigate('/'); 
       } else {
-        // Error de autenticación
+
         setError(result.message || 'Credenciales incorrectas');
       }
     } catch (err) {
@@ -58,7 +57,7 @@ const Login = () => {
               className="input-text"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)} // Actualizar el estado correctamente
+              onChange={(e) => setEmail(e.target.value)} 
               required
             />
           </div>
@@ -68,7 +67,7 @@ const Login = () => {
               className="input-text"
               placeholder="Contraseña"
               value={password}
-              onChange={(e) => setPassword(e.target.value)} // Actualizar el estado correctamente
+              onChange={(e) => setPassword(e.target.value)} 
               required
             />
           </div>

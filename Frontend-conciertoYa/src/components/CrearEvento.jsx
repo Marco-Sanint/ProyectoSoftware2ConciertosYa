@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import './CrearEvento.css';
 import Header from './Header';
 import Footer from './Footer';
-import Modal from './Modal'; // Importamos el modal
+import Modal from './Modal';
 
 const CrearEvento = () => {
     const [evento, setEvento] = useState({
@@ -13,31 +13,33 @@ const CrearEvento = () => {
         hora: '',
         descripcion: '',
         generoMusical: '',
-        estado: 'PENDIENTE',
-        imagenCartel: '',
-        lugarId: '',
+        estado: 'PROGRAMADO',  // Valor inicial actualizado a 'PROGRAMADO'
+        lugarId: '',  // lugarId por defecto vacío
     });
 
-    const [lugares, setLugares] = useState([
-        { id: 1, nombre: 'Teatro Colón' },
-        { id: 2, nombre: 'Auditorio Nacional' },
-        { id: 3, nombre: 'Parque Simón Bolívar' },
-    ]);
-
-    // Estado para controlar la visibilidad del modal
+    const [imagenCartel, setImagenCartel] = useState(null); // Imagen seleccionada
+    const [lugares, setLugares] = useState([]); // Lugar vacío inicialmente
     const [showModal, setShowModal] = useState(false);
+    const [error, setError] = useState('');
 
-    // Configuración para la zona de drop
     const { getRootProps, getInputProps } = useDropzone({
-        accept: 'image/*', // Solo permitir imágenes
+        accept: 'image/*',
         onDrop: (acceptedFiles) => {
             const file = acceptedFiles[0];
-            setEvento({
-                ...evento,
-                imagenCartel: URL.createObjectURL(file) // Convertir la imagen a una URL local
-            });
+            setImagenCartel(file);
         },
     });
+
+    useEffect(() => {
+        // Obtener lugares desde el backend
+        axios.get('http://localhost:8080/api/lugares')
+            .then(response => {
+                setLugares(response.data); // Asumimos que la respuesta es un array de lugares
+            })
+            .catch(error => {
+                console.error('Error al cargar los lugares:', error);
+            });
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -47,19 +49,49 @@ const CrearEvento = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Aquí agregas la lógica para crear el evento (puedes agregar axios para enviarlo a la API)
-        console.log('Evento creado:', evento);
 
-        // Mostrar el modal después de enviar el evento
-        setShowModal(true);
+        // Validación de campos obligatorios
+        if (!evento.nombre || !evento.fecha || !evento.hora || !evento.lugarId) {
+            setError('Por favor, completa todos los campos obligatorios.');
+            return;
+        }
+
+        // Validación de imagen seleccionada (si es necesario)
+        if (!imagenCartel) {
+            setError('Por favor, selecciona una imagen para el cartel.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('nombre', evento.nombre);
+        formData.append('fecha', evento.fecha);
+        formData.append('hora', evento.hora);
+        formData.append('descripcion', evento.descripcion);
+        formData.append('generoMusical', evento.generoMusical);
+        formData.append('estado', evento.estado); // Enviamos el estado (PROGRAMADO)
+        formData.append('lugarId', evento.lugarId); // Asegúrate de pasar el lugarId correctamente
+        formData.append('imagenCartel', imagenCartel);
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/eventos', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('Evento creado:', response.data);
+            setShowModal(true); // Mostrar modal de confirmación
+            setError(''); // Limpiar posibles errores previos
+        } catch (err) {
+            console.error('Error al crear el evento:', err.response?.data || err);
+            setError('No se pudo crear el evento. Por favor, intenta nuevamente.');
+        }
     };
 
     const handleModalClose = () => {
-        setShowModal(false); // Cerrar el modal
-        // Aquí podrías redirigir al usuario al home, si lo necesitas
-        window.location.href = '/'; // O usar un `useNavigate` si estás usando react-router
+        setShowModal(false);
+        window.location.href = '/'; // Redirigir al inicio
     };
 
     return (
@@ -117,8 +149,6 @@ const CrearEvento = () => {
                             onChange={handleChange}
                         />
                     </div>
-
-                    {/* Selección del Lugar */}
                     <div className="form-field">
                         <label>Lugar</label>
                         <select
@@ -128,23 +158,34 @@ const CrearEvento = () => {
                             required
                         >
                             <option value="">Seleccione un lugar</option>
-                            {lugares.map(lugar => (
-                                <option key={lugar.id} value={lugar.id}>
-                                    {lugar.nombre}
+                            {lugares.map((lugar) => (
+                                <option key={lugar.lugar_id} value={lugar.lugar_id}>
+                                    {lugar.nombre} ({lugar.ciudad})
                                 </option>
                             ))}
                         </select>
                     </div>
-
-                    {/* Área de Drag and Drop para la imagen */}
+                    <div className="form-field">
+                        <label>Estado</label>
+                        <select
+                            name="estado"
+                            value={evento.estado}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="PROGRAMADO">Programado</option>
+                            <option value="CANCELADO">Cancelado</option>
+                            <option value="FINALIZADO">Finalizado</option>
+                        </select>
+                    </div>
                     <div className="form-field">
                         <label>Imagen del Cartel</label>
                         <div {...getRootProps()} className="dropzone">
                             <input {...getInputProps()} />
                             <p>Arrastra y suelta una imagen aquí, o haz clic para seleccionar</p>
-                            {evento.imagenCartel && (
+                            {imagenCartel && (
                                 <img
-                                    src={evento.imagenCartel}
+                                    src={URL.createObjectURL(imagenCartel)}
                                     alt="Imagen seleccionada"
                                     className="selected-image"
                                 />
@@ -154,13 +195,13 @@ const CrearEvento = () => {
 
                     <button type="submit" className="form-btn">Crear Evento</button>
                 </form>
+                {error && <p className="error-text">{error}</p>}
             </div>
             <Footer />
-            
-            {/* Modal que se muestra después de crear el evento */}
-            <Modal 
-                showModal={showModal} 
-                handleClose={handleModalClose} 
+            <Modal
+                showModal={showModal}
+                handleClose={handleModalClose}
+                message="¡Evento creado exitosamente!"
             />
         </div>
     );

@@ -6,7 +6,7 @@ import com.proyectoSoftware.conciertosYa.entity.Evento;
 import com.proyectoSoftware.conciertosYa.entity.Lugar;
 import com.proyectoSoftware.conciertosYa.exception.ResourceNotFoundException;
 import com.proyectoSoftware.conciertosYa.mapper.MapperEvento;
-import com.proyectoSoftware.conciertosYa.mapper.MapperLugar; // Asegúrate de tener este mapper
+import com.proyectoSoftware.conciertosYa.mapper.MapperLugar;
 import com.proyectoSoftware.conciertosYa.repository.RepoEvento;
 import com.proyectoSoftware.conciertosYa.repository.RepoLugar;
 import com.proyectoSoftware.conciertosYa.service.ServicioEvento;
